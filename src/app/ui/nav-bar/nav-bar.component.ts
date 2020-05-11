@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,13 +9,15 @@ import { EventEmitter } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
+
   opened: boolean;
-  @Output() data = new EventEmitter();
+
   ngOnInit() {
+    this.dataService.currentEvent.subscribe(event => this.opened = event);
   }
-  change() {
-      this.opened = !this.opened;
-      this.data.emit(this.opened);
+
+  changeEvent() {
+      this.dataService.changeEvent(!this.opened);
   }
 }

@@ -9,6 +9,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatListModule} from '@angular/material/list';
+import { DataService } from '../services/data/data.service';
 
 @NgModule({
   declarations: [NavBarComponent, FooterComponent, SideNavComponent],
@@ -19,11 +21,14 @@ import {MatButtonModule} from '@angular/material/button';
     MatSidenavModule,
     MatCheckboxModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule
   ],
   exports: [
     NavBarComponent,
-    FooterComponent
-  ]
+    FooterComponent,
+    SideNavComponent
+  ],
+  providers: [DataService]
 })
 export class UIModule { }
