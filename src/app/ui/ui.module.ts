@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [NavBarComponent, FooterComponent, SideNavComponent],
@@ -17,7 +18,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     MatIconModule,
     MatSidenavModule,
     MatCheckboxModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule
   ],
   exports: [
     NavBarComponent,

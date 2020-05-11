@@ -1,10 +1,10 @@
 <mat-toolbar>
-  <p><button [(ngModel)]="opened"></button></p>
+  <button mat-icon-button color="accent" (click)="change()"><mat-icon>menu</mat-icon></button>
   <span>Conoscenza</span>
   <span class="example-spacer"></span>
   <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
   <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
 </mat-toolbar>
 
-<app-side-nav></app-side-nav>
+<app-side-nav [opened]="opened"></app-side-nav>
 
