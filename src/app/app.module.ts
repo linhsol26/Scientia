@@ -6,16 +6,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UIModule } from './ui/ui.module';
 
-
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    UIModule
+    UIModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

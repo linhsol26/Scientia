@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavBarComponent implements OnInit {
 
   constructor() { }
-
+  opened: boolean;
   ngOnInit() {
   }
-
 }

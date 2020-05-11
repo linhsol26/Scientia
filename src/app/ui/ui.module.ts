@@ -4,13 +4,20 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
-  declarations: [NavBarComponent, FooterComponent],
+  declarations: [NavBarComponent, FooterComponent, SideNavComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   exports: [
     NavBarComponent,
