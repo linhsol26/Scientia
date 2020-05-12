@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from './services/data/data.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Conoscenza';
+  title = 'Scientia';
   @Input() opened: boolean;
+
+  changeState(event) {
+    this.opened = event;
+    console.log('from app');
+  }
 }

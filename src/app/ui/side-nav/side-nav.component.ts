@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from 'src/app/services/data/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -10,18 +11,23 @@ export class SideNavComponent implements OnInit {
 
   opened: boolean;
 
-  constructor(private dataService: DataService) { }
+  constructor(private route: Router) { }
   data = [
     {
       icon: 'home',
-      desc: 'Home'
+      desc: 'Home',
+      path: '/home'
     },
     {
       icon: 'menu',
-      desc: 'Menu'
+      desc: 'Menu',
+      path: ''
     }
   ];
   ngOnInit() {
-    this.dataService.currentEvent.subscribe(event => this.opened = event);
+  }
+
+  router(router: string) {
+    this.route.navigateByUrl(router);
   }
 }

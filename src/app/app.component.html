@@ -1,7 +1,17 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar (changeState)="changeState($event)"></app-nav-bar>
+<mat-sidenav-container>
 
-<app-side-nav>
-  <router-outlet></router-outlet>
-</app-side-nav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 
-<app-footer></app-footer>
+  <mat-sidenav-content style="width: 100%; height: 20px;">
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sideContent">
+    <app-side-nav></app-side-nav>
+  </mat-sidenav>
+
+</mat-sidenav-container>
+

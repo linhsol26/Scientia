@@ -10,14 +10,17 @@ import { DataService } from 'src/app/services/data/data.service';
 export class NavBarComponent implements OnInit {
 
   constructor(private dataService: DataService) { }
-
+  @Output() changeState = new EventEmitter<boolean>();
   opened: boolean;
 
   ngOnInit() {
-    this.dataService.currentEvent.subscribe(event => this.opened = event);
+
   }
 
   changeEvent() {
-      this.dataService.changeEvent(!this.opened);
+      console.log('bf: ' + this.opened);
+      this.changeState.emit(!this.opened);
+      this.opened = !this.opened;
+      console.log('af: ' + this.opened);
   }
 }

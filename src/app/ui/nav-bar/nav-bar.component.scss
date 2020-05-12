@@ -7,19 +7,19 @@
 }
 
 mat-toolbar {
-  background-color: #9EB7CD;
+  background-color: #0F4C81;
   font-family: 'Jost', sans-serif;
   font-size: 40px;
-  // color: white;
+  color: whitesmoke;
 }
 
 button {
-  color: black;
+  color: whitesmoke;
   margin-left: -1%;
 }
 
 .example-container {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

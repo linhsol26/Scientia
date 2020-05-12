@@ -1,8 +1,6 @@
-<mat-sidenav-container class="container">
-
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sideContent">
-    <mat-list-item *ngFor="let data of data">
-      <button mat-stroked-button color="primary"><mat-icon>{{data.icon}}</mat-icon>{{data.desc}}</button>
-    </mat-list-item>
-  </mat-sidenav>
-</mat-sidenav-container>
+<mat-list-item *ngFor="let d of data">
+  <button mat-stroked-button color="primary" (click)="router(d.path)">
+    <mat-icon>{{ d.icon }}</mat-icon
+    >{{ d.desc }}
+  </button>
+</mat-list-item>
