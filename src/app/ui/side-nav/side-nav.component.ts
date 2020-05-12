@@ -21,7 +21,7 @@ export class SideNavComponent implements OnInit {
     {
       icon: 'menu',
       desc: 'Menu',
-      path: ''
+      path: '/login'
     }
   ];
   ngOnInit() {
