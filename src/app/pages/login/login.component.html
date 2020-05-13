@@ -1,5 +1,27 @@
-<div>
-  <button (click)="signIn()">SignIn</button>
-  <button (click)="signOut()">SignOut</button>
+<div class="container" *ngIf="!isLogin">
+
+  <mat-form-field appearance="legacy">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" placeholder="abc@gmail.com" [formControl]="email" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="legacy">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" [formControl]="password" required>
+    <mat-error *ngIf="password.invalid">{{getPasswordError()}}</mat-error>
+  </mat-form-field>
+
+  <br>
+  <button mat-button (click)="signInManually()">Sign In</button>
+  <br>
+  <button mat-button (click)="signUpManually()">Sign Up</button>
+  <br>
+  or
+  <button mat-button (click)="signInWithGoogle()">Sign In With Google</button>
 </div>
 
+<br>
+<div class="container" *ngIf="isLogin">
+  Already Login
+</div>

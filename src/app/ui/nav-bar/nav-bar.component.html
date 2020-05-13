@@ -2,6 +2,6 @@
   <button mat-icon-button (click)="changeEvent()"><mat-icon>menu</mat-icon></button>
   <span>Scientia</span>
   <span class="example-spacer"></span>
-  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-  <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+  <a mat-button routerLink="/login" *ngIf="!isLogin">Login</a>
+  <button mat-button *ngIf="isLogin" (click)="signOut()">Sign Out</button>
 </mat-toolbar>

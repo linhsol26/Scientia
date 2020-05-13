@@ -1,6 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { DataService } from 'src/app/services/data/data.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,18 +12,31 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private dataService: DataService) { }
+  constructor(public afAuth: AngularFireAuth,
+              public router: Router,
+              public snackBar: MatSnackBar,
+              public authService: AuthService
+              ) { }
+
   @Output() changeState = new EventEmitter<boolean>();
+  isLogin: boolean;
   opened: boolean;
-
   ngOnInit() {
-
+    this.afAuth.authState.subscribe(usr => {
+      this.isLogin = !(usr == null);
+    });
   }
 
   changeEvent() {
-      console.log('bf: ' + this.opened);
       this.changeState.emit(!this.opened);
       this.opened = !this.opened;
-      console.log('af: ' + this.opened);
   }
+
+  signOut() {
+    this.afAuth.signOut().then(() => {
+      this.router.navigate(['/login']);
+      this.snackBar.open('You are out!', 'See you!', {duration: 2000});
+    });
+  }
+
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataService } from 'src/app/services/data/data.service';
 import { Router } from '@angular/router';
 
 @Component({

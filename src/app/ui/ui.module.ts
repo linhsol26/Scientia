@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
-import { DataService } from '../services/data/data.service';
+import { RouterModule } from '@angular/router';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [NavBarComponent, FooterComponent, SideNavComponent],
@@ -22,13 +23,15 @@ import { DataService } from '../services/data/data.service';
     MatCheckboxModule,
     FormsModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    RouterModule,
+    MatSnackBarModule
   ],
   exports: [
     NavBarComponent,
     FooterComponent,
     SideNavComponent
   ],
-  providers: [DataService]
+  providers: []
 })
 export class UIModule { }

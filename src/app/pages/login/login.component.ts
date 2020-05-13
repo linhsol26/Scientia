@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,30 +12,61 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(public afAuth: AngularFireAuth, public router: Router, public snackBar: MatSnackBar) { }
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required, Validators.minLength(10)]); // gioi han password
+  isLogin: boolean;
+  constructor(public afAuth: AngularFireAuth,
+              public router: Router,
+              public snackBar: MatSnackBar,
+              public authService: AuthService
+              ) { }
 
   ngOnInit() {
-  }
-
-  signIn() {
-    return new Promise<any>((resolve, reject) => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      this.afAuth.signInWithPopup(provider).then(res => {
-        resolve(res);
-        this.snackBar.open('You are in!', 'Have fun :D', {duration: 2000});
-        this.router.navigate(['/home']);
-      // tslint:disable-next-line:no-shadowed-variable
-      }).catch((reject) => {
-        this.snackBar.open(reject, 'Please try again.', {duration: 2000});
-      });
+    this.afAuth.authState.subscribe(usr => {
+      this.isLogin = !(usr == null);
     });
   }
 
-  signOut() {
-    return this.afAuth.signOut().then(() => {
-      this.router.navigate(['/login']);
-      this.snackBar.open('You are out!', 'See you!', {duration: 2000});
+  signInWithGoogle() {
+    return new Promise<any>((resolve) => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    this.afAuth.signInWithPopup(provider).then(res => {
+      resolve(res);
+      this.snackBar.open('You are in!', 'Have fun :D', {duration: 2000});
+      this.router.navigate(['/home']);
+      this.isLogin = true;
+    // tslint:disable-next-line:no-shadowed-variable
+    }).catch((err) => {
+      this.snackBar.open(err, 'Please try again.', {duration: 2000});
+      this.isLogin = false;
     });
+  });
+}
+
+  signInManually() {
+
+  }
+
+  signUpManually() {
+    this.afAuth.createUserWithEmailAndPassword(this.email.value, this.password.value)
+    .then(() => {
+      this.snackBar.open('Congratulations', '', {duration: 2000});
+      this.email.reset();
+      this.password.reset();
+    }).catch((err) => {
+      this.snackBar.open(err, '', {duration: 2000});
+    });
+  }
+
+  getErrorMessage() {
+    return this.email.hasError('required') ? 'You must enter a value' :
+        this.email.hasError('email') ? 'Not a valid email' :
+            '';
+  }
+
+  getPasswordError() {
+    return this.password.hasError('required') ? 'You must enter a password' :
+    this.password.hasError('minLength') ? 'You password must have 10 characters' :
+      '';
   }
 }

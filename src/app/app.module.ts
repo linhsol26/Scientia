@@ -9,6 +9,7 @@ import { UIModule } from './ui/ui.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
