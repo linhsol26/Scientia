@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CrudCoursesService } from 'src/app/services/crud-courses.service';
 
@@ -20,6 +20,6 @@ export class HomeComponent implements OnInit {
 
   getCourse(course) {
     this.router.navigate(['/course/' + course]);
-    console.log(this.datas);
+    this.crudService.getIndex(course);
   }
 }
