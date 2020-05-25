@@ -22,7 +22,7 @@ import { AuthService } from './services/auth.service';
     UIModule,
     MatSidenavModule,
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

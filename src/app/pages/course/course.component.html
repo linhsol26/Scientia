@@ -14,3 +14,38 @@
 
 </mat-card> -->
 
+<div
+    class="rectangle"
+    [ngStyle]="style"
+    mwlResizable
+    [validateResize]="validate"
+    [enableGhostResize]="true"
+    [resizeSnapGrid]="{ left: 1, right: 1 }"
+    (resizeEnd)="onResizeEnd($event)"
+  >
+  <div
+  class="resize-handle-right"
+  mwlResizeHandle
+  [resizeEdges]="{ right: true }"
+  >
+  </div>
+
+</div>
+<!-- <div
+    class="rectangle"
+    [ngStyle]="style"
+    mwlResizable
+    [validateResize]="validate"
+    [enableGhostResize]="true"
+    [resizeSnapGrid]="{ left: 1, right: 1 }"
+    (resizeEnd)="onResizeEnd($event)"
+  >
+
+  <div
+  class="resize-handle-left"
+  mwlResizeHandle
+  [resizeEdges]="{ left: true }"
+  >
+  </div>
+</div> -->
+
