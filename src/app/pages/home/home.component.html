@@ -1,4 +1,27 @@
 <div class="container">
-  home works!
+  <mat-grid-list cols="4" rowHeight="4:3">
+    <mat-grid-tile *ngFor="let data of data">
+      <mat-card class="example-card">
+
+        <mat-card-header>
+          {{data.title}}
+        </mat-card-header>
+
+        <mat-card-content>
+          <p>
+            <img src="{{data.pic}}">
+            {{data.content}}
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-flat-button>See</button>
+        </mat-card-actions>
+
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
+<button mat-button class='create-button'>Create</button>
+
 
