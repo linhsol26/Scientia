@@ -1,6 +1,6 @@
 <div class="container">
   <mat-grid-list cols="4" rowHeight="4:3">
-    <mat-grid-tile *ngFor="let data of data">
+    <mat-grid-tile *ngFor="let data of datas">
       <mat-card class="example-card">
 
         <mat-card-header>
@@ -15,13 +15,13 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-flat-button>See</button>
+          <button mat-flat-button (click)="getCourse(data.course)">See</button>
         </mat-card-actions>
 
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>
-<button mat-button class='create-button'>Create</button>
+<button mat-stroked-button class='create-button'>Create</button>
 
 

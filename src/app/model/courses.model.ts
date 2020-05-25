@@ -3,4 +3,5 @@ export class Courses {
   title: string;
   description: string;
   content: string;
+  course: string;
 }

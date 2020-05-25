@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CrudCoursesService } from './services/crud-courses.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import { Component, Input } from '@angular/core';
 export class AppComponent {
   title = 'Scientia';
   @Input() opened: boolean;
+
+  constructor(public crudService: CrudCoursesService) {}
 
   changeState(event) {
     this.opened = event;

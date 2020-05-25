@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CrudCoursesService } from 'src/app/services/crud-courses.service';
 
 @Component({
   selector: 'app-home',
@@ -7,24 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
-  data = [
-    {
-      title: '1',
-      // tslint:disable-next-line:max-line-length
-      content: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
-      action: '',
-      pic: '../../../assets/system.svg'
-    },
-    {
-      title: '2',
-      // tslint:disable-next-line:max-line-length
-      content: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
-      action: '',
-      pic: '../../../assets/system.svg'
-    }
-  ];
+  constructor(
+    public router: Router,
+    public crudService: CrudCoursesService
+  ) { }
+  // data: any;
+  datas = this.crudService.datas;
   ngOnInit() {
   }
 
+  getCourse(course) {
+    this.router.navigate(['/course/' + course]);
+    console.log(this.datas);
+  }
 }
