@@ -16,7 +16,15 @@ export class CourseComponent implements OnInit {
 
 
   course: any;
+  data = [];
   ngOnInit() {
     this.course = this.crudService.getContent();
+    console.log(this.course.length);
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.course.length; i++) {
+      this.data.push(this.course[i]);
+    }
+    console.log(this.data);
+    console.log(this.course);
   }
 }

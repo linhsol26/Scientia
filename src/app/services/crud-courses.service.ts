@@ -13,7 +13,11 @@ export class CrudCoursesService {
       action: '',
       pic: '../../../assets/system.svg',
       course: 'lthdh',
-      content: 'TEST LTHDH NEEEE'
+      content: [
+        ['Điều phối tiến trình',
+        'hello'],
+        ['content', 'content2']
+      ]
     },
     {
       title: '2',
@@ -22,7 +26,9 @@ export class CrudCoursesService {
       action: '',
       pic: '../../../assets/system.svg',
       course: 'dm',
-      content: 'TEST NEEEE'
+      // content: {
+      //   title: ' '
+      // }
     }
   ];
 
@@ -37,8 +43,8 @@ export class CrudCoursesService {
     return this.index;
   }
 
-  async getContent() {
-    await this.datas.forEach(element => {
+  getContent() {
+    this.datas.forEach(async element => {
       if (element.course === this.index) {
         this.content = element.content;
       }
