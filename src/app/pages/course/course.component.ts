@@ -14,7 +14,6 @@ export class CourseComponent implements OnInit {
     public crudService: CrudCoursesService
   ) { }
 
-
   course: any;
   data = [];
   ngOnInit() {
@@ -25,6 +24,5 @@ export class CourseComponent implements OnInit {
       this.data.push(this.course[i]);
     }
     console.log(this.data);
-    console.log(this.course);
   }
 }

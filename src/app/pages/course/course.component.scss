@@ -1,4 +1,13 @@
 .container {
-  margin-top: 2.5%;
-  margin-left: 2.5%;
+  margin-top: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+mat-card-header mat-card-content{
+  text-align: center;
+}
+
+button {
+  left: 50%;
 }
