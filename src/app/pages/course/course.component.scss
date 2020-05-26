@@ -20,12 +20,19 @@ button {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   float: left;
   width: 30%;
   height: 70%;
   margin: auto;
   border: solid 2px black;
+}
+
+.sub-rectangle {
+  width: 67.5%;
+  height: 70%;
+  border: 2px solid green;
+  float: right;
 }
 
 .resize-handle-right, .resize-handle-left{
