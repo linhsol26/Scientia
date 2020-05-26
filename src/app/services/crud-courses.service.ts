@@ -14,9 +14,19 @@ export class CrudCoursesService {
       pic: '../../../assets/system.svg',
       course: 'lthdh',
       content: [
-        ['Điều phối tiến trình',
-        'hello'],
-        ['content', 'content2']
+        {
+          name: 'FCFS',
+          // tslint:disable-next-line:max-line-length
+          inf: 'Given n processes with their burst times, the task is to find average waiting time and average turn around time using FCFS scheduling algorithm.'
+        },
+        {
+          name: 'SJF',
+          inf: ' '
+        }
+        // tslint:disable-next-line:max-line-length
+        // ['',
+        //   'content 2', 'content 3', 'content 4'
+        // ]
       ]
     },
     {
