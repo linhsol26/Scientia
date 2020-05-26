@@ -5,7 +5,7 @@ import { CourseRoutingModule } from './course-routing.module';
 import { CourseComponent } from './course.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-
+import { ResizableModule } from 'angular-resizable-element';
 
 @NgModule({
   declarations: [CourseComponent],
@@ -13,7 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     CourseRoutingModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    ResizableModule
   ]
 })
 export class CourseModule { }
