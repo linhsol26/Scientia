@@ -10,6 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
+import { AngularSplitModule } from 'angular-split';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { AuthService } from './services/auth.service';
     MatSidenavModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularSplitModule.forRoot()
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
