@@ -1,4 +1,4 @@
-<div class="container" *ngIf="!isLogin">
+<!-- <div class="container" *ngIf="!isLogin">
 
   <mat-form-field appearance="legacy">
     <mat-label>Email</mat-label>
@@ -24,4 +24,14 @@
 <br>
 <div class="container" *ngIf="isLogin">
   Already Login
-</div>
+</div> -->
+<mat-card>
+  <mat-tab-group MatTabBodyPositionState='center' class="custom-tab">
+    <mat-tab label="Sign In">
+      <app-signin></app-signin>
+    </mat-tab>
+    <mat-tab label="Sign Up" style="overflow: hidden; height: fit-content;">
+      <app-signup></app-signup>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

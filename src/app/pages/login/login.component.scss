@@ -2,3 +2,13 @@
   text-align-last: center;
   margin-top: 10%;
 }
+mat-card{
+  max-width: 100%;
+  display: flex;
+  width: fit-content;
+  margin: 5% auto;
+}
+.mat-tab-body-content {
+  height: 100%;
+  overflow: hidden;
+}
