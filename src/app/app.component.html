@@ -5,11 +5,11 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 
-  <mat-sidenav-content style="width: 100%; height: 20px;">
+  <mat-sidenav-content>
     <app-footer></app-footer>
   </mat-sidenav-content>
 
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="sideContent">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <app-side-nav></app-side-nav>
   </mat-sidenav>
 

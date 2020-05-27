@@ -1,6 +1,6 @@
 <mat-list-item *ngFor="let d of data">
   <button mat-stroked-button color="primary" (click)="router(d.path)">
-    <mat-icon>{{ d.icon }}</mat-icon
-    >{{ d.desc }}
+    <mat-icon>{{ d.icon }}</mat-icon>
+    {{ d.desc }}
   </button>
 </mat-list-item>

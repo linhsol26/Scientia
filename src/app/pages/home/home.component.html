@@ -1,27 +1,29 @@
 <div class="container">
-  <mat-grid-list cols="4" rowHeight="4:3">
+  <mat-grid-list cols="4" rowHeight="3:3">
     <mat-grid-tile *ngFor="let data of datas">
       <mat-card class="example-card">
 
         <mat-card-header>
-          {{data.title}}
+          <mat-card-title>{{data.title}}</mat-card-title>
         </mat-card-header>
+        <div class='content'>
 
-        <mat-card-content>
-          <p>
-            <img src="{{data.pic}}">
-            {{data.desc}}
-          </p>
-        </mat-card-content>
+          <img mat-card-img src="{{data.pic}}">
+
+          <mat-card-content>
+            <h3>
+              {{data.desc}}
+            </h3>
+          </mat-card-content>
+        </div>
 
         <mat-card-actions>
-          <button mat-flat-button (click)="getCourse(data.course)">See</button>
+          <button mat-flat-button (click)="getCourse(data.course)" >See</button>
         </mat-card-actions>
-
       </mat-card>
+
     </mat-grid-tile>
   </mat-grid-list>
 </div>
-<button mat-stroked-button class='create-button'>Create</button>
 
 
