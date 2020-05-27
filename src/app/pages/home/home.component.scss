@@ -26,7 +26,7 @@ button {
 //   max-height: 80%;
 // }
 
-mat-card-title {
+mat-card-title{
   text-align: center;
 }
 
@@ -34,12 +34,13 @@ img {
   width: 30%;
 }
 
+
+
 .content {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   max-height: 80%;
 }
-.create-button {
+button {
   float: right;
-  bottom: 0;
 }

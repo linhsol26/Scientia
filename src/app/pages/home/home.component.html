@@ -1,11 +1,9 @@
 <div class="container">
-  <mat-grid-list cols="4" rowHeight="4:4">
-    <mat-grid-tile *ngFor="let data of datas">
+  <mat-grid-list cols="3" rowHeight="4:2.5" gutterSize="10">
+    <mat-grid-tile rowspan="1" colspan="1" *ngFor="let data of datas">
       <mat-card class="example-card">
 
-        <mat-card-header>
           <mat-card-title>{{data.title}}</mat-card-title>
-        </mat-card-header>
         <div class='content'>
 
           <img mat-card-img src="{{data.pic}}">
