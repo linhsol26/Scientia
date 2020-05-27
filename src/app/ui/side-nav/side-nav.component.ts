@@ -14,7 +14,7 @@ export class SideNavComponent implements OnInit {
   data = [
     {
       icon: 'home',
-      desc: 'Home',
+      desc: '',
       path: '/home'
     },
   ];
