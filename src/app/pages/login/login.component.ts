@@ -4,7 +4,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthenticateService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   // password = new FormControl('', [Validators.required, Validators.minLength(10)]); // gioi han password
   isLogin: boolean;
   constructor() { }
-
 
   ngOnInit() {
   }

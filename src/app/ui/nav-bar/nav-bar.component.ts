@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticateService } from 'src/app/services/auth.service';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,17 +17,24 @@ export class NavBarComponent implements OnInit {
     public afAuth: AngularFireAuth,
     public router: Router,
     public snackBar: MatSnackBar,
-    public authService: AuthenticateService
+    public authService: AuthService,
+    public authServiceInApp: AuthenticateService
   ) { }
 
   @Output() changeState = new EventEmitter<boolean>();
   isLogin: boolean;
   opened: boolean;
+  isLoginFB: boolean;
   userDetails = null;
   ngOnInit() {
     this.afAuth.authState.subscribe(usr => {
       this.isLogin = !(usr == null);
       this.userDetails = usr;
+    });
+
+    this.authService.authState.subscribe(urs => {
+      this.isLoginFB = !(urs == null);
+      this.userDetails = urs;
     });
   }
 

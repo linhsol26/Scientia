@@ -15,7 +15,7 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'ang
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider('2646188785650711')
+    provider: new FacebookLoginProvider('1831336353672605')
   }
 ]);
 export function provideConfig() {
