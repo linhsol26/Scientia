@@ -1,6 +1,9 @@
-<mat-list-item *ngFor="let d of data">
-  <button mat-stroked-button (click)="router(d.path)">
-    <mat-icon>{{ d.icon }}</mat-icon>
-    {{ d.desc }}
-  </button>
-</mat-list-item>
+<div class='container'>
+  <mat-list-item *ngFor="let d of data">
+    <button mat-stroked-button (click)="router(d.path)">
+      <mat-icon>{{ d.icon }}</mat-icon>
+      {{ d.desc }}
+    </button>
+  </mat-list-item>
+</div>
+

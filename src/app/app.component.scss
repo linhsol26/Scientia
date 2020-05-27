@@ -9,10 +9,7 @@ mat-sidenav-container {
 
 mat-sidenav {
   width: 8% !important;
+  height: 100% !important;
+  bottom: 0;
 }
-
-// mat-sidenav-content {
-//   width: 100% !important;
-//   height: 80% !important;
-// }
 
