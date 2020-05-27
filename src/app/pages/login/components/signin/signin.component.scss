@@ -1,0 +1,53 @@
+
+  .signin-form{
+    max-width: 100%;
+    display: flex;
+    width: 300px;
+    height: fit-content;
+    margin: 10% auto;
+    background-color: #ffffff;
+  }
+  
+  .full-width {
+    width: 100%;
+    color: #0F4C81;
+  }
+  
+  .login-wrapper{
+    justify-content: center;
+  }
+  
+  .btnSignin{
+    outline: none;
+    border-radius: 25px;
+    width: 100%;
+    margin-top: 10%; 
+    font-size: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0F4C81;
+    color: #ffffff;
+  }
+  
+  #googleSigninCard, #facebookSigninCard{
+    display: flex;
+    width: auto;
+    cursor: pointer;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-style: bold;
+  }
+  
+  #iconGG, #iconFacebook{
+    width: 25px;
+    height: 25px;
+  }
+  
+  #third-partySignin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
