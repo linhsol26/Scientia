@@ -6,7 +6,8 @@ import { CourseComponent } from './course.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { ResizableModule } from 'angular-resizable-element';
-
+import { AngularSplitModule } from 'angular-split';
+import { from } from 'rxjs';
 @NgModule({
   declarations: [CourseComponent],
   imports: [
@@ -14,7 +15,8 @@ import { ResizableModule } from 'angular-resizable-element';
     CourseRoutingModule,
     MatCardModule,
     MatButtonModule,
-    ResizableModule
+    ResizableModule,
+    AngularSplitModule
   ]
 })
 export class CourseModule { }

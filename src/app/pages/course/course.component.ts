@@ -21,7 +21,6 @@ export class CourseComponent implements OnInit {
   public style: object = {};
   ngOnInit() {
     this.course = this.crudService.getContent();
-    console.log(this.course.length);
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.course.length; i++) {
       this.data.push(this.course[i]);

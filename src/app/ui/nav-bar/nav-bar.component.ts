@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthenticateService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,31 +12,34 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth,
-              public router: Router,
-              public snackBar: MatSnackBar,
-              public authService: AuthService
-              ) { }
+  constructor(
+    public afAuth: AngularFireAuth,
+    public router: Router,
+    public snackBar: MatSnackBar,
+    public authService: AuthenticateService
+  ) { }
 
   @Output() changeState = new EventEmitter<boolean>();
   isLogin: boolean;
   opened: boolean;
+  userDetails = null;
   ngOnInit() {
     this.afAuth.authState.subscribe(usr => {
       this.isLogin = !(usr == null);
+      this.userDetails = usr;
     });
   }
 
   changeEvent() {
-      this.changeState.emit(!this.opened);
-      this.opened = !this.opened;
+    this.changeState.emit(!this.opened);
+    this.opened = !this.opened;
   }
 
-  signOut() {
-    this.afAuth.signOut().then(() => {
-      this.router.navigate(['/login']);
-      this.snackBar.open('You are out!', 'See you!', {duration: 2000});
-    });
-  }
+  // signOut() {
+  //   this.authService.signOut().then(() => {
+  //     this.router.navigate(['/login']);
+  //     this.snackBar.open('You are out!', 'See you!', { duration: 2000 });
+  //   });
+  // }
 
 }

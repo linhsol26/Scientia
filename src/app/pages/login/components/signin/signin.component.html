@@ -1,0 +1,41 @@
+<div class="signin-form">
+    <div class="signin-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <form class="form" [formGroup]="formGroup">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="abc@gmail.com" formControlName="email">
+                <mat-error *ngIf="email.hasError('email')&&!email.hasError('required')">
+                    <strong>{{getErrorMessage()}}</strong>
+                </mat-error>
+                <mat-error *ngIf="email.hasError('required')">
+                    <strong>Please enter your email</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Password*" formControlName="password" (keyup.enter)="signIn()"
+                    [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.hasError('required')"><strong>{{getPasswordError()}}</strong>
+                </mat-error>
+            </mat-form-field>
+
+
+            <button class="btnSignin" mat-stroked-button color="accent" (click)="signIn()">Sign In</button>
+            <div id="third-partySignin">
+                <mat-card id="googleSigninCard" (click)="authService.loginWithGoogle()">
+                    <img id="iconGG" src="../../../assets/googleIcon.svg" alt="Google Signin">
+                    <span style="padding-left: 10%;">Google</span>
+                </mat-card>
+                <mat-card id="facebookSigninCard" (click)="authService.signInWithFB()">
+                    <img id="iconFacebook" src="../../../assets/facebook.svg" alt="Facebook Login">
+                    <span style="padding-left: 10%;">Facebook</span>
+                </mat-card>
+            </div>
+
+            <a href="#" style="text-decoration: none; float: right; margin-top: 5%;">Forgot password?</a>
+        </form>
+    </div>
+</div>

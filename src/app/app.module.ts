@@ -9,7 +9,19 @@ import { UIModule } from './ui/ui.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AuthService } from './services/auth.service';
+import { AuthenticateService } from './services/auth.service';
+import { AngularSplitModule } from 'angular-split';
+import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+const config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('2646188785650711')
+  }
+]);
+export function provideConfig() {
+  return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,8 +35,16 @@ import { AuthService } from './services/auth.service';
     MatSidenavModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularSplitModule.forRoot(),
+    SocialLoginModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthenticateService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
