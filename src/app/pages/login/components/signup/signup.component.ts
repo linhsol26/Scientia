@@ -45,45 +45,48 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  signUp() {
-    if (this.email != null && this.password != null) {
-      this.authService.signUp(this.email.value, this.password.value).then(
+  async signUp() {
+    if (this.email != null && this.password != null && this.confirmPassword != null
+      && this.confirmPassword.value === this.password.value) {
+        await this.authService.signUp(this.email.value, this.password.value).then(
         () => {
           this.snackBar.open('Welcome to my site', '', { duration: 2000 });
-          location.href = '/';
+          this.router.navigate(['/home']);
         }, err => {
           this.snackBar.open(err, '', { duration: 2000 });
         }
       );
+    } else {
+      this.snackBar.open('Yours confirm password was not correct', '', { duration: 2000 });
     }
   }
 
-  signInWithGoogle() {
-    return new Promise<any>((resolve) => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      this.afAuth.signInWithPopup(provider).then(res => {
-        resolve(res);
-        this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
-        this.router.navigate(['/home']);
-        this.isLogin = true;
-        // tslint:disable-next-line:no-shadowed-variable
-      }).catch((err) => {
-        this.snackBar.open(err, 'Please try again.', { duration: 2000 });
-        this.isLogin = false;
-      });
-    });
-  }
+  // signInWithGoogle() {
+  //   return new Promise<any>((resolve) => {
+  //     const provider = new firebase.auth.GoogleAuthProvider();
+  //     this.afAuth.signInWithPopup(provider).then(res => {
+  //       resolve(res);
+  //       this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
+  //       this.router.navigate(['/home']);
+  //       this.isLogin = true;
+  //       // tslint:disable-next-line:no-shadowed-variable
+  //     }).catch((err) => {
+  //       this.snackBar.open(err, 'Please try again.', { duration: 2000 });
+  //       this.isLogin = false;
+  //     });
+  //   });
+  // }
 
-  async signInManually() {
-    await this.afAuth.signInWithEmailAndPassword(this.email.value, this.password.value).then(
-      () => {
-        this.snackBar.open('Congratulations', '', { duration: 2000 });
-        location.href = '/';
-      }, err => {
-        this.snackBar.open(err.message, '', { duration: 20000 });
-      }
-    );
-  }
+  // async signInManually() {
+  //   await this.afAuth.signInWithEmailAndPassword(this.email.value, this.password.value).then(
+  //     () => {
+  //       this.snackBar.open('Congratulations', '', { duration: 2000 });
+  //       location.href = '/';
+  //     }, err => {
+  //       this.snackBar.open(err.message, '', { duration: 20000 });
+  //     }
+  //   );
+  // }
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :
