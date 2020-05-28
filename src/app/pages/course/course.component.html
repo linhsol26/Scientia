@@ -14,7 +14,7 @@
             </mat-card-content>
 
             <mat-card-footer>
-              <button mat-flat-button>Next</button>
+              <button mat-flat-button (click)="openDialog(inf.name)">Next</button>
             </mat-card-footer>
           </mat-card>
 
@@ -25,10 +25,9 @@
     <as-split-area size="60">
       <as-split direction="vertical">
         <as-split-area>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tiam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <div *ngIf="course === 'lthdh'">
             <div [chart]='chart'></div>
+          </div>
         </as-split-area>
       </as-split>
     </as-split-area>

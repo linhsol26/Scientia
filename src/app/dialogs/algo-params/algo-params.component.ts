@@ -1,0 +1,21 @@
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { CourseComponent } from 'src/app/pages/course/course.component';
+import { AlgoParams } from 'src/app/model/algo-params.model';
+import { Courses } from 'src/app/model/courses.model';
+
+@Component({
+  templateUrl: './algo-params.component.html',
+  styleUrls: ['./algo-params.component.scss']
+})
+export class AlgoParamsComponent implements OnInit {
+
+  constructor(
+    public dialogRef: MatDialogRef<CourseComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AlgoParams
+  ) { }
+
+  ngOnInit() {
+  }
+
+}

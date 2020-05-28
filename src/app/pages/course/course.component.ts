@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudCoursesService } from 'src/app/services/crud-courses.service';
 import { Chart } from 'angular-highcharts';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AlgoParamsComponent } from 'src/app/dialogs/algo-params/algo-params.component';
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -11,10 +14,12 @@ export class CourseComponent implements OnInit {
 
   constructor(
     public activatedRouter: ActivatedRoute,
-    public crudService: CrudCoursesService
+    public crudService: CrudCoursesService,
+    public dialog: MatDialog
   ) { }
 
   phases = ['P1', 'P2', 'P3', 'P4', 'P5'];
+  content: any;
   course: any;
   data = [];
 
@@ -57,12 +62,27 @@ export class CourseComponent implements OnInit {
 });
 
   ngOnInit() {
-    this.course = this.crudService.getContent();
+    this.course = this.crudService.index;
+    this.content = this.crudService.getContent();
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.course.length; i++) {
-      this.data.push(this.course[i]);
+    for (let i = 0; i < this.content.length; i++) {
+      this.data.push(this.content[i]);
     }
     console.log(this.data);
   }
 
+  openDialog(algorithmName) {
+    console.log('opened');
+    const dialogRef = this.dialog.open(AlgoParamsComponent, {
+      width: '1000px',
+      height: '400px',
+      data: {
+        algoName: algorithmName
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Closed');
+    });
+  }
 }

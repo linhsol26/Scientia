@@ -7,15 +7,23 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { AngularSplitModule } from 'angular-split';
 import { ChartModule } from 'angular-highcharts';
+import { AlgoParamsComponent } from 'src/app/dialogs/algo-params/algo-params.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material';
 @NgModule({
-  declarations: [CourseComponent],
+  declarations: [CourseComponent, AlgoParamsComponent],
+  entryComponents: [AlgoParamsComponent],
   imports: [
     CommonModule,
     CourseRoutingModule,
     MatCardModule,
     MatButtonModule,
     AngularSplitModule,
-    ChartModule
+    ChartModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatSelectModule
   ]
 })
 export class CourseModule { }

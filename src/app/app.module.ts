@@ -13,6 +13,7 @@ import { AuthenticateService } from './services/auth.service';
 import { AngularSplitModule } from 'angular-split';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { ChartModule } from 'angular-highcharts';
+
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -38,7 +39,7 @@ export function provideConfig() {
     AngularFireAuthModule,
     AngularSplitModule.forRoot(),
     SocialLoginModule,
-    ChartModule
+    ChartModule,
   ],
   providers: [
     AuthenticateService,
