@@ -22,18 +22,18 @@ export class CourseComponent implements OnInit {
         type: 'bar'
     },
     title: {
-        text: 'Linechart'
+        text: 'TITLE'
     },
     // credits: {
     //     enabled: false
     // },
     xAxis: {
-      categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+      categories: ['P1', 'P2', 'P3', 'P4', 'P5']
     },
     yAxis: {
       min: 0,
       title: {
-        text: 'Total fruit consumption'
+        text: 'Implements'
       }
     },
     legend: {
@@ -46,11 +46,11 @@ export class CourseComponent implements OnInit {
     },
     series: [{
         type: 'bar',
-        name: 'Jane',
-        data: [1, 0, 4, 6, 11]
+        name: 'P1',
+        data: [1, 0, 4, 6, 11] // chi so
     }, {
         type: 'bar',
-        name: 'John',
+        name: 'P2', // ten o duoi
         data: [5, 7, 3, 2, 9]
     }]
 });
