@@ -5,9 +5,8 @@ import { CourseRoutingModule } from './course-routing.module';
 import { CourseComponent } from './course.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { ResizableModule } from 'angular-resizable-element';
 import { AngularSplitModule } from 'angular-split';
-import { from } from 'rxjs';
+import { ChartModule } from 'angular-highcharts';
 @NgModule({
   declarations: [CourseComponent],
   imports: [
@@ -15,8 +14,8 @@ import { from } from 'rxjs';
     CourseRoutingModule,
     MatCardModule,
     MatButtonModule,
-    ResizableModule,
-    AngularSplitModule
+    AngularSplitModule,
+    ChartModule
   ]
 })
 export class CourseModule { }

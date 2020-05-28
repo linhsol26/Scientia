@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudCoursesService } from 'src/app/services/crud-courses.service';
-import { ResizeEvent } from 'angular-resizable-element';
-
+import { Chart } from 'angular-highcharts';
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -18,7 +17,44 @@ export class CourseComponent implements OnInit {
   course: any;
   data = [];
 
-  public style: object = {};
+  chart = new Chart({
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Linechart'
+    },
+    // credits: {
+    //     enabled: false
+    // },
+    xAxis: {
+      categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Total fruit consumption'
+      }
+    },
+    legend: {
+      reversed: true
+    },
+    plotOptions: {
+      series: {
+        stacking: 'normal'
+      }
+    },
+    series: [{
+        type: 'bar',
+        name: 'Jane',
+        data: [1, 0, 4, 6, 11]
+    }, {
+        type: 'bar',
+        name: 'John',
+        data: [5, 7, 3, 2, 9]
+    }]
+});
+
   ngOnInit() {
     this.course = this.crudService.getContent();
     // tslint:disable-next-line:prefer-for-of
@@ -26,29 +62,6 @@ export class CourseComponent implements OnInit {
       this.data.push(this.course[i]);
     }
     console.log(this.data);
-  }
-
-  validate(event: ResizeEvent): boolean {
-    const MIN_DIMENSIONS_PX = 50;
-    if (
-      event.rectangle.width &&
-      // event.rectangle.height &&
-      (event.rectangle.width < MIN_DIMENSIONS_PX)
-        // event.rectangle.height < MIN_DIMENSIONS_PX)
-    ) {
-      return false;
-    }
-    return true;
-  }
-
-  onResizeEnd(event: ResizeEvent): void {
-    this.style = {
-      position: 'fixed',
-      left: `${event.rectangle.left}px`,
-      top: `${event.rectangle.top}px`,
-      width: `${event.rectangle.width}px`,
-      height: `${event.rectangle.height}px`
-    };
   }
 
 }

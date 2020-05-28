@@ -36,9 +36,21 @@ export class CrudCoursesService {
       action: '',
       pic: '../../../assets/system.svg',
       course: 'dm',
-      // content: {
-      //   title: ' '
-      // }
+      content: [
+        {
+          name: 'FCFS',
+          // tslint:disable-next-line:max-line-length
+          inf: 'Given n processes with their burst times, the task is to find average waiting time and average turn around time using FCFS scheduling algorithm.'
+        },
+        {
+          name: 'SJF',
+          inf: ' '
+        }
+        // tslint:disable-next-line:max-line-length
+        // ['',
+        //   'content 2', 'content 3', 'content 4'
+        // ]
+      ]
     },
     {
       title: '2',
@@ -47,9 +59,21 @@ export class CrudCoursesService {
       action: '',
       pic: '../../../assets/system.svg',
       course: 'dm',
-      // content: {
-      //   title: ' '
-      // }
+      content: [
+        {
+          name: 'FCFS',
+          // tslint:disable-next-line:max-line-length
+          inf: 'Given n processes with their burst times, the task is to find average waiting time and average turn around time using FCFS scheduling algorithm.'
+        },
+        {
+          name: 'SJF',
+          inf: ' '
+        }
+        // tslint:disable-next-line:max-line-length
+        // ['',
+        //   'content 2', 'content 3', 'content 4'
+        // ]
+      ]
     },
     {
       title: '2',
