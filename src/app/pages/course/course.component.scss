@@ -2,10 +2,11 @@ mat-card-header mat-card-content{
   text-align: center;
 }
 
-mwlResizable {
-  box-sizing: border-box;
-}
-
 button {
   left: 50%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
 }

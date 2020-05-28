@@ -1,10 +1,10 @@
-<div style="width: 100%; height: 500px; background: yellow;">
+<div style="width: 100%; height: 500px; background: whitesmoke;">
   <as-split direction="horizontal">
     <as-split-area size="40">
       <as-split direction="vertical">
-        <as-split-area>
+        <as-split-area class='container'>
 
-          <mat-card class='container' *ngFor="let inf of data, let i = index">
+          <mat-card *ngFor="let inf of data, let i = index">
             <mat-card-header>
               <h1>{{inf.name}}</h1>
             </mat-card-header>

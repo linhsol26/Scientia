@@ -14,6 +14,7 @@ export class CourseComponent implements OnInit {
     public crudService: CrudCoursesService
   ) { }
 
+  phases = ['P1', 'P2', 'P3', 'P4', 'P5'];
   course: any;
   data = [];
 
@@ -28,7 +29,7 @@ export class CourseComponent implements OnInit {
     //     enabled: false
     // },
     xAxis: {
-      categories: ['P1', 'P2', 'P3', 'P4', 'P5']
+      categories: this.phases
     },
     yAxis: {
       min: 0,
