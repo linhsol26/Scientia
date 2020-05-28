@@ -74,10 +74,15 @@ export class CourseComponent implements OnInit {
   openDialog(algorithmName) {
     console.log('opened');
     const dialogRef = this.dialog.open(AlgoParamsComponent, {
-      width: '1000px',
+      width: '600px',
       height: '400px',
       data: {
-        algoName: algorithmName
+        algoName: algorithmName,
+        process: 1,
+        arriveTime: 1,
+        cpu: 1,
+        io: 1,
+        cpu2: 1,
       }
     });
 

@@ -1,0 +1,24 @@
+.sub-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sub-content-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-content-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+p {
+  margin-block-start: auto;
+}
+
+input {
+  width: 15%;
+  height: 10%;
+  border: 1px solid black;
+}

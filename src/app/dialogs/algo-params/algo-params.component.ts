@@ -14,8 +14,20 @@ export class AlgoParamsComponent implements OnInit {
     public dialogRef: MatDialogRef<CourseComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AlgoParams
   ) { }
-
+  inputData = [];
+  numOfProcess = '2';
   ngOnInit() {
+    console.log(this.numOfProcess);
   }
 
+  confirmNOP() {
+    console.log(this.numOfProcess);
+    // tslint:disable-next-line:radix
+    const n = parseInt(this.numOfProcess);
+    for (let i = 0; i < n; i++) {
+      this.inputData.push(this.data);
+    }
+    console.log(this.data);
+    console.log(this.inputData);
+  }
 }
