@@ -18,14 +18,15 @@ export class CourseComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  phases = ['P1', 'P2', 'P3', 'P4', 'P5'];
+  phases = ['P1', 'P2'];
   content: any;
   course: any;
   data = [];
 
   chart = new Chart({
     chart: {
-        type: 'bar'
+        type: 'columnrange',
+        inverted: true
     },
     title: {
         text: 'TITLE'
@@ -43,22 +44,21 @@ export class CourseComponent implements OnInit {
       }
     },
     legend: {
-      reversed: true
+      enabled: false
     },
     plotOptions: {
-      series: {
-        stacking: 'normal'
+      columnrange: {
+        dataLabels: {
+          enabled: true,
+          format: '{y}'
+        }
       }
     },
-    series: [{
-        type: 'bar',
-        name: 'P1',
-        data: [1, 0, 4, 6, 11] // chi so
-    }, {
-        type: 'bar',
-        name: 'P2', // ten o duoi
-        data: [5, 7, 3, 2, 9]
-    }]
+    // series: [{
+    //   name: 'process',
+    //     data: [
+    //     ] // chi so
+    // }]
 });
 
   ngOnInit() {
