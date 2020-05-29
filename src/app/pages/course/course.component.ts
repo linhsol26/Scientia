@@ -78,11 +78,6 @@ export class CourseComponent implements OnInit {
       height: '400px',
       data: {
         algoName: algorithmName,
-        process: 1,
-        arriveTime: 1,
-        cpu: 1,
-        io: 1,
-        cpu2: 1,
       }
     });
 

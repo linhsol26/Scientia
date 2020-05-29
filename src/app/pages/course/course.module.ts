@@ -10,7 +10,8 @@ import { ChartModule } from 'angular-highcharts';
 import { AlgoParamsComponent } from 'src/app/dialogs/algo-params/algo-params.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatSelectModule, MatInputModule } from '@angular/material';
+import { MatSelectModule, MatInputModule, MatIconModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [CourseComponent, AlgoParamsComponent],
   entryComponents: [AlgoParamsComponent],
@@ -24,7 +25,9 @@ import { MatSelectModule, MatInputModule } from '@angular/material';
     MatDialogModule,
     MatGridListModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    FormsModule
   ]
 })
 export class CourseModule { }

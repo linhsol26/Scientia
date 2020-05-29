@@ -24,17 +24,19 @@
 
   <div class='sub-content-2' *ngFor='let data of inputData; let i = index'>
     <p>P {{i + 1}}</p>
-    <input matInput type='number'>
-    <input matInput type='number'>
-    <input matInput type='number'>
-    <input matInput type='number'>
+      <input matInput type='number' id='id{{i}}' name='arrive' [(ngModel)]="inputData[i].arrive">
+      <input matInput type='number' id='id{{i}}' name='cpu'>
+      <input matInput type='number' id='id{{i}}' name='io'>
+      <input matInput type='number' id='id{{i}}' name='cpu2'>
   </div>
 
-  <!-- <mat-grid-list cols="5" rowHeight="6:5">
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-    <mat-grid-tile>3</mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
-    <mat-grid-tile>5</mat-grid-tile>
-  </mat-grid-list> -->
-</div>
+  <div class='sub-content-2' *ngIf='flag'>
+    <button mat-flat-button (click)='add()'><mat-icon>add</mat-icon></button>
+    <button mat-flat-button (click)='minus()'><mat-icon>remove</mat-icon></button>
+  </div>
+
+  <div>
+    <button mat-button (click)='cancel()' style='float: left'><mat-icon>clear</mat-icon></button>
+    <button mat-button (click)='save()' style='float: right'><mat-icon>done</mat-icon></button>
+  </div>
+
