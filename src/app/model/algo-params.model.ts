@@ -1,8 +1,7 @@
 export interface AlgoParams {
   algoName: string;
-  process: any;
-  arriveTime: any;
-  cpu: any;
-  io: any;
-  cpu2: any;
+  arriveTime: number;
+  cpu: number;
+  io: number;
+  cpu2: number;
 }

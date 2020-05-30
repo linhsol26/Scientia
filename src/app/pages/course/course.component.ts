@@ -4,6 +4,7 @@ import { CrudCoursesService } from 'src/app/services/crud-courses.service';
 import { Chart } from 'angular-highcharts';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AlgoParamsComponent } from 'src/app/dialogs/algo-params/algo-params.component';
+import { AlgoParams } from 'src/app/model/algo-params.model';
 
 @Component({
   selector: 'app-course',
@@ -78,6 +79,7 @@ export class CourseComponent implements OnInit {
       height: '400px',
       data: {
         algoName: algorithmName,
+        input: [] as AlgoParams[]
       }
     });
 

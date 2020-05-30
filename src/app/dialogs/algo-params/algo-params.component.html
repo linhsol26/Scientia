@@ -4,10 +4,10 @@
     <h3>Number of Process: </h3>
     <mat-form-field>
       <mat-select [(value)]='numOfProcess'>
-        <mat-option value='2'>2</mat-option>
-        <mat-option value='3'>3</mat-option>
-        <mat-option value='4'>4</mat-option>
-        <mat-option value='5'>5</mat-option>
+        <mat-option value=2>2</mat-option>
+        <mat-option value=3>3</mat-option>
+        <mat-option value=4>4</mat-option>
+        <mat-option value=5>5</mat-option>
       </mat-select>
     </mat-form-field>
     <button mat-button (click)='confirmNOP()'>OK</button>
@@ -24,13 +24,13 @@
 
   <div class='sub-content-2' *ngFor='let data of inputData; let i = index'>
     <p>P {{i + 1}}</p>
-      <input matInput type='number' id='id{{i}}' name='arrive' [(ngModel)]="inputData[i].arrive">
-      <input matInput type='number' id='id{{i}}' name='cpu'>
-      <input matInput type='number' id='id{{i}}' name='io'>
-      <input matInput type='number' id='id{{i}}' name='cpu2'>
+    <input matInput type='number' name='arrive' [(ngModel)]="inputData[i].arriveTime">
+    <input matInput type='number' name='cpu'>
+    <input matInput type='number' name='io'>
+    <input matInput type='number' name='cpu2'>
   </div>
 
-  <div class='sub-content-2' *ngIf='flag'>
+  <div class='sub-content-2' *ngIf='!flag'>
     <button mat-flat-button (click)='add()'><mat-icon>add</mat-icon></button>
     <button mat-flat-button (click)='minus()'><mat-icon>remove</mat-icon></button>
   </div>
