@@ -5,6 +5,7 @@ import { Chart } from 'angular-highcharts';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AlgoParamsComponent } from 'src/app/dialogs/algo-params/algo-params.component';
 import { AlgoParams } from 'src/app/model/algo-params.model';
+import { chart } from 'highcharts';
 
 @Component({
   selector: 'app-course',
@@ -19,48 +20,13 @@ export class CourseComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  phases = [];
-  arrive = [];
   content: any;
   course: any;
   data = [];
   algoConfig: any;
+  algoName: string;
   flag = false;
-
-  chart = new Chart({
-    chart: {
-        type: 'bar',
-        inverted: true
-    },
-    title: {
-        text: 'TITLE'
-    },
-    // credits: {
-    //     enabled: false
-    // },
-    xAxis: {
-      categories: this.phases
-    },
-    yAxis: {
-      min: 0,
-      title: {
-        text: 'Total fruit consumption'
-      }
-    },
-    legend: {
-      reversed: true
-    },
-    plotOptions: {
-      series: {
-        stacking: 'normal'
-      }
-    },
-    series: [{
-      type: 'bar',
-      name: 'Jane',
-      data: this.arrive
-    }]
-});
+  chart: any;
 
   ngOnInit() {
     this.course = this.crudService.index;
@@ -84,17 +50,64 @@ export class CourseComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.algoConfig = result;
-      console.log('Closed');
-      console.log(this.algoConfig);
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.algoConfig.data.length; i++) {
-        this.phases.push('P' + (i + 1));
-        this.arrive.push(this.algoConfig.data[i].arriveTime);
-      }
-      this.flag = true;
-      console.log(this.phases);
-      console.log(this.arrive);
+      // if (!this.flag) {
+        const phases = [];
+        const arrive = [];
+        const cpu = [];
+        const io = [];
+        const cpu2 = [];
+        this.algoConfig = result;
+        this.algoName = this.algoConfig.data[0].algoName;
+        console.log(this.algoConfig);
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.algoConfig.data.length; i++) {
+          phases.push('P' + (i + 1));
+          arrive.push(this.algoConfig.data[i].arriveTime);
+          cpu.push(this.algoConfig.data[i].cpu);
+          io.push(this.algoConfig.data[i].io);
+          cpu2.push(this.algoConfig.data[i].cpu2);
+        }
+        this.flag = true;
+        console.log(phases);
+        console.log(arrive);
+
+        // tslint:disable-next-line:no-shadowed-variable
+        const chart = new Chart({
+          chart: {
+              type: 'bar',
+              inverted: true
+          },
+          title: {
+              text: this.algoName
+          },
+          // credits: {
+          //     enabled: false
+          // },
+          xAxis: {
+            categories: phases
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Total fruit consumption'
+            }
+          },
+          legend: {
+            reversed: true
+          },
+          plotOptions: {
+            series: {
+              stacking: 'normal'
+            }
+          },
+          series: [{
+            type: 'bar',
+            name: 'Arrive Time',
+            data: arrive
+          }]
+      });
+        this.chart = chart;
+      // }
     });
   }
 }
