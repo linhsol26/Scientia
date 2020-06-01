@@ -19,14 +19,17 @@ export class CourseComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  phases = ['P1', 'P2'];
+  phases = [];
+  arrive = [];
   content: any;
   course: any;
   data = [];
+  algoConfig: any;
+  flag = false;
 
   chart = new Chart({
     chart: {
-        type: 'columnrange',
+        type: 'bar',
         inverted: true
     },
     title: {
@@ -41,25 +44,22 @@ export class CourseComponent implements OnInit {
     yAxis: {
       min: 0,
       title: {
-        text: 'Implements'
+        text: 'Total fruit consumption'
       }
     },
     legend: {
-      enabled: false
+      reversed: true
     },
     plotOptions: {
-      columnrange: {
-        dataLabels: {
-          enabled: true,
-          format: '{y}'
-        }
+      series: {
+        stacking: 'normal'
       }
     },
-    // series: [{
-    //   name: 'process',
-    //     data: [
-    //     ] // chi so
-    // }]
+    series: [{
+      type: 'bar',
+      name: 'Jane',
+      data: this.arrive
+    }]
 });
 
   ngOnInit() {
@@ -84,7 +84,17 @@ export class CourseComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.algoConfig = result;
       console.log('Closed');
+      console.log(this.algoConfig);
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.algoConfig.data.length; i++) {
+        this.phases.push('P' + (i + 1));
+        this.arrive.push(this.algoConfig.data[i].arriveTime);
+      }
+      this.flag = true;
+      console.log(this.phases);
+      console.log(this.arrive);
     });
   }
 }

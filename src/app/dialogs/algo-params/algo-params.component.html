@@ -25,9 +25,9 @@
   <div class='sub-content-2' *ngFor='let data of inputData; let i = index'>
     <p>P {{i + 1}}</p>
     <input matInput type='number' name='arrive' [(ngModel)]="inputData[i].arriveTime">
-    <input matInput type='number' name='cpu'>
-    <input matInput type='number' name='io'>
-    <input matInput type='number' name='cpu2'>
+    <input matInput type='number' name='cpu' [(ngModel)]="inputData[i].cpu">
+    <input matInput type='number' name='io' [(ngModel)]="inputData[i].io">
+    <input matInput type='number' name='cpu2' [(ngModel)]="inputData[i].cpu2">
   </div>
 
   <div class='sub-content-2' *ngIf='!flag'>

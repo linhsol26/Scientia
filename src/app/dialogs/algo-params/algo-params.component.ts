@@ -22,13 +22,12 @@ export class AlgoParamsComponent implements OnInit {
 
   ngOnInit() {
     this.inputData = [];
-    console.log(this.inputData);
   }
   confirmNOP() {
     if (this.flag) {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.numOfProcess; i++) {
-        this.inputData.push(this.tempData);
+        this.inputData.push({...this.tempData});
       }
       this.flag = false;
     }
@@ -36,13 +35,11 @@ export class AlgoParamsComponent implements OnInit {
   }
 
   add() {
-    this.inputData.push(this.tempData);
-    console.log(this.inputData);
+    this.inputData.push({...this.tempData});
   }
 
   minus() {
     this.inputData.pop();
-    console.log(this.inputData);
   }
 
   save() {
@@ -50,7 +47,6 @@ export class AlgoParamsComponent implements OnInit {
       numOfProcess: this.inputData.length,
       data: this.inputData
     });
-    console.log(this.inputData);
   }
 
   cancel() {
