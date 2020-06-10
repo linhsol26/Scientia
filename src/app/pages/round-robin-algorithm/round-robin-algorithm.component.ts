@@ -12,16 +12,18 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   columnsToDisplay: string[] = this.displayedColumns.slice();
   data: Array<any> = [
     {Name: 'P1', BurstTime1: 3, IO: 4, BurstTime2: 3},
-    {Name: 'P2', BurstTime1: 2, IO: 2, BurstTime2: 2},
-    {Name: 'P3', BurstTime1: 1, IO: 1, BurstTime2: 5},
+    {Name: 'P2', BurstTime1: 3, IO: 2, BurstTime2: 5},
+    {Name: 'P3', BurstTime1: 1, IO: 3, BurstTime2: 5},
+    {Name: 'P4', BurstTime1: 5, IO: 4, BurstTime2: 1},
   ];
 
   // Data Algorithm
   names = [];
   inputValue: Array<any> = [
     [3, 4, 3],
-    [2, 2, 2],
-    [1, 1, 5],
+    [3, 2, 5],
+    [1, 3, 5],
+    [5, 4, 1],
   ];
   quantum = 2;
 
@@ -108,6 +110,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
   run() {
     const result: Array<Array<any>> = this.al.runRoundRobinScheduler(this.names, this.inputValue, this.quantum);
+    console.log(result);
     this.result = this.getProcAndIO(result);
     console.log(this.result);
   }
