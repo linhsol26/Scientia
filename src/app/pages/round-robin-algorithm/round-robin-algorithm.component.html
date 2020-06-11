@@ -9,7 +9,14 @@
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
   </table>
   <button mat-raised-button (click)="run()">Run</button>
-  <div style="width: 100px;">
+  <div>
     <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
+    <fusioncharts
+      width="700"
+      height="400"
+      type="gantt"
+      [dataSource]="dataSource"
+    >
+    </fusioncharts>
   </div>
 </div>
