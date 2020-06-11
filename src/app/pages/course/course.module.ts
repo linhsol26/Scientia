@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule, MatInputModule, MatIconModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { RoundRobinAlgorithmModule } from '../round-robin-algorithm/round-robin-algorithm.module';
 @NgModule({
   declarations: [CourseComponent, AlgoParamsComponent],
   entryComponents: [AlgoParamsComponent],
@@ -27,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     MatInputModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    RoundRobinAlgorithmModule
   ]
 })
 export class CourseModule { }
