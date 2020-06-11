@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { RoundRobinService } from 'src/app/services/round-robin.service';
+import { Square } from '../../model/square.model';
 
 @Component({
   selector: 'app-round-robin-algorithm',
@@ -7,6 +8,7 @@ import { RoundRobinService } from 'src/app/services/round-robin.service';
   styleUrls: ['./round-robin-algorithm.component.scss'],
 })
 export class RoundRobinAlgorithmComponent implements OnInit {
+
   // Table
   displayedColumns: string[] = ['Name', 'BurstTime1', 'IO', 'BurstTime2'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -30,7 +32,9 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   // Kết quả cuối cùng
   result;
 
-  constructor(public al: RoundRobinService) {}
+  constructor(
+    public al: RoundRobinService,
+    ) {}
 
   ngOnInit(): void {
     this.names = this.data.map(value => value.Name);
