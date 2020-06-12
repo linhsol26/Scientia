@@ -14,6 +14,26 @@ import { AngularSplitModule } from 'angular-split';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { ChartModule } from 'angular-highcharts';
 
+import { FusionChartsModule } from 'angular-fusioncharts';
+
+// Load FusionCharts
+import * as FusionCharts from 'fusioncharts';
+// Load Charts module
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+import * as Widgets from 'fusioncharts/fusioncharts.widgets.js';
+import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
+// Load themes
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+
+// Add dependencies to FusionChartsModule
+FusionChartsModule.fcRoot(
+  FusionCharts,
+  Widgets,
+  Gantt,
+  Charts,
+  FusionTheme
+);
+
 const config = new AuthServiceConfig([
   {
     id: FacebookLoginProvider.PROVIDER_ID,
@@ -40,6 +60,7 @@ export function provideConfig() {
     AngularSplitModule.forRoot(),
     SocialLoginModule,
     ChartModule,
+    FusionChartsModule
   ],
   providers: [
     AuthenticateService,
