@@ -18,6 +18,10 @@ const dataSource = {
         color: '#FFFFFF',
       },
       {
+        label: 'Response',
+        color: '#CCCCCC',
+      },
+      {
         label: 'CPU',
         color: '#62B58D',
       },
@@ -38,6 +42,14 @@ const dataSource = {
   tasks: {
     task: [
       // Process P1
+      {
+        label: 'Response',
+        processid: 'P1',
+        start: '1/6/2020',
+        end: '1/6/2020',
+        bordercolor: '#CCCCCC',
+        color: '#CCCCCC',
+      },
       {
         label: 'CPU',
         processid: 'P1',
@@ -111,6 +123,14 @@ const dataSource = {
         color: '#000000',
       },
       // Process P2
+      {
+        label: 'Response',
+        processid: 'P2',
+        start: '2/6/2020',
+        end: '3/6/2020',
+        bordercolor: '#CCCCCC',
+        color: '#CCCCCC',
+      },
       {
         label: 'CPU',
         processid: 'P2',
@@ -201,6 +221,14 @@ const dataSource = {
       },
       // Process 3
       {
+        label: 'Response',
+        processid: 'P3',
+        start: '3/6/2020',
+        end: '6/6/2020',
+        bordercolor: '#CCCCCC',
+        color: '#CCCCCC',
+      },
+      {
         label: 'CPU',
         processid: 'P3',
         start: '6/6/2020',
@@ -215,6 +243,14 @@ const dataSource = {
         end: '10/6/2020',
         bordercolor: '#F2726F',
         color: '#F2726F',
+      },
+      {
+        label: 'Waiting',
+        processid: 'P3',
+        start: '10/6/2020',
+        end: '14/6/2020',
+        bordercolor: '#FFFFCC',
+        color: '#FFFFCC',
       },
       {
         label: 'CPU',
@@ -265,6 +301,14 @@ const dataSource = {
         color: '#000000',
       },
       // Process 4
+      {
+        label: 'Response',
+        processid: 'P4',
+        start: '4/6/2020',
+        end: '7/6/2020',
+        bordercolor: '#CCCCCC',
+        color: '#CCCCCC',
+      },
       {
         label: 'CPU',
         processid: 'P4',
@@ -497,6 +541,12 @@ export class RoundRobinAlgorithmComponent implements OnInit {
       Process: resultProcess,
       IO: IOProcess,
     };
+  }
+
+  setValueToGanttChart(names: string[], result) {
+    for (const [index, value] of names.entries()) {
+
+    }
   }
 
   run() {
