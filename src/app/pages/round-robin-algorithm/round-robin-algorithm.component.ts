@@ -2,6 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { RoundRobinService } from 'src/app/services/round-robin.service';
 import { DataSource, Result, RESPONSE, CPU, WAITING, IO, TERMINATED } from 'src/app/algorithm-core/round-robin-chart';
 
+import * as lodash from 'lodash';
+
 const dataSource: DataSource = {
   chart: {
     caption: 'Machine Operating Schedule For Round Robin Algorithm',
@@ -94,20 +96,25 @@ const dataSource: DataSource = {
   styleUrls: ['./round-robin-algorithm.component.scss'],
 })
 export class RoundRobinAlgorithmComponent implements OnInit {
+
+  // Lodash library
+  _: any = lodash;
+
   // tslint:disable-next-line: ban-types
   dataSource: Object;
 
   // Table
-  displayedColumns: string[] = ['Name', 'BurstTime1', 'IO', 'BurstTime2'];
+  displayedColumns: string[] = ['Name', 'ArriveTime', 'BurstTime1', 'IO', 'BurstTime2'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   data: Array<any> = [
-    { Name: 'P1', BurstTime1: 3, IO: 4, BurstTime2: 3 },
-    { Name: 'P2', BurstTime1: 3, IO: 2, BurstTime2: 5 },
-    { Name: 'P3', BurstTime1: 1, IO: 3, BurstTime2: 5 },
-    { Name: 'P4', BurstTime1: 5, IO: 4, BurstTime2: 1 },
+    { Name: 'P1', ArriveTime: 0, BurstTime1: 3, IO: 4, BurstTime2: 3 },
+    { Name: 'P2', ArriveTime: 1, BurstTime1: 3, IO: 2, BurstTime2: 5 },
+    { Name: 'P3', ArriveTime: 2, BurstTime1: 1, IO: 3, BurstTime2: 5 },
+    { Name: 'P4', ArriveTime: 3, BurstTime1: 5, IO: 4, BurstTime2: 1 },
   ];
 
   // Data Algorithm
+  arriveTime = [];
   names = [];
   inputValue: Array<any> = [
     [3, 4, 3],
@@ -117,18 +124,32 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   ];
   quantum = 2;
 
-  // Kết quả cuối cùng
   result;
 
   // Chart variable
   chartFlag = false;
+  responseTimeResult = [];
+  waitingTimeResult = [];
+  totalTimeResult = [];
+  ioTimeResult = [];
 
   constructor(public al: RoundRobinService) {
     this.dataSource = dataSource;
   }
 
   ngOnInit(): void {
-    this.names = this.data.map((value) => value.Name);
+    this.getNamesAndArriveTime();
+  }
+
+  getNamesAndArriveTime() {
+    this.names = this.data.map((value) => {
+      this.arriveTime.push(this.data.indexOf(value));
+      this.responseTimeResult.push(0);
+      this.waitingTimeResult.push(0);
+      this.totalTimeResult.push(0);
+
+      return value.Name;
+    });
   }
 
   getProcAndIO(result) {
@@ -204,12 +225,51 @@ export class RoundRobinAlgorithmComponent implements OnInit {
     };
   }
 
-  setValueToGanttChart(names: string[], result: Result) {
+  setValueToGanttChart(
+    names: string[],
+    arriveTime: number[],
+    result: Result,
+    responseTimeResult: Array<any>,
+    waitingTimeResult: Array<any>,
+    ioTimeResult: Array<any>,
+    totalTimeResult: Array<any>
+  ) {
+
+    const waitingArray: object = {};
 
     for (const [index, value] of names.entries()) {
 
-      // Vẽ CPU Process
+      // Vẽ Response Time
+      const calResponse = result.Process[index][result.Process[index].length - 1];
+      if (calResponse.start === arriveTime[index]) {
+        dataSource.tasks.task.push({
+          label: RESPONSE.label,
+          processid: value,
+          start: `${arriveTime[index] + 1}/6/2020`,
+          end: `${arriveTime[index] + 1}/6/2020`,
+          bordercolor: RESPONSE.bordercolor,
+          color: RESPONSE.color
+        });
+
+        // Tính response time
+        responseTimeResult[index] += arriveTime[index];
+      } else {
+        dataSource.tasks.task.push({
+          label: RESPONSE.label,
+          processid: value,
+          start: `${arriveTime[index] + 1}/6/2020`,
+          end: `${calResponse.start + 1}/6/2020`,
+          bordercolor: RESPONSE.bordercolor,
+          color: RESPONSE.color
+        });
+
+        // Tính response time
+        responseTimeResult[index] += calResponse.start - arriveTime[index];
+      }
+
       for (const val of result.Process[index]) {
+
+        // Vẽ CPU Process
         dataSource.tasks.task.push({
             label: CPU.label,
             processid: value,
@@ -218,6 +278,21 @@ export class RoundRobinAlgorithmComponent implements OnInit {
             bordercolor: CPU.bordercolor,
             color: CPU.color
         });
+
+        totalTimeResult[index] += val.end - val.start;
+
+        // Lấy Waiting time
+        if (waitingArray[value] === undefined) {
+          waitingArray[value] = [];
+        }
+
+        const waitingStart = result.Process[index][result.Process[index].indexOf(val) + 1];
+        if (waitingStart) {
+          waitingArray[value].push({
+            start: waitingStart.end,
+            end: val.start
+          });
+        }
 
         // Terminated
         if (result.Process[index].indexOf(val) === 0) {
@@ -243,8 +318,42 @@ export class RoundRobinAlgorithmComponent implements OnInit {
           color: IO.color
         });
       }
+
+      ioTimeResult[index] = result.IO[index][0].end - result.IO[index][0].start;
+
+      // Vẽ Waiting Process
+      for (const val of waitingArray[value]) {
+        if (val.start === result.IO[index][0].start) {
+          const i = waitingArray[value].indexOf(val);
+          waitingArray[value][i].start += result.IO[index][0].end - result.IO[index][0].start;
+        }
+
+        dataSource.tasks.task.push({
+          label: WAITING.label,
+          processid: value,
+          start: `${val.start + 1}/6/2020`,
+          end: `${val.end + 1}/6/2020`,
+          bordercolor: WAITING.bordercolor,
+          color: WAITING.color
+        });
+
+        waitingTimeResult[index] += val.end - val.start;
+      }
     }
 
+  }
+
+  calFinalResult(
+    responseTimeResult: Array<any>,
+    waitingTimeResult: Array<any>,
+    ioTimeResult: Array<any>,
+    totalTimeResult: Array<any>
+    ) {
+    for (const [index] of waitingTimeResult.entries()) {
+      waitingTimeResult[index] += responseTimeResult[index];
+      totalTimeResult[index] += waitingTimeResult[index];
+      totalTimeResult[index] += ioTimeResult[index];
+    }
   }
 
   run() {
@@ -254,8 +363,26 @@ export class RoundRobinAlgorithmComponent implements OnInit {
       this.quantum
     );
     this.result = this.getProcAndIO(result);
-    console.log(this.result);
-    this.setValueToGanttChart(this.names, this.result);
+    this.setValueToGanttChart(
+      this.names,
+      this.arriveTime,
+      this.result,
+      this.responseTimeResult,
+      this.waitingTimeResult,
+      this.ioTimeResult,
+      this.totalTimeResult
+    );
     this.chartFlag = true;
+    this.calFinalResult(
+      this.responseTimeResult,
+      this.waitingTimeResult,
+      this.ioTimeResult,
+      this.totalTimeResult
+    );
+
+    console.log(this.responseTimeResult);
+    console.log(this.waitingTimeResult);
+    console.log(this.ioTimeResult);
+    console.log(this.totalTimeResult);
   }
 }

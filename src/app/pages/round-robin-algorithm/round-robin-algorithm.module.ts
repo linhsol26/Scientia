@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RoundRobinAlgorithmRoutingModule } from './round-robin-algorithm-routing.module';
 import { RoundRobinAlgorithmComponent } from './round-robin-algorithm.component';
-import { MatButtonModule, MatTableModule, MatProgressBarModule } from '@angular/material';
+import { MatButtonModule, MatTableModule, MatProgressBarModule, MatCardModule } from '@angular/material';
 import { FusionChartsModule } from 'angular-fusioncharts';
 
 
@@ -15,7 +15,8 @@ import { FusionChartsModule } from 'angular-fusioncharts';
     MatButtonModule,
     MatTableModule,
     MatProgressBarModule,
-    FusionChartsModule
+    FusionChartsModule,
+    MatCardModule
   ]
 })
 export class RoundRobinAlgorithmModule { }
