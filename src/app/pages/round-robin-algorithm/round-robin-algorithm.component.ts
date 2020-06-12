@@ -1,7 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { RoundRobinService } from 'src/app/services/round-robin.service';
+import { DataSource, Result, RESPONSE, CPU, WAITING, IO, TERMINATED } from 'src/app/algorithm-core/round-robin-chart';
 
-const dataSource = {
+const dataSource: DataSource = {
   chart: {
     caption: 'Machine Operating Schedule For Round Robin Algorithm',
     subcaption: 'Process Chart',
@@ -40,348 +41,7 @@ const dataSource = {
     ],
   },
   tasks: {
-    task: [
-      // Process P1
-      {
-        label: 'Response',
-        processid: 'P1',
-        start: '1/6/2020',
-        end: '1/6/2020',
-        bordercolor: '#CCCCCC',
-        color: '#CCCCCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P1',
-        start: '1/6/2020',
-        end: '3/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P1',
-        start: '3/6/2020',
-        end: '5/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P1',
-        start: '5/6/2020',
-        end: '6/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'IO',
-        processid: 'P1',
-        start: '6/6/2020',
-        end: '10/6/2020',
-        bordercolor: '#F2726F',
-        color: '#F2726F',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P1',
-        start: '10/6/2020',
-        end: '12/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P1',
-        start: '12/6/2020',
-        end: '14/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P1',
-        start: '14/6/2020',
-        end: '19/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P1',
-        start: '19/6/2020',
-        end: '20/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Terminated',
-        processid: 'P1',
-        start: '20/6/2020',
-        end: '20/6/2020',
-        bordercolor: '#000000',
-        color: '#000000',
-      },
-      // Process P2
-      {
-        label: 'Response',
-        processid: 'P2',
-        start: '2/6/2020',
-        end: '3/6/2020',
-        bordercolor: '#CCCCCC',
-        color: '#CCCCCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P2',
-        start: '3/6/2020',
-        end: '5/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P2',
-        start: '5/6/2020',
-        end: '9/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P2',
-        start: '9/6/2020',
-        end: '10/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'IO',
-        processid: 'P2',
-        start: '10/6/2020',
-        end: '12/6/2020',
-        bordercolor: '#F2726F',
-        color: '#F2726F',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P2',
-        start: '12/6/2020',
-        end: '16/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P2',
-        start: '16/6/2020',
-        end: '18/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P2',
-        start: '18/6/2020',
-        end: '24/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P2',
-        start: '22/6/2020',
-        end: '24/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P2',
-        start: '24/6/2020',
-        end: '26/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P2',
-        start: '26/6/2020',
-        end: '27/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Terminated',
-        processid: 'P2',
-        start: '27/6/2020',
-        end: '27/6/2020',
-        bordercolor: '#000000',
-        color: '#000000',
-      },
-      // Process 3
-      {
-        label: 'Response',
-        processid: 'P3',
-        start: '3/6/2020',
-        end: '6/6/2020',
-        bordercolor: '#CCCCCC',
-        color: '#CCCCCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P3',
-        start: '6/6/2020',
-        end: '7/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'IO',
-        processid: 'P3',
-        start: '7/6/2020',
-        end: '10/6/2020',
-        bordercolor: '#F2726F',
-        color: '#F2726F',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P3',
-        start: '10/6/2020',
-        end: '14/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P3',
-        start: '14/6/2020',
-        end: '16/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P3',
-        start: '16/6/2020',
-        end: '20/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P3',
-        start: '20/6/2020',
-        end: '22/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P3',
-        start: '22/6/2020',
-        end: '24/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P3',
-        start: '24/6/2020',
-        end: '25/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Terminated',
-        processid: 'P3',
-        start: '25/6/2020',
-        end: '25/6/2020',
-        bordercolor: '#000000',
-        color: '#000000',
-      },
-      // Process 4
-      {
-        label: 'Response',
-        processid: 'P4',
-        start: '4/6/2020',
-        end: '7/6/2020',
-        bordercolor: '#CCCCCC',
-        color: '#CCCCCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P4',
-        start: '7/6/2020',
-        end: '9/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P4',
-        start: '9/6/2020',
-        end: '10/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P4',
-        start: '10/6/2020',
-        end: '12/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P4',
-        start: '12/6/2020',
-        end: '18/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P4',
-        start: '18/6/2020',
-        end: '19/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'IO',
-        processid: 'P4',
-        start: '19/6/2020',
-        end: '23/6/2020',
-        bordercolor: '#F2726F',
-        color: '#F2726F',
-      },
-      {
-        label: 'Waiting',
-        processid: 'P4',
-        start: '23/6/2020',
-        end: '25/6/2020',
-        bordercolor: '#FFFFCC',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'CPU',
-        processid: 'P4',
-        start: '25/6/2020',
-        end: '26/6/2020',
-        bordercolor: '#62B58D',
-        color: '#62B58D',
-      },
-      {
-        label: 'Terminated',
-        processid: 'P4',
-        start: '26/6/2020',
-        end: '26/6/2020',
-        bordercolor: '#000000',
-        color: '#000000',
-      },
-    ],
+    task: [],
   },
   processes: {
     isbold: '1',
@@ -461,6 +121,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   result;
 
   // Chart variable
+  chartFlag = false;
 
   constructor(public al: RoundRobinService) {
     this.dataSource = dataSource;
@@ -543,10 +204,47 @@ export class RoundRobinAlgorithmComponent implements OnInit {
     };
   }
 
-  setValueToGanttChart(names: string[], result) {
+  setValueToGanttChart(names: string[], result: Result) {
+
     for (const [index, value] of names.entries()) {
 
+      // Vẽ CPU Process
+      for (const val of result.Process[index]) {
+        dataSource.tasks.task.push({
+            label: CPU.label,
+            processid: value,
+            start: `${val.start + 1}/6/2020`,
+            end: `${val.end + 1}/6/2020`,
+            bordercolor: CPU.bordercolor,
+            color: CPU.color
+        });
+
+        // Terminated
+        if (result.Process[index].indexOf(val) === 0) {
+          dataSource.tasks.task.push({
+            label: TERMINATED.label,
+            processid: value,
+            start: `${val.end + 1}/6/2020`,
+            end: `${val.end + 1}/6/2020`,
+            bordercolor: TERMINATED.bordercolor,
+            color: TERMINATED.color
+          });
+        }
+      }
+
+      // Vẽ IO Process
+      for (const val of result.IO[index]) {
+        dataSource.tasks.task.push({
+          label: IO.label,
+          processid: value,
+          start: `${val.start + 1}/6/2020`,
+          end: `${val.end + 1}/6/2020`,
+          bordercolor: IO.bordercolor,
+          color: IO.color
+        });
+      }
     }
+
   }
 
   run() {
@@ -555,8 +253,9 @@ export class RoundRobinAlgorithmComponent implements OnInit {
       this.inputValue,
       this.quantum
     );
-    console.log(result);
     this.result = this.getProcAndIO(result);
     console.log(this.result);
+    this.setValueToGanttChart(this.names, this.result);
+    this.chartFlag = true;
   }
 }
