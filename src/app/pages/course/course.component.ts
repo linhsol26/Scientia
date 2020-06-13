@@ -5,7 +5,6 @@ import { Chart } from 'angular-highcharts';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AlgoParamsComponent } from 'src/app/dialogs/algo-params/algo-params.component';
 import { AlgoParams } from 'src/app/model/algo-params.model';
-import { chart } from 'highcharts';
 
 @Component({
   selector: 'app-course',
@@ -100,11 +99,23 @@ export class CourseComponent implements OnInit {
               stacking: 'normal'
             }
           },
-          series: [{
-            type: 'bar',
-            name: 'Arrive Time',
-            data: arrive
-          }]
+          series: [
+            {
+              type: 'bar',
+              name: 'Running Time',
+              data: cpu
+            },
+            {
+              type: 'bar',
+              name: 'Arrive Time',
+              data: arrive
+            },
+            {
+              type: 'bar',
+              name: 'Waiting Time',
+              data: [3, 4]
+            },
+          ]
       });
         this.chart = chart;
       // }
