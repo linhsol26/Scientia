@@ -1,5 +1,5 @@
 <div class="round-robin">
-  <table mat-table [dataSource]="data" class="mat-elevation-z8">
+  <table mat-table [dataSource]="data" class="mat-elevation-z8" style="margin-top: 2vh">
     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>
       <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
@@ -11,45 +11,45 @@
   <button mat-raised-button (click)="run()">Run</button>
   <div>
     <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
-    <fusioncharts
-      width="1000"
-      height="700"
-      type="gantt"
-      [dataSource]="dataSource"
-      *ngIf="chartFlag === true"
-    >
-    </fusioncharts> -->
+    <fusioncharts width="1000" height="700" type="gantt" [dataSource]="dataSource" *ngIf="chartFlag === true">
+    </fusioncharts>
   </div>
-  <div *ngIf="chartFlag === true" style="width: 50%; margin-top: 5vh;">
-    <mat-card *ngFor="let name of names; index as i" style="margin: 2vh;">
-      <mat-card-content>
-        <p>
-          Response Time {{name}} : {{responseTimeResult[i]}}
-        </p>
-        <p>
-          Waiting Time {{name}} : {{waitingTimeResult[i]}}
-        </p>
-        <p>
-          IO Time {{name}} : {{ioTimeResult[i]}}
-        </p>
-        <p>
-          Total Time {{name}} : {{totalTimeResult[i]}}
-        </p>
-      </mat-card-content>
-    </mat-card>
+  <div *ngIf="chartFlag === true" style="width: 100%; margin-top: 5vh;">
+    <mat-grid-list cols="6" rowHeight="1:1">
+      <mat-grid-tile *ngFor="let name of names; index as i">
+        <mat-card style="margin: 2vh;">
+          <mat-card-content>
+            <p>
+              Response Time {{name}} : {{responseTimeResult[i]}}
+            </p>
+            <p>
+              Waiting Time {{name}} : {{waitingTimeResult[i]}}
+            </p>
+            <p>
+              IO Time {{name}} : {{ioTimeResult[i]}}
+            </p>
+            <p>
+              Total Time {{name}} : {{totalTimeResult[i]}}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
 
-    <mat-card>
-      <mat-card-content>
-        <p>
-          Response Time average : {{_.sum(responseTimeResult) / responseTimeResult.length}}
-        </p>
-        <p>
-          Waiting Time average : {{_.sum(waitingTimeResult) / waitingTimeResult.length}}
-        </p>
-        <p>
-          Total Time average : {{_.sum(totalTimeResult) / totalTimeResult.length}}
-        </p>
-      </mat-card-content>
-    </mat-card>
+      <mat-grid-tile>
+        <mat-card style="margin: 2vh;">
+          <mat-card-content>
+            <p>
+              Response Time average : {{_.sum(responseTimeResult) / responseTimeResult.length}}
+            </p>
+            <p>
+              Waiting Time average : {{_.sum(waitingTimeResult) / waitingTimeResult.length}}
+            </p>
+            <p>
+              Total Time average : {{_.sum(totalTimeResult) / totalTimeResult.length}}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
 </div>
