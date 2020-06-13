@@ -100,13 +100,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   // Data Algorithm
   arriveTime = [];
   names = [];
-  inputValue: Array<any> = [
-    [2, 2, 4],
-    [3, 2, 5],
-    [1, 3, 5],
-    [5, 4, 1],
-    [2, 1, 1],
-  ];
+  inputValue: Array<any> = [];
   quantum = 2;
 
   result;
@@ -128,7 +122,14 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
   getNamesAndArriveTime() {
     this.names = this.data.map((value) => {
+      const process = [];
+      process.push(value.BurstTime1);
+      process.push(value.IO);
+      process.push(value.BurstTime2);
+
       this.arriveTime.push(value.ArriveTime);
+      this.inputValue.push(process);
+
       this.responseTimeResult.push(0);
       this.waitingTimeResult.push(0);
       this.totalTimeResult.push(0);
