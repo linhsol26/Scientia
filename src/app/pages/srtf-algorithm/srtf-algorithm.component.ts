@@ -219,10 +219,10 @@ export class SrtfAlgorithmComponent implements OnInit {
     names: string[],
     arriveTime: number[],
     result: Result,
-    responseTimeResult: Array<any>,
-    waitingTimeResult: Array<any>,
-    ioTimeResult: Array<any>,
-    totalTimeResult: Array<any>
+    responseTime: Array<any>,
+    waitingTime: Array<any>,
+    ioTime: Array<any>,
+    totalTime: Array<any>
   ) {
 
     const waitingArray: object = {};
@@ -248,7 +248,7 @@ export class SrtfAlgorithmComponent implements OnInit {
         });
 
         // Tính response time
-        responseTimeResult[index] += arriveTime[index];
+        responseTime[index] += arriveTime[index];
       } else {
         this.dataSource.tasks.task.push({
           label: RESPONSE.label,
@@ -260,7 +260,7 @@ export class SrtfAlgorithmComponent implements OnInit {
         });
 
         // Tính response time
-        responseTimeResult[index] += calResponse.start - arriveTime[index];
+        responseTime[index] += calResponse.start - arriveTime[index];
       }
 
       for (const val of result.Process[index]) {
@@ -275,7 +275,7 @@ export class SrtfAlgorithmComponent implements OnInit {
             color: CPU.color
         });
 
-        totalTimeResult[index] += val.end - val.start;
+        totalTime[index] += val.end - val.start;
 
         // Lấy Waiting time
         if (waitingArray[value] === undefined) {
@@ -315,7 +315,7 @@ export class SrtfAlgorithmComponent implements OnInit {
         });
       }
 
-      ioTimeResult[index] = result.IO[index][0].end - result.IO[index][0].start;
+      ioTime[index] = result.IO[index][0].end - result.IO[index][0].start;
 
       // Vẽ Waiting Process
       for (const val of waitingArray[value]) {
@@ -333,7 +333,7 @@ export class SrtfAlgorithmComponent implements OnInit {
           color: WAITING.color
         });
 
-        waitingTimeResult[index] += val.end - val.start;
+        waitingTime[index] += val.end - val.start;
       }
     }
   }
