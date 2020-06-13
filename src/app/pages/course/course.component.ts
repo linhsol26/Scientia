@@ -69,56 +69,6 @@ export class CourseComponent implements OnInit {
         this.flag = true;
         console.log(phases);
         console.log(arrive);
-
-        // tslint:disable-next-line:no-shadowed-variable
-        const chart = new Chart({
-          chart: {
-              type: 'bar',
-              inverted: true
-          },
-          title: {
-              text: this.algoName
-          },
-          // credits: {
-          //     enabled: false
-          // },
-          xAxis: {
-            categories: phases
-          },
-          yAxis: {
-            min: 0,
-            title: {
-              text: 'Total fruit consumption'
-            }
-          },
-          legend: {
-            reversed: true
-          },
-          plotOptions: {
-            series: {
-              stacking: 'normal'
-            }
-          },
-          series: [
-            {
-              type: 'bar',
-              name: 'Running Time',
-              data: cpu
-            },
-            {
-              type: 'bar',
-              name: 'Arrive Time',
-              data: arrive
-            },
-            {
-              type: 'bar',
-              name: 'Waiting Time',
-              data: [3, 4]
-            },
-          ]
-      });
-        this.chart = chart;
-      // }
     });
   }
 }
