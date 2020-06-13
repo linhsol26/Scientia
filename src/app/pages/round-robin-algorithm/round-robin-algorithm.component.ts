@@ -7,7 +7,7 @@ import * as lodash from 'lodash';
 const dataSource: DataSource = {
   chart: {
     caption: 'Machine Operating Schedule For Round Robin Algorithm',
-    subcaption: 'Process Chart',
+    subcaption: 'Times',
     theme: 'fusion',
     dateformat: 'dd/mm/yyyy',
     plottooltext: 'Status for period <b>$start - $end</b> is <b>$label</b>',
@@ -52,23 +52,8 @@ const dataSource: DataSource = {
   },
   categories: [
     {
-      category: [
-        {
-          start: '1/6/2020',
-          end: '4/7/2020',
-          name: 'Clock',
-        },
-      ],
-    },
-    {
       bgalpha: '0',
-      category: [
-        {
-          start: '1/6/2020',
-          end: '4/7/2020',
-          label: 'Times',
-        },
-      ],
+      category: [],
     },
   ],
 };
@@ -85,16 +70,23 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
   // tslint:disable-next-line: ban-types
   dataSource: Object;
+  inputFlag = false;
+  buttonFlag = true;
+  numOfProcess: number;
+  inputData: Array<any> = [];
+  tempData = {
+    Name: '',
+    ArriveTime: 0,
+    BurstTime1: 0,
+    IO: 0,
+    BurstTime2: 0
+  };
 
   // Table
   displayedColumns: string[] = ['Name', 'ArriveTime', 'BurstTime1', 'IO', 'BurstTime2'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   data: Array<any> = [
-    { Name: 'P1', ArriveTime: 0, BurstTime1: 2, IO: 2, BurstTime2: 4 },
-    { Name: 'P2', ArriveTime: 1, BurstTime1: 3, IO: 2, BurstTime2: 5 },
-    { Name: 'P3', ArriveTime: 2, BurstTime1: 1, IO: 3, BurstTime2: 5 },
-    { Name: 'P4', ArriveTime: 3, BurstTime1: 5, IO: 4, BurstTime2: 1 },
-    { Name: 'P5', ArriveTime: 4, BurstTime1: 2, IO: 1, BurstTime2: 1 },
+
   ];
 
   // Data Algorithm
@@ -117,7 +109,42 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initClock();
+  }
+
+  confirmNOP() {
+    if (this.buttonFlag) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < this.numOfProcess; i++) {
+        this.inputData.push({...this.tempData});
+      }
+      this.buttonFlag = false;
+    }
+  }
+
+  add() {
+    this.inputData.push({...this.tempData});
+  }
+
+  minus() {
+    this.inputData.pop();
+  }
+
+  save() {
+    this.data = this.inputData;
     this.getNamesAndArriveTime();
+    this.inputFlag = true;
+  }
+
+  initClock() {
+    for (let i = 0; i <= 30; i++) {
+      // tslint:disable-next-line: no-string-literal
+      dataSource.categories[0]['category'].push({
+        start: `${i}/6/2020`,
+        end: `${i + 1}/6/2020`,
+        label: `${i}`,
+      });
+    }
   }
 
   getNamesAndArriveTime() {
@@ -234,6 +261,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
       // Vẽ Response Time
       const calResponse = result.Process[index][result.Process[index].length - 1];
       if (calResponse.start === arriveTime[index]) {
+
         dataSource.tasks.task.push({
           label: RESPONSE.label,
           processid: value,
@@ -246,6 +274,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
         // Tính response time
         responseTimeResult[index] += arriveTime[index];
       } else {
+
         dataSource.tasks.task.push({
           label: RESPONSE.label,
           processid: value,
@@ -261,14 +290,46 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
       for (const val of result.Process[index]) {
 
+        let previousTime: {start, end} = null;
+        if (result.Process[index][result.Process[index].indexOf(val) + 1]) {
+          previousTime = result.Process[index][result.Process[index].indexOf(val) + 1];
+        }
+
+        // Fix time có thể sai or lỗi
+        if (previousTime && val.start >= previousTime.end) {
+          continue;
+        } else if (previousTime && val.start < previousTime.end) {
+          for (let i = result.Process[index].length - 1; i >= 0; i--) {
+
+            const start = result.Process[index][i - 1];
+            if (start && start.start < result.Process[index][i].end && result.Process[index][i - 1]) {
+              result.Process[index][i - 1].start = start.start + 1;
+              result.Process[index][i - 1].end = start.end + 1;
+            }
+          }
+        } else if (result.IO[index].start < val.start < result.IO[index].end) {
+
+          while (val.start >= result.IO[index].end) {
+            if (result.Process[index][result.Process[index].indexOf(val)]) {
+              result.Process[index][result.Process[index].indexOf(val)].start =
+              result.Process[index][result.Process[index].indexOf(val)].start + 1;
+              result.Process[index][result.Process[index].indexOf(val)].end =
+              result.Process[index][result.Process[index].indexOf(val)].end + 1;
+            }
+          }
+        }
+      }
+
+      for (const val of result.Process[index]) {
+
         // Vẽ CPU Process
         dataSource.tasks.task.push({
-            label: CPU.label,
-            processid: value,
-            start: `${val.start + 1}/6/2020`,
-            end: `${val.end + 1}/6/2020`,
-            bordercolor: CPU.bordercolor,
-            color: CPU.color
+          label: CPU.label,
+          processid: value,
+          start: `${val.start + 1}/6/2020`,
+          end: `${val.end + 1}/6/2020`,
+          bordercolor: CPU.bordercolor,
+          color: CPU.color
         });
 
         totalTimeResult[index] += val.end - val.start;
@@ -279,7 +340,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
         }
 
         const waitingStart = result.Process[index][result.Process[index].indexOf(val) + 1];
-        if (waitingStart) {
+        if (waitingStart && waitingStart.end < val.start) {
           waitingArray[value].push({
             start: waitingStart.end,
             end: val.start
@@ -298,6 +359,8 @@ export class RoundRobinAlgorithmComponent implements OnInit {
           });
         }
       }
+
+      console.log(result.Process[index]);
 
       // Vẽ IO Process
       for (const val of result.IO[index]) {
