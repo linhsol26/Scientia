@@ -12,11 +12,44 @@
   <div>
     <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
     <fusioncharts
-      width="700"
-      height="400"
+      width="1000"
+      height="700"
       type="gantt"
       [dataSource]="dataSource"
+      *ngIf="chartFlag === true"
     >
     </fusioncharts>
+  </div>
+  <div *ngIf="chartFlag === true" style="width: 50%; margin-top: 5vh;">
+    <mat-card *ngFor="let name of names; index as i" style="margin: 2vh;">
+      <mat-card-content>
+        <p>
+          Response Time {{name}} : {{responseTimeResult[i]}}
+        </p>
+        <p>
+          Waiting Time {{name}} : {{waitingTimeResult[i]}}
+        </p>
+        <p>
+          IO Time {{name}} : {{ioTimeResult[i]}}
+        </p>
+        <p>
+          Total Time {{name}} : {{totalTimeResult[i]}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-content>
+        <p>
+          Response Time average : {{_.sum(responseTimeResult) / responseTimeResult.length}}
+        </p>
+        <p>
+          Waiting Time average : {{_.sum(waitingTimeResult) / waitingTimeResult.length}}
+        </p>
+        <p>
+          Total Time average : {{_.sum(totalTimeResult) / totalTimeResult.length}}
+        </p>
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
