@@ -4,86 +4,81 @@ import { SrtfService } from 'src/app/services/srtf.service';
 import * as lodash from 'lodash';
 import { Process, Queue, Task, TaskType } from 'src/app/algorithm-core/srtf';
 import { async } from '@angular/core/testing';
+import { sum } from 'lodash';
 
-const dataSource: DataSource = {
-  chart: {
-    caption: 'Machine Operating Schedule For Shortest Remaining Time First Algorithm',
-    subcaption: 'Process Chart',
-    theme: 'fusion',
-    dateformat: 'dd/mm/yyyy',
-    plottooltext: 'Status for period <b>$start - $end</b> is <b>$label</b>',
-    processHoverBandColor: '#BEFFFF',
-    processHoverBandAlpha: '40'
-  },
-  legend: {
-    item: [
-      {
-        label: 'Arrived',
-        color: '#FFFFFF',
-      },
-      {
-        label: 'Response',
-        color: '#CCCCCC',
-      },
-      {
-        label: 'CPU',
-        color: '#62B58D',
-      },
-      {
-        label: 'IO',
-        color: '#F2726F',
-      },
-      {
-        label: 'Waiting',
-        color: '#FFFFCC',
-      },
-      {
-        label: 'Terminated',
-        color: '#000000',
-      },
-    ],
-  },
-  tasks: {
-    task: [],
-  },
-  processes: {
-    isbold: '1',
-    headertext: 'Process',
-    process: [],
-  },
-  categories: [
-    {
-      category: [
-        {
-          start: '1/6/2020',
-          end: '4/7/2020',
-          name: 'Clock',
-        },
-      ],
-    },
-    {
-      bgalpha: '0',
-      category: [
-        {
-          start: '1/6/2020',
-          end: '4/7/2020',
-          label: 'Times',
-        },
-      ],
-    },
-  ],
-};
 @Component({
   selector: 'app-srtf-algorithm',
   templateUrl: './srtf-algorithm.component.html',
   styleUrls: ['./srtf-algorithm.component.scss']
 })
 export class SrtfAlgorithmComponent implements OnInit {
+  timer: Array<any> = [];
+  dataSource1: DataSource = {
+    chart: {
+      caption: 'Machine Operating Schedule For Shortest Remaining Time First Algorithm',
+      subcaption: 'Process Chart',
+      theme: 'fusion',
+      dateformat: 'dd/mm/yyyy',
+      plottooltext: 'Status for period <b>$start - $end</b> is <b>$label</b>',
+      processHoverBandColor: '#BEFFFF',
+      processHoverBandAlpha: '40'
+    },
+    legend: {
+      item: [
+        {
+          label: 'Arrived',
+          color: '#FFFFFF',
+        },
+        {
+          label: 'Response',
+          color: '#CCCCCC',
+        },
+        {
+          label: 'CPU',
+          color: '#62B58D',
+        },
+        {
+          label: 'IO',
+          color: '#F2726F',
+        },
+        {
+          label: 'Waiting',
+          color: '#FFFFCC',
+        },
+        {
+          label: 'Terminated',
+          color: '#000000',
+        },
+      ],
+    },
+    tasks: {
+      task: [],
+    },
+    processes: {
+      isbold: '1',
+      headertext: 'Process',
+      process: [],
+    },
+    categories: [
+      {
+        bgalpha: '0',
+        // category: [
+        //   {
+        //     start: '1/6/2020',
+        //     end: '30/6/2020',
+        //     label: 'Times',
+        //   },
+        // ],
+        category: this.timer
+      },
+    ],
+  };
+
   // Lodash library
   _: any = lodash;
 
   // tslint:disable-next-line:ban-types
-  dataSource: Object;
+  dataSource: any;
   result;
 
   // Table
@@ -113,10 +108,17 @@ export class SrtfAlgorithmComponent implements OnInit {
   inputData: Array<any> = [];
 
   constructor(public algo: SrtfService) {
-    this.dataSource = dataSource;
+    this.dataSource = this.dataSource1;
   }
 
   ngOnInit(): void {
+    for (let i = 0; i <= 31; i++) {
+      this.timer.push({
+        start: i.toString() + '/6/2020',
+        end: (i + 1).toString() + '/6/2020',
+        label: i.toString(),
+      });
+    }
   }
 
   // init waiting time, response time and total time
@@ -228,7 +230,7 @@ export class SrtfAlgorithmComponent implements OnInit {
     for (const [index, value] of names.entries()) {
 
       // Khởi tạo chart các process
-      dataSource.processes.process.push({
+      this.dataSource.processes.process.push({
         label: value,
         id: value
       });
@@ -236,7 +238,7 @@ export class SrtfAlgorithmComponent implements OnInit {
       // Vẽ Response Time
       const calResponse = result.Process[index][result.Process[index].length - 1];
       if (calResponse.start === arriveTime[index]) {
-        dataSource.tasks.task.push({
+        this.dataSource.tasks.task.push({
           label: RESPONSE.label,
           processid: value,
           start: `${arriveTime[index] + 1}/6/2020`,
@@ -248,7 +250,7 @@ export class SrtfAlgorithmComponent implements OnInit {
         // Tính response time
         responseTimeResult[index] += arriveTime[index];
       } else {
-        dataSource.tasks.task.push({
+        this.dataSource.tasks.task.push({
           label: RESPONSE.label,
           processid: value,
           start: `${arriveTime[index] + 1}/6/2020`,
@@ -264,7 +266,7 @@ export class SrtfAlgorithmComponent implements OnInit {
       for (const val of result.Process[index]) {
 
         // Vẽ CPU Process
-        dataSource.tasks.task.push({
+        this.dataSource.tasks.task.push({
             label: CPU.label,
             processid: value,
             start: `${val.start + 1}/6/2020`,
@@ -290,7 +292,7 @@ export class SrtfAlgorithmComponent implements OnInit {
 
         // Terminated
         if (result.Process[index].indexOf(val) === 0) {
-          dataSource.tasks.task.push({
+          this.dataSource.tasks.task.push({
             label: TERMINATED.label,
             processid: value,
             start: `${val.end + 1}/6/2020`,
@@ -303,7 +305,7 @@ export class SrtfAlgorithmComponent implements OnInit {
 
       // Vẽ IO Process
       for (const val of result.IO[index]) {
-        dataSource.tasks.task.push({
+        this.dataSource.tasks.task.push({
           label: IO.label,
           processid: value,
           start: `${val.start + 1}/6/2020`,
@@ -322,7 +324,7 @@ export class SrtfAlgorithmComponent implements OnInit {
           waitingArray[value][i].start += result.IO[index][0].end - result.IO[index][0].start;
         }
 
-        dataSource.tasks.task.push({
+        this.dataSource.tasks.task.push({
           label: WAITING.label,
           processid: value,
           start: `${val.start + 1}/6/2020`,
