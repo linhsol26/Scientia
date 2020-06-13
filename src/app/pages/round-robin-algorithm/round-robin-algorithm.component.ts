@@ -128,7 +128,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
   getNamesAndArriveTime() {
     this.names = this.data.map((value) => {
-      this.arriveTime.push(this.data.indexOf(value));
+      this.arriveTime.push(value.ArriveTime);
       this.responseTimeResult.push(0);
       this.waitingTimeResult.push(0);
       this.totalTimeResult.push(0);
