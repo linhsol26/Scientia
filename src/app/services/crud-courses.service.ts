@@ -26,6 +26,10 @@ export class CrudCoursesService {
         {
           name: 'Round Robin',
           inf: 'Something'
+        },
+        {
+          name: 'SRTF',
+          inf: ':)'
         }
         // tslint:disable-next-line:max-line-length
         // ['',

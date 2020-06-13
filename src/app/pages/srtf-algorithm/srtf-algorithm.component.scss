@@ -1,0 +1,36 @@
+table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+p {
+  font-size: large;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+}
+
+.sub-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sub-content-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-content-2 {
+  display: flex;
+  justify-content: space-between;
+}

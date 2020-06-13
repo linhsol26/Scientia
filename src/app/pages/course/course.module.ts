@@ -13,6 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule, MatInputModule, MatIconModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { RoundRobinAlgorithmModule } from '../round-robin-algorithm/round-robin-algorithm.module';
+import { SrtfAlgorithmModule } from '../srtf-algorithm/srtf-algorithm.module';
 @NgModule({
   declarations: [CourseComponent, AlgoParamsComponent],
   entryComponents: [AlgoParamsComponent],
@@ -29,7 +30,8 @@ import { RoundRobinAlgorithmModule } from '../round-robin-algorithm/round-robin-
     MatInputModule,
     MatIconModule,
     FormsModule,
-    RoundRobinAlgorithmModule
+    RoundRobinAlgorithmModule,
+    SrtfAlgorithmModule
   ]
 })
 export class CourseModule { }

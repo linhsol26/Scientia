@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { RoundRobinService } from 'src/app/services/round-robin.service';
-import { DataSource, Result, RESPONSE, CPU, WAITING, IO, TERMINATED } from 'src/app/algorithm-core/round-robin-chart';
+import { DataSource, Result, RESPONSE, CPU, WAITING, IO, TERMINATED } from 'src/app/algorithm-core/chart';
 
 import * as lodash from 'lodash';
 
