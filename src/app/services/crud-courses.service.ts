@@ -72,6 +72,14 @@ export class CrudCoursesService {
         {
           name: 'SJF',
           inf: ' '
+        },
+        {
+          name: 'SRTF',
+          inf: ' '
+        },
+        {
+          name: 'RR',
+          inf: ' '
         }
         // tslint:disable-next-line:max-line-length
         // ['',

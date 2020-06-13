@@ -16,6 +16,7 @@
             <mat-card-footer>
               <button mat-flat-button (click)="openDialog(inf.name)">Next</button>
               <button mat-flat-button routerLink="round-robin-algorithm" *ngIf="inf.name === 'Round Robin'">Go</button>
+              <button mat-flat-button routerLink="srtf-algorithm" *ngIf="inf.name === 'SRTF'">Go</button>
             </mat-card-footer>
           </mat-card>
 
