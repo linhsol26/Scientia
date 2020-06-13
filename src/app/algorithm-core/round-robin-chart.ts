@@ -3,6 +3,11 @@ export interface Item {
   color: string;
 }
 
+export interface Process {
+  label: string;
+  id: string;
+}
+
 export interface Task {
   label: string;
   processid: string;
@@ -15,12 +20,16 @@ export interface Task {
 export interface DataSource {
   chart: object;
   legend: {
-      item: Item[]
+      item: Item[];
   };
   tasks: {
-      task: Task[]
+      task: Task[];
   };
-  processes: object;
+  processes: {
+    isbold: string;
+    headertext: string;
+    process: Process[];
+  };
   categories: Array<object>;
 }
 

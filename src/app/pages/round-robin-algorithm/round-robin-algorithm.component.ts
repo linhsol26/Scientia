@@ -48,24 +48,7 @@ const dataSource: DataSource = {
   processes: {
     isbold: '1',
     headertext: 'Process',
-    process: [
-      {
-        label: 'P1',
-        id: 'P1',
-      },
-      {
-        label: 'P2',
-        id: 'P2',
-      },
-      {
-        label: 'P3',
-        id: 'P3',
-      },
-      {
-        label: 'P4',
-        id: 'P4',
-      },
-    ],
+    process: [],
   },
   categories: [
     {
@@ -107,20 +90,22 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   displayedColumns: string[] = ['Name', 'ArriveTime', 'BurstTime1', 'IO', 'BurstTime2'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   data: Array<any> = [
-    { Name: 'P1', ArriveTime: 0, BurstTime1: 3, IO: 4, BurstTime2: 3 },
+    { Name: 'P1', ArriveTime: 0, BurstTime1: 2, IO: 2, BurstTime2: 4 },
     { Name: 'P2', ArriveTime: 1, BurstTime1: 3, IO: 2, BurstTime2: 5 },
     { Name: 'P3', ArriveTime: 2, BurstTime1: 1, IO: 3, BurstTime2: 5 },
     { Name: 'P4', ArriveTime: 3, BurstTime1: 5, IO: 4, BurstTime2: 1 },
+    { Name: 'P5', ArriveTime: 4, BurstTime1: 2, IO: 1, BurstTime2: 1 },
   ];
 
   // Data Algorithm
   arriveTime = [];
   names = [];
   inputValue: Array<any> = [
-    [3, 4, 3],
+    [2, 2, 4],
     [3, 2, 5],
     [1, 3, 5],
     [5, 4, 1],
+    [2, 1, 1],
   ];
   quantum = 2;
 
@@ -238,6 +223,12 @@ export class RoundRobinAlgorithmComponent implements OnInit {
     const waitingArray: object = {};
 
     for (const [index, value] of names.entries()) {
+
+      // Khởi tạo chart các process
+      dataSource.processes.process.push({
+        label: value,
+        id: value
+      });
 
       // Vẽ Response Time
       const calResponse = result.Process[index][result.Process[index].length - 1];
