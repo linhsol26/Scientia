@@ -374,10 +374,7 @@ export class SrtfAlgorithmComponent implements OnInit {
       this.totalTime
     );
 
-    console.log(this.responseTime);
-    console.log(this.waitingTime);
-    console.log(this.ioTime);
-    console.log(this.totalTime);
+    this.buttonFlag = true;
   }
 
   // confirm Number Of Processes user input
@@ -389,7 +386,6 @@ export class SrtfAlgorithmComponent implements OnInit {
       }
       this.buttonFlag = false;
     }
-    console.log(this.inputData);
   }
   // add process
   add() {

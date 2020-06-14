@@ -15,9 +15,10 @@ button {
 
 p {
   font-size: large;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
+}
+
+.process-name {
+  margin: 5px 5px 5px 5px;
 }
 
 .sub-content {
@@ -33,4 +34,11 @@ p {
 .sub-content-2 {
   display: flex;
   justify-content: space-between;
+}
+
+input {
+  width: 15%;
+  margin-left: 50px;
+  border: none;
+  background: none;
 }

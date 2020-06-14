@@ -17,21 +17,21 @@
     <div class='sub-content-1'>
       <h3>No.</h3>
       <h3>Arrive</h3>
-      <h3>CPU</h3>
+      <h3>Burst Time</h3>
       <h3>I/O</h3>
-      <h3>CPU</h3>
+      <h3>Burst Time</h3>
       <br>
     </div>
 
     <div class='sub-content-2' *ngFor='let data of inputData; let i = index'>
-      <p>P {{i + 1}}</p>
+      <p class='process-name'>P {{i + 1}}</p>
       <input matInput type='number' name='arrive' [(ngModel)]="inputData[i].arriveTime">
       <input matInput type='number' name='cpu' [(ngModel)]="inputData[i].cpu">
       <input matInput type='number' name='io' [(ngModel)]="inputData[i].io">
       <input matInput type='number' name='cpu2' [(ngModel)]="inputData[i].cpu2">
     </div>
 
-    <div class='sub-content-2' *ngIf='!buttonFlag'>
+    <div class='sub-content-1' *ngIf='!buttonFlag'>
       <button mat-raised-button (click)='add()'><mat-icon>add</mat-icon></button>
       <button mat-raised-button (click)='minus()'><mat-icon>remove</mat-icon></button>
     </div>
