@@ -19,3 +19,29 @@ p {
   display: flex;
   justify-content: center;
 }
+
+h3 {
+  text-align: center;
+}
+
+.sub-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sub-content-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-content-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  width: 3vw;
+  height: 3vw;
+  text-align: center;
+  margin: 10px 30px 10px 30px;
+}
