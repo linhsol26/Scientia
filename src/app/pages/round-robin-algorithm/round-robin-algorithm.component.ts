@@ -85,9 +85,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   // Table
   displayedColumns: string[] = ['Name', 'ArriveTime', 'BurstTime1', 'IO', 'BurstTime2'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  data: Array<any> = [
-
-  ];
+  data: Array<any> = [];
 
   // Data Algorithm
   arriveTime = [];
@@ -103,6 +101,9 @@ export class RoundRobinAlgorithmComponent implements OnInit {
   waitingTimeResult = [];
   totalTimeResult = [];
   ioTimeResult = [];
+
+  // Check
+  isTotalEqual = [];
 
   constructor(public al: RoundRobinService) {
     this.dataSource = dataSource;
@@ -160,6 +161,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
       this.responseTimeResult.push(0);
       this.waitingTimeResult.push(0);
       this.totalTimeResult.push(0);
+      this.isTotalEqual.push(0);
 
       return value.Name;
     });
@@ -271,7 +273,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
           color: RESPONSE.color
         });
 
-        // Tính response time
+        // Tính Response Time
         responseTimeResult[index] += arriveTime[index];
       } else {
 
@@ -284,7 +286,7 @@ export class RoundRobinAlgorithmComponent implements OnInit {
           color: RESPONSE.color
         });
 
-        // Tính response time
+        // Tính Response Time
         responseTimeResult[index] += calResponse.start - arriveTime[index];
       }
 
@@ -299,12 +301,14 @@ export class RoundRobinAlgorithmComponent implements OnInit {
         if (previousTime && val.start >= previousTime.end) {
           continue;
         } else if (previousTime && val.start < previousTime.end) {
-          for (let i = result.Process[index].length - 1; i >= 0; i--) {
+          while (val.start < previousTime.end) {
+            for (let i = result.Process[index].length - 1; i >= 0; i--) {
 
-            const start = result.Process[index][i - 1];
-            if (start && start.start < result.Process[index][i].end && result.Process[index][i - 1]) {
-              result.Process[index][i - 1].start = start.start + 1;
-              result.Process[index][i - 1].end = start.end + 1;
+              const start = result.Process[index][i - 1];
+              if (start && start.start < result.Process[index][i].end && result.Process[index][i - 1]) {
+                result.Process[index][i - 1].start = start.start + 1;
+                result.Process[index][i - 1].end = start.end + 1;
+              }
             }
           }
         } else if (result.IO[index].start < val.start < result.IO[index].end) {
@@ -322,45 +326,18 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
       for (const val of result.Process[index]) {
 
-        // Vẽ CPU Process
-        dataSource.tasks.task.push({
-          label: CPU.label,
-          processid: value,
-          start: `${val.start + 1}/6/2020`,
-          end: `${val.end + 1}/6/2020`,
-          bordercolor: CPU.bordercolor,
-          color: CPU.color
-        });
-
-        totalTimeResult[index] += val.end - val.start;
-
-        // Lấy Waiting time
         if (waitingArray[value] === undefined) {
           waitingArray[value] = [];
         }
 
         const waitingStart = result.Process[index][result.Process[index].indexOf(val) + 1];
-        if (waitingStart && waitingStart.end < val.start) {
+        if (waitingStart && waitingStart.end <= val.start) {
           waitingArray[value].push({
             start: waitingStart.end,
             end: val.start
           });
         }
-
-        // Terminated
-        if (result.Process[index].indexOf(val) === 0) {
-          dataSource.tasks.task.push({
-            label: TERMINATED.label,
-            processid: value,
-            start: `${val.end + 1}/6/2020`,
-            end: `${val.end + 1}/6/2020`,
-            bordercolor: TERMINATED.bordercolor,
-            color: TERMINATED.color
-          });
-        }
       }
-
-      console.log(result.Process[index]);
 
       // Vẽ IO Process
       for (const val of result.IO[index]) {
@@ -376,12 +353,40 @@ export class RoundRobinAlgorithmComponent implements OnInit {
 
       ioTimeResult[index] = result.IO[index][0].end - result.IO[index][0].start;
 
-      // Vẽ Waiting Process
+      // Check Waiting trùng IO, Waiting Time bị lệch
       for (const val of waitingArray[value]) {
+        const i = waitingArray[value].indexOf(val);
+
         if (val.start === result.IO[index][0].start) {
-          const i = waitingArray[value].indexOf(val);
           waitingArray[value][i].start += result.IO[index][0].end - result.IO[index][0].start;
         }
+
+        if (val.start > val.end) {
+          const decrementCount = val.start - val.end;
+          console.log(decrementCount);
+
+          lodash.pullAllWith(waitingArray[value], [{
+            start: val.start,
+            end: val.end
+          }], lodash.isEqual);
+
+          // Fix lại CPU Time
+          for (const v of result.Process[index]) {
+
+            const j = result.Process[index].indexOf(v);
+
+            if (j <= i) {
+              result.Process[index][j].start = result.Process[index][j].start - decrementCount;
+
+              result.Process[index][j].end = result.Process[index][j].end - decrementCount;
+            }
+          }
+        }
+      }
+
+
+      // Vẽ Waiting Process
+      for (const val of waitingArray[value]) {
 
         dataSource.tasks.task.push({
           label: WAITING.label,
@@ -393,6 +398,34 @@ export class RoundRobinAlgorithmComponent implements OnInit {
         });
 
         waitingTimeResult[index] += val.end - val.start;
+      }
+
+      for (const val of result.Process[index]) {
+        // Vẽ CPU Process
+        if (val.start !== result.IO[index][0].start && val.end !== result.IO[index][0].end) {
+          dataSource.tasks.task.push({
+            label: CPU.label,
+            processid: value,
+            start: `${val.start + 1}/6/2020`,
+            end: `${val.end + 1}/6/2020`,
+            bordercolor: CPU.bordercolor,
+            color: CPU.color
+          });
+
+          totalTimeResult[index] += val.end - val.start;
+        }
+
+        // Terminated
+        if (result.Process[index].indexOf(val) === 0) {
+          dataSource.tasks.task.push({
+            label: TERMINATED.label,
+            processid: value,
+            start: `${val.end + 1}/6/2020`,
+            end: `${val.end + 1}/6/2020`,
+            bordercolor: TERMINATED.bordercolor,
+            color: TERMINATED.color
+          });
+        }
       }
     }
 
@@ -434,10 +467,5 @@ export class RoundRobinAlgorithmComponent implements OnInit {
       this.ioTimeResult,
       this.totalTimeResult
     );
-
-    console.log(this.responseTimeResult);
-    console.log(this.waitingTimeResult);
-    console.log(this.ioTimeResult);
-    console.log(this.totalTimeResult);
   }
 }
