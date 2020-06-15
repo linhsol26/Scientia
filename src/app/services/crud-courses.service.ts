@@ -21,7 +21,7 @@ export class CrudCoursesService {
         },
         {
           name: 'SJF',
-          inf: ' '
+          inf: 'Sometime it work and sometime isnt work'
         },
         {
           name: 'Round Robin',
