@@ -1,3 +1,4 @@
+import { FcfsAlgotithmModule } from './../fcfs-algotithm/fcfs-algotithm.module';
 import { SjfAlgorithmModule } from './../sjf-algorithm/sjf-algorithm.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,7 +34,8 @@ import { SrtfAlgorithmModule } from '../srtf-algorithm/srtf-algorithm.module';
     FormsModule,
     RoundRobinAlgorithmModule,
     SrtfAlgorithmModule,
-    SjfAlgorithmModule
+    SjfAlgorithmModule,
+    FcfsAlgotithmModule
   ]
 })
 export class CourseModule { }

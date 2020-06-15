@@ -1,19 +1,20 @@
-import { SjfService } from './../../services/sjf.service';
+
 import * as lodash from 'lodash';
 import { DataSource, WAITING, TERMINATED, RESPONSE, Result, CPU, IO } from './../../algorithm-core/chart';
 import { Component, OnInit } from '@angular/core';
-import { Process, Queue, Task, TaskType  } from 'src/app/algorithm-core/sjf';
+import { Process, Queue, Task, TaskType  } from 'src/app/algorithm-core/fcfs';
+import { FcfsService } from 'src/app/services/fcfs.service';
 @Component({
-  selector: 'app-sjf-algorithm',
-  templateUrl: './sjf-algorithm.component.html',
-  styleUrls: ['./sjf-algorithm.component.scss']
+  selector: 'app-fcfs-algotithm',
+  templateUrl: './fcfs-algotithm.component.html',
+  styleUrls: ['./fcfs-algotithm.component.scss']
 })
-export class SjfAlgorithmComponent implements OnInit {
+export class FcfsAlgotithmComponent implements OnInit {
 
   timer: Array<any> = [];
   dataSource1: DataSource = {
     chart: {
-      caption: 'Machine Operating Schedule For Shortest Job First Algorithm',
+      caption: 'Machine Operating Schedule For First Come First Served Algorithm',
       subcaption: 'Process Chart',
       theme: 'fusion',
       dateformat: 'dd/mm/yyyy',
@@ -105,7 +106,7 @@ export class SjfAlgorithmComponent implements OnInit {
   numOfProcess: number;
   inputData: Array<any> = [];
 
-  constructor(public algo: SjfService) {
+  constructor(public algo: FcfsService) {
     this.dataSource = this.dataSource1;
   }
 
@@ -408,6 +409,4 @@ export class SjfAlgorithmComponent implements OnInit {
     this.inputFlag = true;
     this.inputArray = this.initProcess();
   }
-
-
 }

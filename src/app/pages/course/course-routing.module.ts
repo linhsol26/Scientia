@@ -1,3 +1,4 @@
+import { FcfsAlgotithmComponent } from './../fcfs-algotithm/fcfs-algotithm.component';
 import { SjfAlgorithmComponent } from './../sjf-algorithm/sjf-algorithm.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,7 +12,7 @@ const routes: Routes = [
   { path: 'round-robin-algorithm', component: RoundRobinAlgorithmComponent },
   { path: 'srtf-algorithm', component: SrtfAlgorithmComponent },
   { path: 'sjf-algorithm', component: SjfAlgorithmComponent},
-
+  { path: 'fcfs-algorithm', component: FcfsAlgotithmComponent}
 ];
 
 @NgModule({

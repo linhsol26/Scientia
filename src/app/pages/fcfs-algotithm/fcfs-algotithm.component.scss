@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+}
+
+button {
+  margin: 16px 8px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+p {
+  font-size: large;
+}
+
+.process-name {
+  margin: 5px 5px 5px 5px;
+}
+
+.sub-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.sub-content-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-content-2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  width: 15%;
+  margin-left: 50px;
+  border: none;
+  background: none;
+}
