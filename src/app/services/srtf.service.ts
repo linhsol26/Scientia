@@ -50,6 +50,30 @@ export class SrtfService {
           });
         }
     }
+
+    // slice each process
+    const tempArray: Array<Array<any>> = [];
+    for (const i of phases) {
+        const temp = eachProcess.filter(element => {
+            if (element.Name === i) {
+                return element;
+            }
+        });
+        tempArray.push(temp);
+    }
+
+    // push Terminated
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = tempArray[i].length - 1; j > i; j--) {
+          resultArray.push([
+              tempArray[i][j].Name,
+              'Terminated',
+              tempArray[i][j].endTime * 1000,
+              tempArray[i][j].endTime * 1000
+          ]);
+          break;
+      }
+    }
     return resultArray;
   }
 }
