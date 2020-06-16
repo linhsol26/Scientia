@@ -9,7 +9,7 @@ export class CrudCoursesService {
     {
       title: '1',
       // tslint:disable-next-line:max-line-length
-      desc: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
+      desc: 'Example Algorithm with multi I/O ... :(( Please WORKKKKKKKKKKKKKKKKK :((',
       action: '',
       pic: '../../../assets/system.svg',
       course: 'lthdh',
@@ -29,7 +29,7 @@ export class CrudCoursesService {
         },
         {
           name: 'SRTF',
-          inf: ':)'
+          inf: 'Hope it gonna run WELL:)'
         }
         // tslint:disable-next-line:max-line-length
         // ['',
@@ -61,38 +61,22 @@ export class CrudCoursesService {
       ]
     },
     {
-      title: '2',
+      title: '3',
       // tslint:disable-next-line:max-line-length
       desc: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
       action: '',
       pic: '../../../assets/system.svg',
       course: 'dm',
-      content: [
-        {
-          name: 'FCFS',
-          // tslint:disable-next-line:max-line-length
-          inf: 'Given n processes with their burst times, the task is to find average waiting time and average turn around time using FCFS scheduling algorithm.'
-        },
-        {
-          name: 'SJF',
-          inf: ' '
-        },
-        {
-          name: 'SRTF',
-          inf: ' '
-        },
-        {
-          name: 'RR',
-          inf: ' '
-        }
-        // tslint:disable-next-line:max-line-length
-        // ['',
-        //   'content 2', 'content 3', 'content 4'
-        // ]
-      ]
+      // content: [
+
+      //   // tslint:disable-next-line:max-line-length
+      //   // ['',
+      //   //   'content 2', 'content 3', 'content 4'
+      //   // ]
+      // ]
     },
     {
-      title: '2',
+      title: '4',
       // tslint:disable-next-line:max-line-length
       desc: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
       action: '',
@@ -103,7 +87,7 @@ export class CrudCoursesService {
       // }
     },
     {
-      title: '2',
+      title: '5',
       // tslint:disable-next-line:max-line-length
       desc: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
       action: '',
@@ -114,7 +98,7 @@ export class CrudCoursesService {
       // }
     },
     {
-      title: '2',
+      title: '6',
       // tslint:disable-next-line:max-line-length
       desc: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
       action: '',
@@ -124,17 +108,7 @@ export class CrudCoursesService {
       //   title: ' '
       // }
     },
-    {
-      title: '2',
-      // tslint:disable-next-line:max-line-length
-      desc: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.',
-      action: '',
-      pic: '../../../assets/system.svg',
-      course: 'dm',
-      // content: {
-      //   title: ' '
-      // }
-    }
+
   ];
 
   index: any; // lthdh
