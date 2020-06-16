@@ -133,6 +133,7 @@ export class SrtfAlgorithmComponent implements OnInit {
         tempTask.enQueue(new Task(TaskType.CPU, this.cpu2[j]));
         break;
       }
+
       this.waitingTime.push(0);
       this.responseTime.push(0);
       this.totalTime.push(0);
