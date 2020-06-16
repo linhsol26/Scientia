@@ -1,4 +1,4 @@
-<div class='content'>
+<!-- <div class='content'>
 
   <div class='input-group'>
     <div class='sub-content'>
@@ -39,47 +39,7 @@
   </div>
   <button mat-raised-button (click)='save()' *ngIf='!buttonFlag'>Save</button>
   <button mat-raised-button *ngIf="inputFlag"(click)="run()">Run</button>
-  <div>
-    <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
-    <fusioncharts width="1000" height="600" type="gantt" [dataSource]="dataSource" *ngIf="chartFlag === true">
-    </fusioncharts>
-  </div>
-  <div *ngIf="chartFlag === true" style="width: 100%; margin-top: 5vh;">
-    <mat-grid-list cols="6" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let name of phases; index as i">
-        <mat-card style="margin: 2vh;">
-          <mat-card-content>
-            <p>
-              Response Time {{name}} : {{responseTime[i]}}
-            </p>
-            <p>
-              Waiting Time {{name}} : {{waitingTime[i]}}
-            </p>
-            <p>
-              IO Time {{name}} : {{ioTime[i]}}
-            </p>
-            <p>
-              Total Time {{name}} : {{totalTime[i]}}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
 
-      <mat-grid-tile>
-        <mat-card style="margin: 2vh;">
-          <mat-card-content>
-            <p>
-              Response Time average : {{_.sum(responseTime) / responseTime.length}}
-            </p>
-            <p>
-              Waiting Time average : {{_.sum(waitingTime) / waitingTime.length}}
-            </p>
-            <p>
-              Total Time average : {{_.sum(totalTime) / totalTime.length}}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
-</div>
+</div> -->
+<button mat-button (click)='run()'>RUN</button>
+<google-chart [data]='chart' style='width: 100%; height: 100%;' *ngIf='flag'></google-chart>

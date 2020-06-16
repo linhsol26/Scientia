@@ -14,38 +14,44 @@ export class SrtfService {
     // Nhận kết quả trả về là một Storyboard
     const story: Storyboard = scheduler.scheduling();
 
-    const countTime = [];
+    const result: Array<any> = [];
 
     story.Story.forEach((value: StoryEvent) => {
-      countTime.push({
-        Time: value.Time,
-        Name: value.ProcessName,
-        Task: value.Description,
+        result.push({
+          startTime: value.Description === 'Arrived' ? value.Time : value.Time - 1,
+          endTime: value.Time,
+          Name: value.ProcessName,
+          Task: value.Description,
+        });
       });
-    });
 
-    const seProcess: Array<Array<any>> = [];
-    for (const name of phases) {
-      const newArr = countTime.filter((value) =>
-        value.Name === name ? value : null
-      );
-      seProcess.push(newArr);
+// filter each Process
+    const eachProcess: Array<any> = [];
+    for (const i of phases) {
+        result.forEach(element => {
+          if (element.Name === i) {
+            eachProcess.push(element);
+          }
+        });
     }
 
-    const resultProcess = [];
+    const resultArray: Array<any> = [];
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < seProcess.length; i++) {
-      const newArr = [];
-      newArr.push({
-        Arrived: seProcess[i].filter((value) => value.Task === 'Arrived' ? value.Time : null),
-        CPU: seProcess[i].filter((value) => value.Task === 'CPU' ? value.Time : null),
-        IO: seProcess[i].filter((value) => value.Task === 'IO' ? value.Time : null),
-        Terminated: seProcess[i].filter((value) => value.Task === 'Terminated' ? value.Time : null),
-      });
-      // [][]
-      resultProcess.push(newArr);
+    for (let i = 0; i < phases.length; i++) {
+        // tslint:disable-next-line:prefer-for-of
+        if (phases[i] === eachProcess[i].Name) {
+          eachProcess.forEach(element => {
+            resultArray.push([
+              element.Name,
+              element.Task,
+              element.startTime * 1000,
+              element.endTime * 1000
+            ]);
+          });
+        }
     }
-
-    return resultProcess;
+    return resultArray;
   }
 }
+
+
