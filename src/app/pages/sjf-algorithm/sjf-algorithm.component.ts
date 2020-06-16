@@ -134,7 +134,7 @@ export class SjfAlgorithmComponent implements OnInit {
       this.waitingTime.push(0);
       this.responseTime.push(0);
       this.totalTime.push(0);
-      procList.push(new Process(this.phases[i], this.arriveTime[i],tempTask));
+      procList.push(new Process(this.phases[i], this.arriveTime[i], tempTask));
     }
     return procList;
   }

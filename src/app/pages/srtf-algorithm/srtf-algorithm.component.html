@@ -41,7 +41,7 @@
   <button mat-raised-button *ngIf="inputFlag"(click)="run()">Run</button>
   <div>
     <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
-    <fusioncharts width="1000" height="700" type="gantt" [dataSource]="dataSource" *ngIf="chartFlag === true">
+    <fusioncharts width="1000" height="600" type="gantt" [dataSource]="dataSource" *ngIf="chartFlag === true">
     </fusioncharts>
   </div>
   <div *ngIf="chartFlag === true" style="width: 100%; margin-top: 5vh;">

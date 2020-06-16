@@ -366,36 +366,7 @@ export abstract class Scheduler implements IScheduler {
 
     return story;
   }
-  private sortQueue(startPos: number, queue: Queue<string>): void {
-    const temp = new Array<Process>();
 
-    if (queue.getLength() > startPos) {
-      for (let i = startPos; i < queue.getLength(); i++) {
-        const name = queue.List[i];
-        // tslint:disable-next-line: prefer-for-of
-        for (let j = 0; j < this.inputProcess.length; j++) {
-          if (this.inputProcess[j].ProcessID === name) {
-            temp.push(this.inputProcess[j]);
-          }
-        }
-      }
-
-      temp.sort((a: Process, b: Process) => {
-        const taskA = a.TaskQueue.peek();
-        const taskB = b.TaskQueue.peek();
-        if (taskA !== undefined && taskB !== undefined) {
-          if (taskA.Duration < taskB.Duration) { return -1; } else if (taskA.Duration > taskB.Duration) { return 1; }
-        }
-        return 0;
-      });
-
-      let curr = 0;
-      for (let i = startPos; i < queue.getLength(); i++) {
-        queue.List[i] = temp[curr].ProcessID;
-        curr++;
-      }
-    }
-  }
   private minPreempting(list: Process[]): void {
     const temp = new Array<Process>();
 

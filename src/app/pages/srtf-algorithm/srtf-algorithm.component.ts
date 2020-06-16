@@ -235,6 +235,37 @@ export class SrtfAlgorithmComponent implements OnInit {
         id: value
       });
 
+      for (const val of result.Process[index]) {
+        let previousTime: {start, end} = null;
+        if (result.Process[index][result.Process[index].indexOf(val) + 1]) {
+          previousTime = result.Process[index][result.Process[index].indexOf(val) + 1];
+        }
+        if (previousTime && val.start >= previousTime.end) {
+          continue;
+        } else if (previousTime && val.start < previousTime.end) {
+          while (val.start < previousTime.end) {
+            for (let i = result.Process[index].length - 1; i >= 0; i--) {
+
+              const start = result.Process[index][i - 1];
+              if (start && start.start < result.Process[index][i].end && result.Process[index][i - 1]) {
+                result.Process[index][i - 1].start = start.start + 1;
+                result.Process[index][i - 1].end = start.end + 1;
+              }
+            }
+          }
+        } else if (result.IO[index].start < val.start < result.IO[index].end) {
+
+          while (val.start >= result.IO[index].end) {
+            if (result.Process[index][result.Process[index].indexOf(val)]) {
+              result.Process[index][result.Process[index].indexOf(val)].start =
+              result.Process[index][result.Process[index].indexOf(val)].start + 1;
+              result.Process[index][result.Process[index].indexOf(val)].end =
+              result.Process[index][result.Process[index].indexOf(val)].end + 1;
+            }
+          }
+        }
+    }
+
       // Vẽ Response Time
       const calResponse = result.Process[index][result.Process[index].length - 1];
       if (calResponse.start === arriveTime[index]) {
