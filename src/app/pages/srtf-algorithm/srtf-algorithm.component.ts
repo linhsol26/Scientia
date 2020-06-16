@@ -15,7 +15,7 @@ export class SrtfAlgorithmComponent implements OnInit {
   ];
   public chart: any = {
     chartType: 'Timeline',
-    dataTable: this.resultArray
+    dataTable: this.resultArray,
   };
   flag = false;
   phases = ['P1', 'P2', 'P3'];

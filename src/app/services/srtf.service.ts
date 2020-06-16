@@ -74,6 +74,32 @@ export class SrtfService {
           break;
       }
     }
+    // push response
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = 0; j < tempArray[i].length; j++) {
+        if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+            continue;
+        } else {
+            const current = tempArray[i][j - 1].endTime;
+            const next = tempArray[i][j].startTime;
+            if (current === next) {
+                break;
+            } else {
+              if (current.Task !== 'CPU' && next.Task !== 'CPU') {
+                  resultArray.push([
+                      tempArray[i][j].Name,
+                      'Response',
+                      current * 1000,
+                      next * 1000
+                  ]);
+                  break;
+                }
+            }
+        }
+      }
+    }
+    // push waiting
+
     return resultArray;
   }
 }
