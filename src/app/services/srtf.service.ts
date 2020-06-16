@@ -35,22 +35,6 @@ export class SrtfService {
         });
     }
 
-    const resultArray: Array<any> = [];
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < phases.length; i++) {
-        // tslint:disable-next-line:prefer-for-of
-        if (phases[i] === eachProcess[i].Name) {
-          eachProcess.forEach(element => {
-            resultArray.push([
-              element.Name,
-              element.Task,
-              element.startTime * 1000,
-              element.endTime * 1000
-            ]);
-          });
-        }
-    }
-
     // slice each process
     const tempArray: Array<Array<any>> = [];
     for (const i of phases) {
@@ -62,6 +46,32 @@ export class SrtfService {
         tempArray.push(temp);
     }
 
+    // catch result raw error
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = 0; j < tempArray[i].length; j++) {
+          if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+              continue;
+          } else {
+              const current = tempArray[i][j - 1];
+              const next = tempArray[i][j];
+              if (current.startTime === next.startTime && current.Task !== 'Arrived') {
+                  next.startTime++;
+                  next.endTime++;
+              }
+          }
+      }
+    }
+    const resultArray: Array<any> = [];
+    for (let i = 0; i < phases.length; i++) {
+      tempArray[i].forEach(element => {
+          resultArray.push([
+              element.Name,
+              element.Task,
+              element.startTime * 1000,
+              element.endTime * 1000
+          ]);
+      });
+    }
     // push Terminated
     for (let i = 0; i < phases.length; i++) {
       for (let j = tempArray[i].length - 1; j > i; j--) {
@@ -85,23 +95,43 @@ export class SrtfService {
             if (current === next) {
                 break;
             } else {
-              if (current.Task !== 'CPU' && next.Task !== 'CPU') {
-                  resultArray.push([
-                      tempArray[i][j].Name,
-                      'Response',
-                      current * 1000,
-                      next * 1000
-                  ]);
-                  break;
-                }
+              resultArray.push([
+                  tempArray[i][j].Name,
+                  'Response',
+                  current * 1000,
+                  next * 1000
+              ]);
+              break;
             }
+          }
+        }
+      }
+
+    // push waiting time
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = 0; j < tempArray[i].length; j++) {
+        if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+            continue;
+        } else {
+          const current = tempArray[i][j - 1].endTime;
+          const next = tempArray[i][j].startTime;
+          if (current !== next) {
+            if ((tempArray[i][j - 1].Task === 'CPU' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'IO'))
+            || (tempArray[i][j - 1].Task === 'IO' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'CPU'))
+            ) {
+              resultArray.push([
+                  tempArray[i][j].Name,
+                  'Waiting',
+                  current * 1000,
+                  next * 1000
+              ]);
+            }
+          }
         }
       }
     }
-    // push waiting
-
     return resultArray;
+    }
   }
-}
 
 

@@ -20,8 +20,8 @@ export class SrtfAlgorithmComponent implements OnInit {
   flag = false;
   phases = ['P1', 'P2', 'P3'];
   arriveTime = [0, 1, 2];
-  cpu = [[3, 3], [1, 1], [2, 3]];
-  io = [[2], [2], [3]];
+  cpu = [[3, 3], [2, 2], [1, 5]];
+  io = [[4], [2], [1]];
 
   procList1 = new Array<Process>();
   waitingTime: Array<number> = [];
