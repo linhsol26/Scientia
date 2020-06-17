@@ -20,13 +20,18 @@ export class SrtfAlgorithmComponent implements OnInit {
 
   // phases = ['P1', 'P2', 'P3'];
   // arriveTime = [0, 1, 2];
-  // cpu = [[3, 3], [2, 2], [1, 5]];
-  // io = [[4], [2], [1]];
+  // cpu = [[3, 3], [1, 1], [2, 3]];
+  // io = [[2], [2], [3]];
 
-  phases: Array<string> = [];
-  arriveTime: Array<number> = [];
-  cpu: Array<Array<number>> = [];
-  io: Array<Array<number>> = [];
+  phases = ['P1', 'P2', 'P3'];
+  arriveTime = [0, 1, 2];
+  cpu = [[3, 3], [2, 2], [1, 5]];
+  io = [[4], [2], [1]];
+
+  // phases: Array<string> = [];
+  // arriveTime: Array<number> = [];
+  // cpu: Array<Array<number>> = [];
+  // io: Array<Array<number>> = [];
 
   procList1 = new Array<Process>();
   waitingTime: Array<number> = [];
@@ -37,8 +42,8 @@ export class SrtfAlgorithmComponent implements OnInit {
   inputFlag = false;
   buttonFlag = true;
   numOfProcess: number;
-  tasks: Array<string> = ['No.', 'ArriveTime', 'CPU', 'IO'];
-  numOfCpuAndIo = 3;
+  tasks: Array<string> = ['No.', 'ArriveTime', 'CPU', 'IO', 'CPU'];
+  properties = {id: 0, arrive: 0};
   inputData: Array<any> = [];
   flagChart = false;
   constructor(
@@ -72,52 +77,36 @@ export class SrtfAlgorithmComponent implements OnInit {
 
   confirmNOP() {
     if (this.buttonFlag) {
-      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.numOfProcess; i++) {
-        this.inputData.push({
-          arriveTime: 0,
-          cpu: [0],
-          io: [0]
-        });
+        this.inputData.push({...this.properties});
+        this.inputData[i].id = 'P' + (i + 1).toString();
       }
-      console.log(this.inputData);
       this.buttonFlag = false;
     }
+    console.log(this.inputData);
   }
   // add process
   add() {
-    // this.inputData.push({...this.tempData});
-    console.log(this.inputData);
+
   }
 
   // minus process
   minus() {
-    this.inputData.pop();
-    console.log(this.inputData);
+
   }
 
   save() {
-    for (let i = 0; i < this.inputData.length; i++) {
-      this.phases.push('P' + (i + 1));
-      this.arriveTime.push(this.inputData[i].arriveTime);
-      this.cpu[i].push(this.inputData[i].cpu);
-      this.io[i].push(this.inputData[i].io);
-    }
-    console.log(this.cpu);
-    console.log(this.io);
-    this.inputFlag = true;
     // this.inputArray = this.initProcess();
   }
 
   addTask() {
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.tasks.length; i++) {
-      if (this.tasks[this.tasks.length - 1] === 'CPU') {
-        this.inputData[i].io.push(0);
-      } else {
-        this.inputData[i].cpu.push(0);
-      }
+    this.tasks.push('IO', 'CPU');
+  }
+
+  minusTask() {
+    if (this.tasks.length > 5) {
+      this.tasks.pop();
+      this.tasks.pop();
     }
-    console.log(this.inputData);
   }
 }

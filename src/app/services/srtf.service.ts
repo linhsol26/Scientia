@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Process, Task, Queue, TaskType, StoryEvent, SrtfScheduler, Storyboard} from '../algorithm-core/srtf';
+import { Process, StoryEvent, SrtfScheduler, Storyboard} from '../algorithm-core/srtf';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +25,27 @@ export class SrtfService {
         });
       });
 
-// filter each Process
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].startTime === result[i].endTime) {
+        continue;
+      }
+      const current = result[i - 1];
+      const next = result[i];
+      if (current.startTime === next.startTime) {
+          if (next.Task === 'CPU' && current.Task !== 'Arrived') {
+              next.startTime++;
+              next.endTime++;
+          }
+      }
+    }
+    // filter each Process
     const eachProcess: Array<any> = [];
     for (const i of phases) {
-        result.forEach(element => {
-          if (element.Name === i) {
-            eachProcess.push(element);
-          }
-        });
+      result.forEach(element => {
+        if (element.Name === i) {
+          eachProcess.push(element);
+        }
+      });
     }
 
     // slice each process
@@ -47,31 +60,35 @@ export class SrtfService {
     }
 
     // catch result raw error
-    for (let i = 0; i < phases.length; i++) {
-      for (let j = 0; j < tempArray[i].length; j++) {
-          if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
-              continue;
-          } else {
-              const current = tempArray[i][j - 1];
-              const next = tempArray[i][j];
-              if (current.startTime === next.startTime && current.Task !== 'Arrived') {
-                  next.startTime++;
-                  next.endTime++;
-              }
-          }
-      }
-    }
+    // for (let i = 0; i < phases.length; i++) {
+    //   for (let j = 0; j < tempArray[i].length; j++) {
+    //       if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+    //           continue;
+    //       } else {
+    //         const current = tempArray[i][j - 1];
+    //         const next = tempArray[i][j];
+    //         if (current.startTime === next.startTime && current.Task !== 'Arrived') {
+    //             next.startTime++;
+    //             next.endTime++;
+    //         }
+
+    //         // if (current.startTime > next.startTime && current.Task !== 'Arrived') {
+    //         //     next.startTime += 2;
+    //         //     next.endTime += 2;
+    //         // }
+    //       }
+    //   }
+    // }
     const resultArray: Array<any> = [];
-    for (let i = 0; i < phases.length; i++) {
-      tempArray[i].forEach(element => {
-          resultArray.push([
-              element.Name,
-              element.Task,
-              element.startTime * 1000,
-              element.endTime * 1000
-          ]);
-      });
-    }
+    result.forEach(element => {
+      resultArray.push([
+          element.Name,
+          element.Task,
+          element.startTime * 1000,
+          element.endTime * 1000
+      ]);
+    });
+
     // push Terminated
     for (let i = 0; i < phases.length; i++) {
       for (let j = tempArray[i].length - 1; j > i; j--) {
@@ -108,29 +125,29 @@ export class SrtfService {
       }
 
     // push waiting time
-    for (let i = 0; i < phases.length; i++) {
-      for (let j = 0; j < tempArray[i].length; j++) {
-        if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
-            continue;
-        } else {
-          const current = tempArray[i][j - 1].endTime;
-          const next = tempArray[i][j].startTime;
-          if (current !== next) {
-            if ((tempArray[i][j - 1].Task === 'CPU' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'IO'))
-            || (tempArray[i][j - 1].Task === 'IO' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'CPU'))
-            ) {
-              resultArray.push([
-                  tempArray[i][j].Name,
-                  'Waiting',
-                  current * 1000,
-                  next * 1000
-              ]);
-            }
-          }
-        }
-      }
-    }
-    return resultArray;
+    // for (let i = 0; i < phases.length; i++) {
+    //   for (let j = 0; j < tempArray[i].length; j++) {
+    //     if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+    //         continue;
+    //     } else {
+    //       const current = tempArray[i][j - 1].endTime;
+    //       const next = tempArray[i][j].startTime;
+    //       if (current !== next) {
+    //         if ((tempArray[i][j - 1].Task === 'CPU' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'IO'))
+    //         || (tempArray[i][j - 1].Task === 'IO' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'CPU'))
+    //         ) {
+    //           resultArray.push([
+    //               tempArray[i][j].Name,
+    //               'Waiting',
+    //               current * 1000,
+    //               next * 1000
+    //           ]);
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    return [...new Set(resultArray)];
     }
   }
 

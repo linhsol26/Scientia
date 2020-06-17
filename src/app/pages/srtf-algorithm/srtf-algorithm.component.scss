@@ -32,13 +32,10 @@ p {
 }
 
 .sub-content-2 {
-  display: flex;
-  justify-content: space-between;
+  display: inline-flex;
 }
 
 input {
   width: 15%;
   margin-left: 50px;
-  border: none;
-  background: none;
 }

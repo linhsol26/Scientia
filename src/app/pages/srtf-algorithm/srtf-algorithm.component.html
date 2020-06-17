@@ -1,42 +1,32 @@
-<div class='content'>
-
-  <div class='input-group'>
-    <div class='sub-content'>
-      <h3>Number of Process: </h3>
-      <mat-form-field>
-        <mat-select [(value)]='numOfProcess'>
-          <mat-option value=2>2</mat-option>
-          <mat-option value=3>3</mat-option>
-          <mat-option value=4>4</mat-option>
-          <mat-option value=5>5</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-raised-button (click)='confirmNOP()'>OK</button>
-    </div>
-    <div class='sub-content-1'>
-      <div *ngFor='let task of tasks'>
-        <h3>{{task}}</h3>
-      </div>
-    </div>
-
-
-    <div class='sub-content-2' *ngFor='let data of inputData; let i = index'>
-      <p class='process-name'>P {{i + 1}}</p>
-      <input matInput type='number' name='arrive' [(ngModel)]="data.arriveTime">
-      <div *ngFor='let cpu of cpu'>
-        <input matInput type='number' name='cpu' [(ngModel)]="data.cpu.cpu">
-      </div>
-      <!-- <input matInput type='number' name='io' [(ngModel)]="data.io"> -->
-    </div>
-    <button mat-raised-button (click)='addTask()'>Task</button>
-    <div class='sub-content-1' *ngIf='!buttonFlag'>
-      <button mat-raised-button (click)='add()'><mat-icon>add</mat-icon></button>
-      <button mat-raised-button (click)='minus()'><mat-icon>remove</mat-icon></button>
-    </div>
-
-  </div>
-  <button mat-raised-button (click)='save()' *ngIf='!buttonFlag'>Save</button>
-  <button mat-raised-button *ngIf="inputFlag"(click)="run()">Run</button>
-
+<div class='sub-content-2'>
+  <h3>Number of Process: </h3>
+  <mat-form-field>
+    <mat-select [(value)]='numOfProcess'>
+      <mat-option value=3>3</mat-option>
+      <mat-option value=4>4</mat-option>
+      <mat-option value=5>5</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)='confirmNOP()'>OK</button>
 </div>
-<google-chart [data]='chart' *ngIf='flagChart'></google-chart>
+
+<div *ngIf='!buttonFlag'>
+  <div *ngFor='let task of tasks'>
+    <h3>{{task}}</h3>
+  </div>
+</div>
+
+<div *ngIf='!buttonFlag'>
+  <div *ngFor='let p of inputData; let i = index'>
+    <h3>{{p.id}}</h3>
+    <input matInput type='number' [(ngModel)]="p.arrive">
+  </div>
+</div>
+
+<div *ngIf='!buttonFlag'>
+  <button mat-mat-raised-button (click)='save()'></button>
+  <button mat-raised-button (click)='addTask()'>Add Task</button>
+  <button mat-raised-button (click)='minusTask()'>Minus Task</button>
+</div>
+<button mat-raised-button (click)="run()">Run</button>
+<google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>
