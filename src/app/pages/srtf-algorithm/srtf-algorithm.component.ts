@@ -25,8 +25,8 @@ export class SrtfAlgorithmComponent implements OnInit {
 
   phases = ['P1', 'P2', 'P3'];
   arriveTime = [0, 1, 2];
-  cpu = [[3, 3], [2, 2], [1, 5]];
-  io = [[4], [2], [1]];
+  cpu = [[1, 1, 1, 1, 1], [2, 2, 3], [13, 2]];
+  io = [[4, 4, 4, 4], [7, 7], [6]];
 
   // phases: Array<string> = [];
   // arriveTime: Array<number> = [];

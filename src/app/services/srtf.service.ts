@@ -14,7 +14,7 @@ export class SrtfService {
     // Nhận kết quả trả về là một Storyboard
     const story: Storyboard = scheduler.scheduling();
 
-    const result: Array<any> = [];
+    let result: Array<any> = [];
 
     story.Story.forEach((value: StoryEvent) => {
         result.push({
@@ -25,6 +25,8 @@ export class SrtfService {
         });
       });
 
+    result = [... new Set(result)];
+    // catch bug IO
     for (let i = 0; i < result.length; i++) {
       if (result[i].startTime === result[i].endTime) {
         continue;
@@ -32,12 +34,52 @@ export class SrtfService {
       const current = result[i - 1];
       const next = result[i];
       if (current.startTime === next.startTime) {
-          if (next.Task === 'CPU' && current.Task !== 'Arrived') {
-              next.startTime++;
-              next.endTime++;
-          }
+        if (current.Task === 'CPU') {
+          next.startTime++;
+          next.endTime++;
+        }
       }
     }
+    // catch bug CPU
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].startTime === result[i].endTime) {
+          continue;
+      }
+      const previous = result[i - 1];
+      const current = result[i];
+      const next = result[i + 1];
+      if (next !== undefined) {
+        if ((previous.startTime === next.startTime) &&
+            (previous.endTime === next.endTime) &&
+            (previous.Name === next.Name) &&
+            (previous.Task !== next.Task)) {
+          for (let j = i; j < result.length; j++) {
+            if (result[j].Task === 'CPU') {
+              result[j].startTime++;
+              result[j].endTime++;
+            } else if (result[j].Task === 'IO') {
+              result[j].startTime++;
+              result[j].endTime++;
+            }
+          }
+        }
+
+        if ((current.startTime === next.startTime) &&
+        (current.endTime === next.endTime) &&
+        (current.Name === next.Name) &&
+        (current.Task !== next.Task)) {
+          for (let j = i; j < result.length; j++) {
+            if (result[j].Task === 'CPU') {
+                result[j].startTime++;
+                result[j].endTime++;
+            } else if (result[j].Task === 'IO') {
+                result[j].startTime++;
+                result[j].endTime++;
+            }
+          }
+        }
+      }
+  }
     // filter each Process
     const eachProcess: Array<any> = [];
     for (const i of phases) {
@@ -59,26 +101,6 @@ export class SrtfService {
         tempArray.push(temp);
     }
 
-    // catch result raw error
-    // for (let i = 0; i < phases.length; i++) {
-    //   for (let j = 0; j < tempArray[i].length; j++) {
-    //       if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
-    //           continue;
-    //       } else {
-    //         const current = tempArray[i][j - 1];
-    //         const next = tempArray[i][j];
-    //         if (current.startTime === next.startTime && current.Task !== 'Arrived') {
-    //             next.startTime++;
-    //             next.endTime++;
-    //         }
-
-    //         // if (current.startTime > next.startTime && current.Task !== 'Arrived') {
-    //         //     next.startTime += 2;
-    //         //     next.endTime += 2;
-    //         // }
-    //       }
-    //   }
-    // }
     const resultArray: Array<any> = [];
     result.forEach(element => {
       resultArray.push([
@@ -88,7 +110,7 @@ export class SrtfService {
           element.endTime * 1000
       ]);
     });
-
+    console.log(result);
     // push Terminated
     for (let i = 0; i < phases.length; i++) {
       for (let j = tempArray[i].length - 1; j > i; j--) {
