@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class UserComponent implements OnInit {
   user: User;
   usr: Array<any> = [];
+  displayedColumns = ['index', 'displayName', 'email', 'id', 'photoURL'];
   constructor(
     public authService: AuthenticateService,
     public userService: UserService
@@ -19,12 +20,13 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     // this.user = this.authService.user;
     this.userService.query().subscribe(v => {
-      this.usr.push(v.map(i => {
+      this.usr = v.map(i => {
         return {
+          index: v.indexOf(i),
           id: i.payload.doc.id,
           ...(i.payload.doc.data() as User)
         };
-      }));
+      });
     });
     console.log(this.usr);
   }
