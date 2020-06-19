@@ -13,7 +13,7 @@ import { AuthenticateService } from './services/auth.service';
 import { AngularSplitModule } from 'angular-split';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { ChartModule } from 'angular-highcharts';
-
+import { HttpClientModule } from '@angular/common/http';
 import { FusionChartsModule } from 'angular-fusioncharts';
 
 // Load FusionCharts
@@ -24,9 +24,6 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets.js';
 import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
 // Load themes
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-import { CourseParamsComponent } from './dialogs/course-params/course-params.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthGuardService } from './guards/auth-guard.service';
 
 // Add dependencies to FusionChartsModule
 FusionChartsModule.fcRoot(
@@ -72,7 +69,6 @@ export function provideConfig() {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
-    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

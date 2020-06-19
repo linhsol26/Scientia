@@ -4,8 +4,8 @@
 
           <mat-form-field class="full-width">
             <input matInput placeholder="Yours Name" formControlName='name'>
-            <mat-error *ngIf='name.hasError('required')'>
-                <strong>Please enter your name</strong>
+            <mat-error *ngIf="name.hasError('required')">
+              <strong>Please enter your name</strong>
             </mat-error>
           </mat-form-field>
 

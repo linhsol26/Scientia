@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -40,22 +40,21 @@ export class SignupComponent implements OnInit {
     public authService: AuthenticateService
   ) { }
 
+  get name() {return this.formGroup.get('name'); }
   get email() { return this.formGroup.get('email'); }
   get password() { return this.formGroup.get('password'); }
   get confirmPassword() { return this.formGroup.get('confirmPassword'); }
-  ngOnInit() {
-    this.afAuth.authState.subscribe(usr => {
-      this.isLogin = !(usr == null);
-    });
-  }
 
+  ngOnInit() {
+
+  }
   async signUp() {
     if (this.email != null && this.password != null && this.confirmPassword != null
-      && this.confirmPassword.value === this.password.value) {
-        await this.authService.signUp(this.email.value, this.password.value, ).then(
+      && this.confirmPassword.value === this.password.value && this.name.value != null) {
+        await this.authService.signUp(this.email.value, this.password.value, this.name.value).then(
         () => {
+          this.router.navigate(['home']);
           this.snackBar.open('Welcome to my site', '', { duration: 2000 });
-          this.router.navigate(['/home']);
         }, err => {
           this.snackBar.open(err, '', { duration: 2000 });
         }
@@ -76,5 +75,4 @@ export class SignupComponent implements OnInit {
       this.password.hasError('minLength') ? 'You password must have 10 characters' :
         '';
   }
-
 }

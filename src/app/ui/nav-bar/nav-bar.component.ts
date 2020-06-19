@@ -42,12 +42,4 @@ export class NavBarComponent implements OnInit {
     this.changeState.emit(!this.opened);
     this.opened = !this.opened;
   }
-
-  // signOut() {
-  //   this.authService.signOut().then(() => {
-  //     this.router.navigate(['/login']);
-  //     this.snackBar.open('You are out!', 'See you!', { duration: 2000 });
-  //   });
-  // }
-
 }

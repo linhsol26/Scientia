@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -44,40 +44,34 @@ export class SigninComponent implements OnInit {
     await this.authService.signIn(this.email.value, this.password.value).then(
       () => {
         this.snackBar.open('Congratulations', '', { duration: 2000 });
-        location.href = '/home';
+        this.router.navigate(['home']);
       }, err => {
-        this.snackBar.open(err, '', { duration: 20000 });
+        this.snackBar.open(err, '', { duration: 2000 });
       }
     );
   }
 
-  // async signInWithGoogle() {
-  //   await this.authService.loginWithGoogle().then(() => {
-  //     this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
-  //     this.router.navigate(['/home']);
-  //     this.isLogin = true;
+  async gg() {
+    await this.authService.loginWithGoogle().then(
+      () => {
+        this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
+        this.router.navigate(['home']);
+      }, err => {
+        this.snackBar.open(err, '', { duration: 2000 });
+      }
+    );
+  }
 
-  //   }, err => {
-  //     this.snackBar.open(err, '', { duration: 20000 });
-  //   }
-  //   );
-  // }
-
-  // signInWithGoogle() {
-  //   return new Promise<any>((resolve) => {
-  //     const provider = new firebase.auth.GoogleAuthProvider();
-  //     this.afAuth.signInWithPopup(provider).then(res => {
-  //       resolve(res);
-  //       this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
-  //       this.router.navigate(['/home']);
-  //       this.isLogin = true;
-  //       // tslint:disable-next-line:no-shadowed-variable
-  //     }).catch((err) => {
-  //       this.snackBar.open(err, 'Please try again.', { duration: 2000 });
-  //       this.isLogin = false;
-  //     });
-  //   });
-  // }
+  async fb() {
+    await this.authService.signInWithFB().then(
+      () => {
+        this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
+        this.router.navigate(['home']);
+      }, err => {
+        this.snackBar.open(err, '', { duration: 2000 });
+      }
+    );
+  }
 
   getErrorMessage() {
     return this.email.hasError('required') ? 'You must enter a value' :

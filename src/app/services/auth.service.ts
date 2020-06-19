@@ -20,6 +20,21 @@ export class AuthenticateService {
     public authService: AuthService,
     public fireStore: AngularFirestore
   ) {
+    this.isAuth();
+  }
+
+  isLogin$: Observable<any>;
+  isLoginFB$: Observable<any>;
+  isLogin = false;
+  isLoginFB = false;
+  tempName: string = null;
+  private setUser() {
+    this.user = {
+      ...this.userDetails
+    };
+  }
+
+  isAuth() {
     this.isLogin$ = this.afAuth.authState;
     this.afAuth.authState.subscribe((usr) => {
       this.isLogin = !(usr == null);
@@ -39,16 +54,6 @@ export class AuthenticateService {
     });
   }
 
-  isLogin$: Observable<any>;
-  isLoginFB$: Observable<any>;
-  isLogin = false;
-  isLoginFB = false;
-
-  private setUser() {
-    this.user = {
-      ...this.userDetails
-    };
-  }
   async loginWithGoogle() {
     await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
       this.fireStore.collection('users').doc<User>(user.user.uid).set({
@@ -56,28 +61,22 @@ export class AuthenticateService {
         displayName: user.user.displayName,
         photoURL: user.user.photoURL,
       });
-    }).then(
-      () => {
-        this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
-        this.router.navigate(['/home']);
-        this.isLogin = true;
-        this.userDetails = this.afAuth.currentUser;
-        this.setUser();
-      }
-    );
+    });
+    this.userDetails = this.afAuth.currentUser;
+    this.setUser();
   }
-  async signUp(email: string, password: string) { // add displayName here
-    await this.afAuth.createUserWithEmailAndPassword(email, password);
+
+  async signUp(emailI: string, passwordI: string, name: string) { // add displayName here
+    const user = await this.afAuth.createUserWithEmailAndPassword(emailI, passwordI);
+    await this.fireStore.collection('users').doc<User>(user.user.uid).set({
+      email: emailI,
+      displayName: name,
+      photoURL: user.user.photoURL
+    });
   }
 
   async signIn(email: string, password: string) {
     const user = await this.afAuth.signInWithEmailAndPassword(email, password);
-    await this.fireStore.collection('users').doc<User>(user.user.uid).set({
-      email: user.user.email,
-      displayName: user.user.displayName,
-      photoURL: user.user.photoURL
-    });
-    this.isLogin = true;
     this.userDetails = user;
     this.setUser();
   }
@@ -85,29 +84,30 @@ export class AuthenticateService {
   async signOut() {
     await this.afAuth.signOut().then(() => {
       this.snackBar.open('You are out!', 'See you next time', { duration: 2000 });
-      this.router.navigate(['/login']);
+      this.router.navigate(['login']);
       this.userDetails = null;
       this.user = null;
-      this.isLogin = false;
     });
   }
 
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
-      () => {
-        this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
-        this.router.navigate(['/home']);
-        this.isLoginFB = true;
-        this.userDetails = this.afAuth.currentUser;
-        this.setUser();
-      }
-    );
+  async signInWithFB() {
+    const user = await this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(usr => {
+      this.fireStore.collection('users').doc<User>(usr.id).set({
+        email: usr.email,
+        displayName: usr.name,
+        photoURL: usr.photoUrl
+      });
+    });
+    this.userDetails = user;
+    this.setUser();
   }
 
-  signOutFB(): void {
-    this.snackBar.open('You are out!', 'See you next time', { duration: 2000 });
-    this.router.navigate(['/login']);
-    this.isLoginFB = false;
-    this.authService.signOut();
+  async signOutFB() {
+    await this.authService.signOut().then(
+      () => {
+        this.snackBar.open('You are out!', 'See you next time', { duration: 2000 });
+        this.router.navigate(['login']);
+      }
+    );
   }
 }

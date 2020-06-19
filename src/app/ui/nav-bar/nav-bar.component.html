@@ -5,6 +5,6 @@
   <span>Scientia</span>
   <span class="example-spacer"></span>
   <a mat-button routerLink="/login" *ngIf="!isLoginFB && !isLogin">Login</a>
-  <button mat-button *ngIf="isLogin" (click)="authServiceInApp.signOut()">Sign Out</button>
-  <button mat-button *ngIf="isLoginFB" (click)="authServiceInApp.signOutFB()">Sign Out</button>
+  <button mat-button *ngIf="isLogin && !isLoginFB" (click)="authServiceInApp.signOut()">Sign Out</button>
+  <button mat-button *ngIf="isLoginFB && !isLogin" (click)="authServiceInApp.signOutFB()">Sign Out</button>
 </mat-toolbar>
