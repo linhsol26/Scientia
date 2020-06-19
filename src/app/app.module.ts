@@ -26,6 +26,7 @@ import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import { CourseParamsComponent } from './dialogs/course-params/course-params.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuardService } from './guards/auth-guard.service';
 
 // Add dependencies to FusionChartsModule
 FusionChartsModule.fcRoot(
@@ -70,7 +71,8 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

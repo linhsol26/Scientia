@@ -9,14 +9,13 @@ import { AuthenticateService } from 'src/app/services/auth.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  user;
+  user: User;
   constructor(
     public authService: AuthenticateService
   ) { }
 
   ngOnInit(): void {
     this.user = this.authService.user;
-    console.log(this.user);
   }
 
 }

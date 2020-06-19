@@ -16,6 +16,10 @@ export class SignupComponent implements OnInit {
   hide = true;
   formGroup = new FormGroup(
     {
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(20)
+      ]),
       email: new FormControl('', [
         Validators.required,
         Validators.email
@@ -48,7 +52,7 @@ export class SignupComponent implements OnInit {
   async signUp() {
     if (this.email != null && this.password != null && this.confirmPassword != null
       && this.confirmPassword.value === this.password.value) {
-        await this.authService.signUp(this.email.value, this.password.value).then(
+        await this.authService.signUp(this.email.value, this.password.value, ).then(
         () => {
           this.snackBar.open('Welcome to my site', '', { duration: 2000 });
           this.router.navigate(['/home']);

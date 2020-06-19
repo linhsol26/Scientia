@@ -66,7 +66,7 @@ export class AuthenticateService {
       }
     );
   }
-  async signUp(email: string, password: string) {
+  async signUp(email: string, password: string) { // add displayName here
     await this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
@@ -77,6 +77,7 @@ export class AuthenticateService {
       displayName: user.user.displayName,
       photoURL: user.user.photoURL
     });
+    this.isLogin = true;
     this.userDetails = user;
     this.setUser();
   }
@@ -87,6 +88,7 @@ export class AuthenticateService {
       this.router.navigate(['/login']);
       this.userDetails = null;
       this.user = null;
+      this.isLogin = false;
     });
   }
 
@@ -105,6 +107,7 @@ export class AuthenticateService {
   signOutFB(): void {
     this.snackBar.open('You are out!', 'See you next time', { duration: 2000 });
     this.router.navigate(['/login']);
+    this.isLoginFB = false;
     this.authService.signOut();
   }
 }
