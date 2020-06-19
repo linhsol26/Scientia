@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Courses } from '../model/courses.model';
+import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrudCoursesService {
-
+  endpoint = 'http://localhost:3000/';
+  public courseRef: AngularFirestoreCollection<Courses>;
+  public courses: Observable<Courses[]>;
   datas = [
     {
       title: '1',
@@ -114,7 +121,8 @@ export class CrudCoursesService {
   index: any; // lthdh
   content: any;
   constructor(
-
+    private afAuth: AngularFireAuth,
+    public http: HttpClient
   ) { }
 
   getIndex(course) {
@@ -129,5 +137,32 @@ export class CrudCoursesService {
       }
     });
     return this.content;
+  }
+  createCourse(course: Courses): void {
+    this.http.post(this.endpoint + 'courses/createCourse', {
+      title: course.title,
+      description: course.description,
+      content: course.content
+    }).subscribe((res) => {
+      console.log(res);
+    });
+  }
+  async updateCourse(course: Courses, onResult) {
+    this.http.post(this.endpoint + 'courses/updateCourse', {
+      key: course.key,
+      uid: (await this.afAuth.currentUser).uid,
+      title: course.title,
+      content: course.content
+    }).subscribe((res) => {
+      onResult(res);
+    });
+  }
+  async deleteCourse(course: Courses, onResult) {
+    this.http.post(this.endpoint + 'courses/deleteCourse', {
+      uid: (await this.afAuth.currentUser).uid,
+      key: course.key
+    }).subscribe((res) => {
+      onResult(res);
+    });
   }
 }
