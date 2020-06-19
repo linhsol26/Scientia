@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'course/:courseName', loadChildren: () => import('./pages/course/course.module').then(m => m.CourseModule) },
   { path: 'SjfAlgorithm', loadChildren: () => import('./pages/sjf-algorithm/sjf-algorithm.module').then(m => m.SjfAlgorithmModule) },
   { path: 'FcfsAlgotithm', loadChildren: () => import('./pages/fcfs-algotithm/fcfs-algotithm.module').then(m => m.FcfsAlgotithmModule) },
+  { path: 'user', loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule) },
 ];
 
 @NgModule({

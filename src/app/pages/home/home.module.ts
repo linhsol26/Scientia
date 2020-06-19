@@ -6,16 +6,20 @@ import { HomeComponent } from './home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material';
+import { CourseParamsComponent } from 'src/app/dialogs/course-params/course-params.component';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, CourseParamsComponent],
+  entryComponents: [CourseParamsComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
     MatGridListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class HomeModule { }

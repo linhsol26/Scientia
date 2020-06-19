@@ -17,6 +17,11 @@ export class SideNavComponent implements OnInit {
       desc: '',
       path: '/home'
     },
+    {
+      icon: 'account_box',
+      desc: '',
+      path: '/user'
+    }
   ];
   ngOnInit() {
   }

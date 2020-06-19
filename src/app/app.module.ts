@@ -24,6 +24,8 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets.js';
 import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
 // Load themes
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { CourseParamsComponent } from './dialogs/course-params/course-params.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // Add dependencies to FusionChartsModule
 FusionChartsModule.fcRoot(
@@ -60,7 +62,8 @@ export function provideConfig() {
     AngularSplitModule.forRoot(),
     SocialLoginModule,
     ChartModule,
-    FusionChartsModule
+    FusionChartsModule,
+    HttpClientModule
   ],
   providers: [
     AuthenticateService,

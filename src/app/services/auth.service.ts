@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { AuthService, FacebookLoginProvider } from 'angularx-social-login';
+import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ export class AuthenticateService {
     public afAuth: AngularFireAuth,
     public router: Router,
     public snackBar: MatSnackBar,
-    public authService: AuthService
+    public authService: AuthService,
+    public fireStore: AngularFirestore
   ) {
     this.isLogin$ = this.afAuth.authState;
     this.afAuth.authState.subscribe((usr) => {
@@ -48,7 +50,13 @@ export class AuthenticateService {
     };
   }
   async loginWithGoogle() {
-    await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+    await this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(user => {
+      this.fireStore.collection('users').doc<User>(user.user.uid).set({
+        email: user.user.email,
+        displayName: user.user.displayName,
+        photoURL: user.user.photoURL,
+      });
+    }).then(
       () => {
         this.snackBar.open('You are in!', 'Have fun :D', { duration: 2000 });
         this.router.navigate(['/home']);
@@ -63,7 +71,14 @@ export class AuthenticateService {
   }
 
   async signIn(email: string, password: string) {
-    return await this.afAuth.signInWithEmailAndPassword(email, password);
+    const user = await this.afAuth.signInWithEmailAndPassword(email, password);
+    await this.fireStore.collection('users').doc<User>(user.user.uid).set({
+      email: user.user.email,
+      displayName: user.user.displayName,
+      photoURL: user.user.photoURL
+    });
+    this.userDetails = user;
+    this.setUser();
   }
 
   async signOut() {
