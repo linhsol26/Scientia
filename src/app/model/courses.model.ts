@@ -4,4 +4,5 @@ export class Courses {
   description: string;
   content: string;
   course: string;
+  ownerId: string;
 }
