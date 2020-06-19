@@ -6,8 +6,9 @@ import { HomeComponent } from './home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { CourseParamsComponent } from 'src/app/dialogs/course-params/course-params.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { CourseParamsComponent } from 'src/app/dialogs/course-params/course-para
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

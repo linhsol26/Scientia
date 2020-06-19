@@ -8,12 +8,16 @@ import { Courses } from 'src/app/model/courses.model';
 })
 export class CourseParamsComponent implements OnInit {
 
+  course = new Courses();
   constructor(
     public dialogRef: MatDialogRef<CourseParamsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Courses
   ) { }
 
   ngOnInit(): void {
+    console.log(this.course);
   }
 
+  save() {
+    this.dialogRef.close();
+  }
 }

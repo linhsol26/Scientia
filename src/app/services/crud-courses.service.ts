@@ -61,10 +61,6 @@ export class CrudCoursesService {
           name: 'SJF',
           inf: ' '
         }
-        // tslint:disable-next-line:max-line-length
-        // ['',
-        //   'content 2', 'content 3', 'content 4'
-        // ]
       ]
     },
     {

@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   // data: any;
-  dataTestDialog: Array<Courses> = [];
+  dataTestDialog: Courses;
   datas = this.crudService.datas;
   ngOnInit() {
   }
@@ -33,11 +33,10 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(CourseParamsComponent, {
       height: '400px',
       width: '600px',
-      data: this.dataTestDialog
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dataTestDialog.push(result);
+      console.log(result);
     });
   }
 }

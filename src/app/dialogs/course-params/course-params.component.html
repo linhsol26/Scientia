@@ -1,3 +1,35 @@
-<p>course-params works!</p>
-<div class='container'>
+<div mat-dialog-title>
+  Create new course
+</div>
+<div mat-dialog-content>
+  <form class="example-form">
+    <mat-form-field>
+      <mat-label>Key</mat-label>
+      <input matInput placeholder="Ex. 1" name='key' [(ngModel)]="course.key">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Ex. Operating System" name='title' [(ngModel)]="course.title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Ex. Include algorithm..." name='desc' [(ngModel)]="course.description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Content</mat-label>
+      <textarea matInput placeholder="Ex. ......." name='content'></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Course ID</mat-label>
+      <input matInput placeholder="Ex. os" name='courseid' [(ngModel)]="course.course">
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button [mat-dialog-close]='course'>Save</button>
 </div>
