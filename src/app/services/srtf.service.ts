@@ -46,40 +46,24 @@ export class SrtfService {
           continue;
       }
       const previous = result[i - 1];
-      const current = result[i];
       const next = result[i + 1];
       if (next !== undefined) {
         if ((previous.startTime === next.startTime) &&
             (previous.endTime === next.endTime) &&
             (previous.Name === next.Name) &&
             (previous.Task !== next.Task)) {
-          for (let j = i; j < result.length; j++) {
+        for (let j = i; j < result.length; j++) {
             if (result[j].Task === 'CPU') {
-              result[j].startTime++;
-              result[j].endTime++;
+            result[j].startTime++;
+            result[j].endTime++;
             } else if (result[j].Task === 'IO') {
-              result[j].startTime++;
-              result[j].endTime++;
-            }
-          }
-        }
-
-        if ((current.startTime === next.startTime) &&
-        (current.endTime === next.endTime) &&
-        (current.Name === next.Name) &&
-        (current.Task !== next.Task)) {
-          for (let j = i; j < result.length; j++) {
-            if (result[j].Task === 'CPU') {
-                result[j].startTime++;
-                result[j].endTime++;
-            } else if (result[j].Task === 'IO') {
-                result[j].startTime++;
-                result[j].endTime++;
+            result[j].startTime++;
+            result[j].endTime++;
             }
           }
         }
       }
-  }
+    }
     // filter each Process
     const eachProcess: Array<any> = [];
     for (const i of phases) {
@@ -91,7 +75,7 @@ export class SrtfService {
     }
 
     // slice each process
-    const tempArray: Array<Array<any>> = [];
+    let tempArray: Array<Array<any>> = [];
     for (const i of phases) {
         const temp = eachProcess.filter(element => {
             if (element.Name === i) {
@@ -101,16 +85,46 @@ export class SrtfService {
         tempArray.push(temp);
     }
 
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = 0; j < tempArray[i].length; j++) {
+        if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+            continue;
+        }
+        const current = tempArray[i][j - 1];
+        const next = tempArray[i][j];
+        const offSet = next.startTime - current.startTime;
+        if (offSet === 0) {
+          if (current.Task === 'IO' && next.Task === 'IO') {
+              next.startTime -= 1;
+              next.endTime -= 1;
+          } else if (current.Task === 'CPU' && next.Task === 'IO') {
+            next.startTime += 1;
+            next.endTime += 1;
+          } else if (current.Task === 'CPU' && next.Task === 'CPU') {
+              next.startTime += 1;
+              next.endTime += 1;
+          }
+        } else if (offSet > 1) {
+            if (current.Task === 'IO' && next.Task === 'IO') {
+                next.startTime -= offSet - 1;
+                next.endTime -= offSet - 1;
+            }
+        }
+      }
+    }
+    tempArray = [... new Set(tempArray)];
     const resultArray: Array<any> = [];
-    result.forEach(element => {
-      resultArray.push([
-          element.Name,
-          element.Task,
-          element.startTime * 1000,
-          element.endTime * 1000
-      ]);
-    });
-    console.log(result);
+    for (let i = 0; i < phases.length; i++) {
+      tempArray[i].forEach(element => {
+        resultArray.push([
+            element.Name,
+            element.Task,
+            element.startTime * 1000,
+            element.endTime * 1000
+        ]);
+      });
+    }
+
     // push Terminated
     for (let i = 0; i < phases.length; i++) {
       for (let j = tempArray[i].length - 1; j > i; j--) {
