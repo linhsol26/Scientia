@@ -1,45 +1,54 @@
-.container {
-  max-height: 75% !important;
-  width: auto;
-  top: 0;
-  font-family: 'Balsamiq Sans', cursive;
-}
-
-.example-card {
-  // max-width: 85%;
-  // max-height: 70%;
-  border: 2px solid #191919;
-}
-
-// mat-grid-list {
-//   margin-top: -12.5%;
+// .container {
+//   max-height: 75% !important;
+//   width: auto;
+//   top: 0;
+//   font-family: 'Balsamiq Sans', cursive;
 // }
 
-button {
-  max-height: fit-content;
-  background-color: #191919;
-  position: relative;
-  color: whitesmoke;
-}
-
-// mat-card-content {
-//   max-height: 80%;
+// .example-card {
+//   // max-width: 85%;
+//   // max-height: 70%;
+//   border: 2px solid #191919;
 // }
+
+// // mat-grid-list {
+// //   margin-top: -12.5%;
+// // }
+
+// button {
+//   max-height: fit-content;
+//   background-color: #191919;
+//   position: relative;
+//   color: whitesmoke;
+// }
+
+// // mat-card-content {
+// //   max-height: 80%;
+// // }
 
 mat-card-title{
   text-align: center;
 }
 
+mat-card {
+  width: 500px;
+}
+
 img {
-  width: 30%;
+  width: 100px;
 }
 
-.content {
+.button {
   display: flex;
-  flex-direction: row-reverse;
-  max-height: 80%;
+  justify-content: space-evenly;
+  align-items: center;
 }
+// .content {
+//   display: flex;
+//   flex-direction: row-reverse;
+//   max-height: 80%;
+// }
 
-button {
-  float: right;
-}
+// button {
+//   float: right;
+// }
