@@ -4,6 +4,7 @@ import { CrudCoursesService } from 'src/app/services/crud-courses.service';
 import { MatDialog } from '@angular/material';
 import { CourseParamsComponent } from 'src/app/dialogs/course-params/course-params.component';
 import { Courses } from 'src/app/model/courses.model';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public router: Router,
     public crudService: CrudCoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private afAuth: AngularFireAuth,
   ) { }
 
   // data: any;
@@ -36,7 +38,12 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.crudService.createCourse(result);
     });
+  }
+
+  async deleteCourse(data: Courses) {
+    await this.crudService.deleteCourse(data);
+    location.href = 'home';
   }
 }

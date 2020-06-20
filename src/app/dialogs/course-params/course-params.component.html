@@ -3,10 +3,6 @@
 </div>
 <div mat-dialog-content>
   <form class="example-form">
-    <mat-form-field>
-      <mat-label>Key</mat-label>
-      <input matInput placeholder="Ex. 1" name='key' [(ngModel)]="course.key">
-    </mat-form-field>
 
     <mat-form-field>
       <mat-label>Title</mat-label>
@@ -15,17 +11,17 @@
 
     <mat-form-field>
       <mat-label>Description</mat-label>
-      <textarea matInput placeholder="Ex. Include algorithm..." name='desc' [(ngModel)]="course.description"></textarea>
+      <textarea matInput placeholder="Ex. Include algorithm..." name='desc' [(ngModel)]="course.desc"></textarea>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Content</mat-label>
-      <textarea matInput placeholder="Ex. ......." name='content'></textarea>
+      <textarea matInput placeholder="Ex. ......." name='content' [(ngModel)]="course.content"></textarea>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Course ID</mat-label>
-      <input matInput placeholder="Ex. os" name='courseid' [(ngModel)]="course.course">
+      <mat-label>Course ID shortcut</mat-label>
+      <input matInput placeholder="Ex. os" name='courseId' [(ngModel)]="course.course">
     </mat-form-field>
 
   </form>
