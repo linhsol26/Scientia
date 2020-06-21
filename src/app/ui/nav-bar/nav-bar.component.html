@@ -1,10 +1,12 @@
-<mat-toolbar>
+<mat-toolbar class='content'>
   <button mat-icon-button (click)="changeEvent()">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Scientia</span>
   <span class="example-spacer"></span>
-  <a mat-button routerLink="/login" *ngIf="!isLoginFB && !isLogin">Login</a>
+  <app-search-bar></app-search-bar>
+  <span class="example-spacer"></span>
+  <a mat-button *ngIf="!isLoginFB && !isLogin">Login</a>
   <button mat-button *ngIf="isLogin && !isLoginFB" (click)="authServiceInApp.signOut()">Sign Out</button>
   <button mat-button *ngIf="isLoginFB && !isLogin" (click)="authServiceInApp.signOutFB()">Sign Out</button>
 </mat-toolbar>

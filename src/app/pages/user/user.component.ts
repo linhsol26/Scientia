@@ -19,16 +19,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     // this.user = this.authService.user;
-    this.userService.query().subscribe(v => {
-      this.usr = v.map(i => {
-        return {
-          index: v.indexOf(i),
-          id: i.payload.doc.id,
-          ...(i.payload.doc.data() as User)
-        };
-      });
-    });
-    console.log(this.usr);
+    this.usr = this.userService.user;
   }
 
 }

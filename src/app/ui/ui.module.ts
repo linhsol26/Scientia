@@ -6,15 +6,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatChipsModule } from '@angular/material';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
-  declarations: [NavBarComponent, FooterComponent, SideNavComponent],
+  declarations: [NavBarComponent, FooterComponent, SideNavComponent, SearchBarComponent],
   imports: [
     CommonModule,
     MatToolbarModule,
@@ -25,7 +27,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatButtonModule,
     MatListModule,
     RouterModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavBarComponent,

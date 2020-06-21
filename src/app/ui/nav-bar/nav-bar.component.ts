@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticateService } from 'src/app/services/auth.service';
 import { AuthService } from 'angularx-social-login';
+import { UserService } from 'src/app/services/user.service';
+import { CrudCoursesService } from 'src/app/services/crud-courses.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,15 +20,10 @@ export class NavBarComponent implements OnInit {
     public router: Router,
     public snackBar: MatSnackBar,
     public authService: AuthService,
-    public authServiceInApp: AuthenticateService
-  ) { }
-
-  @Output() changeState = new EventEmitter<boolean>();
-  isLogin: boolean;
-  opened: boolean;
-  isLoginFB: boolean;
-  userDetails = null;
-  ngOnInit() {
+    public authServiceInApp: AuthenticateService,
+    public userService: UserService,
+    public crudService: CrudCoursesService
+  ) {
     this.afAuth.authState.subscribe(usr => {
       this.isLogin = !(usr == null);
       this.userDetails = usr;
@@ -38,8 +35,22 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  @Output() changeState = new EventEmitter<boolean>();
+  isLogin: boolean;
+  opened: boolean;
+  isLoginFB: boolean;
+  userDetails = null;
+  user: Array<any> = [];
+  ngOnInit() {
+
+  }
+
   changeEvent() {
     this.changeState.emit(!this.opened);
     this.opened = !this.opened;
+  }
+
+  onSelectedOption($event) {
+
   }
 }
