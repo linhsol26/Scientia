@@ -115,9 +115,12 @@ export class SrtfService {
           } else if (current.Task === 'CPU' && next.Task === 'IO') {
             next.startTime += 1;
             next.endTime += 1;
-          } else {
-              next.startTime += 1;
-              next.endTime += 1;
+          } else if (current.Task === 'IO' && next.Task === 'CPU') {
+            next.startTime++;
+            next.endTime++;
+          } else if (current.Task === 'CPU' && next.Task === 'CPU') {
+            next.startTime++;
+            next.endTime++;
           }
         } else if (offSet > 1) {
             if (current.Task === 'IO' && next.Task === 'IO') {

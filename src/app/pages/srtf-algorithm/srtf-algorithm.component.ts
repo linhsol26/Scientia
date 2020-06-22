@@ -23,18 +23,18 @@ export class SrtfAlgorithmComponent implements OnInit {
   // cpu = [[3, 3], [1, 1], [2, 3]];
   // io = [[2], [2], [3]];
 
-  phases = ['P1', 'P2', 'P3'];
-  arriveTime = [0, 0, 0];
-  cpu = [[1, 1, 1, 1, 1], [2, 2, 3], [13, 2]];
-  io = [[4, 4, 4, 4], [7, 7], [6]];
+  // phases = ['P1', 'P2', 'P3'];
+  // arriveTime = [0, 0, 0];
+  // cpu = [[1, 1, 1, 1, 1], [2, 2, 3], [13, 2]];
+  // io = [[4, 4, 4, 4], [7, 7], [6]];
   // arriveTime = [0, 1, 2];
-  // cpu = [[3, 3], [2, 2], [1, 5]];
-  // io = [[4], [2], [1]];
+  // cpu = [[3, 4], [2, 7], [1, 5]];
+  // io = [[4], [2], [3]];
 
-  // phases: Array<string> = [];
-  // arriveTime: Array<number> = [];
-  // cpu: Array<Array<number>> = [];
-  // io: Array<Array<number>> = [];
+  phases: Array<string> = [];
+  arriveTime: Array<number> = [];
+  cpu: Array<Array<number>> = [];
+  io: Array<Array<number>> = [];
 
   waitingTime: Array<number> = [];
   responseTime: Array<number> = [];
@@ -89,11 +89,11 @@ export class SrtfAlgorithmComponent implements OnInit {
   save() {
     console.log(this.phases);
     console.log(this.arriveTime);
-    console.log(this.transFormData(this.cpu[0]));
+    console.log(this.transformData(this.cpu[0]));
     console.log(this.io);
   }
 
-  transFormData(value: any) {
+  transformData(value: any) {
     const result = value.split`,`.map(x => +x);
     return result;
   }
