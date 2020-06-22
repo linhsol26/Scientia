@@ -18,15 +18,17 @@ export class SrtfAlgorithmComponent implements OnInit {
     dataTable: this.resultArray,
   };
 
-  // phases = ['P1', 'P2', 'P3'];
+  // correct
   // arriveTime = [0, 1, 2];
   // cpu = [[3, 3], [1, 1], [2, 3]];
   // io = [[2], [2], [3]];
 
-  // phases = ['P1', 'P2', 'P3'];
+  // unconfirmed
   // arriveTime = [0, 0, 0];
   // cpu = [[1, 1, 1, 1, 1], [2, 2, 3], [13, 2]];
   // io = [[4, 4, 4, 4], [7, 7], [6]];
+
+  // bug CPU of Process 3
   // arriveTime = [0, 1, 2];
   // cpu = [[3, 3], [2, 2], [1, 5]];
   // io = [[4], [2], [1]];
@@ -35,10 +37,6 @@ export class SrtfAlgorithmComponent implements OnInit {
   arriveTime: Array<number> = [];
   cpu: Array<Array<number>> = [];
   io: Array<Array<number>> = [];
-
-  waitingTime: Array<number> = [];
-  responseTime: Array<number> = [];
-  totalTime: Array<number> = [];
 
   // input data
   inputFlag = false;
@@ -56,10 +54,11 @@ export class SrtfAlgorithmComponent implements OnInit {
   run() {
     let procList = new Array<Process>();
     procList = this.algorithm.initProcess(this.phases, this.arriveTime, this.cpu, this.io);
-    const tempArray = this.algorithm.runAlgo(procList, this.phases);
+    const tempArray = this.algorithm.runAlgo(procList, this.phases, this.io, this.arriveTime);
     tempArray.forEach(i => {
       this.resultArray.push(i);
     });
+
     this.flagChart = true;
   }
 

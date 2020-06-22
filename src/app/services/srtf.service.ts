@@ -6,6 +6,10 @@ import { Process, StoryEvent, SrtfScheduler, Storyboard, Queue, Task, TaskType} 
 })
 export class SrtfService {
 
+  waitingTime: Array<number> = [];
+  responseTime: Array<number> = [];
+  totalTime: Array<number> = [];
+
   constructor() { }
 
   initProcess(phases: Array<string>, arriveTime: Array<number>, cpu: Array<Array<number>>, io: Array<Array<number>>) {
@@ -23,7 +27,7 @@ export class SrtfService {
     return procList;
   }
 
-  runAlgo(procList: Array<Process>, phases: string[]) {
+  runAlgo(procList: Array<Process>, phases: string[], io: Array<Array<number>>, arriveTime: Array<number>) {
     const scheduler = new SrtfScheduler(procList);
 
     // Nhận kết quả trả về là một Storyboard
@@ -41,6 +45,41 @@ export class SrtfService {
       });
 
     result = [... new Set(result)];
+    for (let i = 0; i < result.length; i++) {
+      if (result[i].startTime === result[i].endTime) {
+        continue;
+      }
+      const previous = result[i - 1]
+      const current = result[i];
+      const next = result[i + 1];
+      if (next !== undefined) {
+        if ((current.startTime === next.startTime) &&
+            (current.endTime === next.endTime) &&
+            (current.Task === next.Task) &&
+            (current.Name !== next.Name)) {
+              if (current.Task === 'CPU') {
+                next.startTime++;
+                next.endTime++;
+              }
+        } else if ((current.startTime === previous.startTime) &&
+            (current.endTime === previous.endTime) &&
+            (current.Task === previous.Task) &&
+            (current.Name !== previous.Name)) {
+              if (current.Task === 'CPU') {
+                next.startTime++;
+                next.endTime++;
+              }
+        } else if ((previous.startTime === next.startTime) &&
+            (previous.endTime === next.endTime) &&
+            (previous.Task === next.Task) &&
+            (previous.Name !== next.Name)) {
+              if (current.Task === 'CPU') {
+                next.startTime++;
+                next.endTime++;
+              }
+        }
+      }
+    }
     // catch bug IO
     for (let i = 0; i < result.length; i++) {
       if (result[i].startTime === result[i].endTime) {
@@ -145,7 +184,6 @@ export class SrtfService {
       // slice Terminated
       tempArray[i].pop();
     }
-    console.log(tempArray);
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < phases.length; i++) {
       // tslint:disable-next-line:prefer-for-of
@@ -180,7 +218,6 @@ export class SrtfService {
       }
     }
 
-    console.log(tempArray);
     const resultArray: Array<any> = [];
     for (let i = 0; i < phases.length; i++) {
       tempArray[i].forEach(element => {
@@ -205,29 +242,32 @@ export class SrtfService {
             tempArray[i][tempArray[i].length - 1].endTime * 1000
         ]);
       }
+      this.totalTime.push(tempArray[i][tempArray[i].length - 1].endTime - arriveTime[i]);
     }
+
     // push response
     for (let i = 0; i < phases.length; i++) {
       for (let j = 0; j < tempArray[i].length; j++) {
         if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
             continue;
         } else {
-            const current = tempArray[i][j - 1].endTime;
-            const next = tempArray[i][j].startTime;
-            if (current === next) {
-                break;
-            } else {
-              resultArray.push([
-                  tempArray[i][j].Name,
-                  'Response',
-                  current * 1000,
-                  next * 1000
-              ]);
+          const current = tempArray[i][j - 1].endTime;
+          const next = tempArray[i][j].startTime;
+          if (current === next) {
               break;
-            }
+          } else {
+            resultArray.push([
+                tempArray[i][j].Name,
+                'Response',
+                current * 1000,
+                next * 1000
+            ]);
+            this.responseTime.push(next - current);
+            break;
           }
         }
       }
+    }
 
     // push waiting time
     for (let i = 0; i < phases.length; i++) {
@@ -247,12 +287,23 @@ export class SrtfService {
                   current * 1000,
                   next * 1000
               ]);
+              this.waitingTime.push(next - current);
             }
           }
         }
       }
     }
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = 0; j < io.length; j++) {
+        this.waitingTime[i] += io[i][j];
+      }
+    }
     console.log([...new Set(resultArray)]);
+    console.log(this.waitingTime);
+    console.log(this.responseTime);
+    console.log(this.totalTime);
     return [...new Set(resultArray)];
     }
   }
