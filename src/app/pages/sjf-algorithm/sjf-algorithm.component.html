@@ -1,85 +1,69 @@
-<div class='content'>
-
-  <div class='input-group'>
-    <div class='sub-content'>
-      <h3>Number of Process: </h3>
-      <mat-form-field>
-        <mat-select [(value)]='numOfProcess'>
-          <mat-option value=2>2</mat-option>
-          <mat-option value=3>3</mat-option>
-          <mat-option value=4>4</mat-option>
-          <mat-option value=5>5</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button mat-raised-button (click)='confirmNOP()'>OK</button>
-    </div>
-
-    <div class='sub-content-1'>
-      <h3>No.</h3>
-      <h3>Arrive</h3>
-      <h3>Burst Time</h3>
-      <h3>I/O</h3>
-      <h3>Burst Time</h3>
-      <br>
-    </div>
-
-    <div class='sub-content-2' *ngFor='let data of inputData; let i = index'>
-      <p class='process-name'>P {{i + 1}}</p>
-      <input matInput type='number' name='arrive' [(ngModel)]="inputData[i].arriveTime">
-      <input matInput type='number' name='cpu' [(ngModel)]="inputData[i].cpu">
-      <input matInput type='number' name='io' [(ngModel)]="inputData[i].io">
-      <input matInput type='number' name='cpu2' [(ngModel)]="inputData[i].cpu2">
-    </div>
-
-    <div class='sub-content-1' *ngIf='!buttonFlag'>
-      <button mat-raised-button (click)='add()'><mat-icon>add</mat-icon></button>
-      <button mat-raised-button (click)='minus()'><mat-icon>remove</mat-icon></button>
-    </div>
-
-  </div>
-  <button mat-raised-button (click)='save()' *ngIf='!buttonFlag'>Save</button>
-  <button mat-raised-button *ngIf="inputFlag"(click)="run()">Run</button>
-  <div>
-    <mat-progress-bar mode="determinate" color="warn" value="100"></mat-progress-bar>
-    <fusioncharts width="1000" height="700" type="gantt" [dataSource]="dataSource" *ngIf="chartFlag === true">
-    </fusioncharts>
-  </div>
-  <div *ngIf="chartFlag === true" style="width: 100%; margin-top: 5vh;">
-    <mat-grid-list cols="6" rowHeight="1:1">
-      <mat-grid-tile *ngFor="let name of phases; index as i">
-        <mat-card style="margin: 2vh;">
-          <mat-card-content>
-            <p>
-              Response Time {{name}} : {{responseTime[i]}}
-            </p>
-            <p>
-              Waiting Time {{name}} : {{waitingTime[i]}}
-            </p>
-            <p>
-              IO Time {{name}} : {{ioTime[i]}}
-            </p>
-            <p>
-              Total Time {{name}} : {{totalTime[i]}}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-
-      <mat-grid-tile>
-        <mat-card style="margin: 2vh;">
-          <mat-card-content>
-            <p>
-              Response Time average : {{_.sum(responseTime) / responseTime.length}}
-            </p>
-            <p>
-              Waiting Time average : {{_.sum(waitingTime) / waitingTime.length}}
-            </p>
-            <p>
-              Total Time average : {{_.sum(totalTime) / totalTime.length}}
-            </p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </div>
+<div class='sub-content-2'>
+  <h3>Number of Process: </h3>
+  <mat-form-field>
+    <mat-select [(value)]='numOfProcess'>
+      <mat-option value=3>3</mat-option>
+      <mat-option value=4>4</mat-option>
+      <mat-option value=5>5</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)='confirmNOP()'>OK</button>
 </div>
+
+<div *ngIf='!buttonFlag'>
+
+  <div *ngFor='let v of phases; let i = index' class='sub-content-2'>
+    <h3>{{v}}</h3>
+    <form class="example-form">
+      <table class="example-full-width" cellspacing="1"><tr>
+
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Arrive</mat-label>
+            <input  matInput
+                    placeholder="One Number"
+                    type='number'
+                    name='arrive'
+                    [(ngModel)]='arriveTime[i]'
+                    >
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>CPU</mat-label>
+            <input  matInput
+                    placeholder="Each number separated by commas"
+                    name='cpu'
+                    [(ngModel)]='cpu[i]'
+                    >
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>I/O</mat-label>
+            <input  matInput
+                    placeholder="Each number separated by commas"
+                    name='io'
+                    [(ngModel)]='io[i]'
+                    >
+          </mat-form-field>
+        </td>
+
+      </tr></table>
+
+    </form>
+  </div>
+
+  <div class='sub-content-2'>
+    <button mat-raised-button (click)="add()">Add</button>
+    <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button *ngIf="flagRun" (click)="run()">Run</button>
+    <button mat-raised-button (click)="minus()">Minus</button>
+  </div>
+
+</div>
+<br>
+<button mat-raised-button (click)="run()">Run</button>
+<google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>

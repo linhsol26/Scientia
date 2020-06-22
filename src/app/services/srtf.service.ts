@@ -307,5 +307,3 @@ export class SrtfService {
     return [...new Set(resultArray)];
     }
   }
-
-

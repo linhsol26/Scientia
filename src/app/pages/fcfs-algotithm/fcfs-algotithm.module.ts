@@ -15,6 +15,7 @@ import {
    MatIconModule } from '@angular/material';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { FormsModule } from '@angular/forms';
+import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 
 @NgModule({
   declarations: [FcfsAlgotithmComponent],
@@ -30,7 +31,8 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     FormsModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    Ng2GoogleChartsModule
   ]
 })
 export class FcfsAlgotithmModule { }
