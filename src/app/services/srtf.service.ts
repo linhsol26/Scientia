@@ -99,6 +99,7 @@ export class SrtfService {
         });
         tempArray.push(temp);
     }
+    tempArray = [... new Set(tempArray)];
 
     for (let i = 0; i < phases.length; i++) {
       for (let j = 0; j < tempArray[i].length; j++) {
@@ -123,17 +124,62 @@ export class SrtfService {
             next.endTime++;
           }
         } else if (offSet > 1) {
-            if (current.Task === 'IO' && next.Task === 'IO') {
-                next.startTime -= offSet - 1;
-                next.endTime -= offSet - 1;
+          if (current.Task === 'IO' && next.Task === 'IO') {
+              next.startTime -= offSet - 1;
+              next.endTime -= offSet - 1;
+          }
+        } else if (offSet < 0) {
+          if (current.Task === 'IO' && next.Task === 'IO') {
+            next.startTime++;
+            next.endTime++;
+            for (let k = tempArray[i].indexOf(next); k < tempArray[i].length - tempArray[i].indexOf(next); k++) {
+              const check = tempArray[i][k + 1].startTime - tempArray[i][k].startTime;
+              if (check === 1) {
+                tempArray[i][k].startTime += check;
+                tempArray[i][k].endTime += check;
+              }
             }
+          }
         }
       }
       // slice Terminated
       tempArray[i].pop();
     }
+    console.log(tempArray);
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < phases.length; i++) {
+      // tslint:disable-next-line:prefer-for-of
+      for (let j = 0; j < tempArray[i].length; j++) {
+        if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+          continue;
+        }
+        const previous = tempArray[i][j - 1];
+        const current = tempArray[i][j];
+        const next = tempArray[i][j + 1];
+        if (next !== undefined) {
+          if ((previous.startTime === next.startTime) &&
+              (previous.endTime === next.endTime)) {
+                next.startTime++;
+                next.endTime++;
+          } else if ((current.startTime === next.startTime) &&
+              (current.endTime === next.endTime)) {
+                next.startTime++;
+                next.endTime++;
+          } else if ((previous.startTime === current.startTime) &&
+              (previous.endTime === current.endTime)) {
+                next.startTime++;
+                next.endTime++;
+          }
+          // check again :)
+          if ((current.startTime === next.startTime) &&
+              (current.endTime === next.endTime)) {
+                next.startTime++;
+                next.endTime++;
+          }
+        }
+      }
+    }
 
-    tempArray = [... new Set(tempArray)];
     console.log(tempArray);
     const resultArray: Array<any> = [];
     for (let i = 0; i < phases.length; i++) {
@@ -151,16 +197,13 @@ export class SrtfService {
 
     // push Terminated
     for (let i = 0; i < phases.length; i++) {
-      for (let j = tempArray[i].length - 1; j > i; j--) {
-        if (tempArray[i][j].Task === 'CPU') {
-          resultArray.push([
-              tempArray[i][j].Name,
-              'Terminated',
-              tempArray[i][j].endTime * 1000,
-              tempArray[i][j].endTime * 1000
-          ]);
-          break;
-        }
+      if (tempArray[i][tempArray[i].length - 1].Task === 'CPU') {
+        resultArray.push([
+            tempArray[i][tempArray[i].length - 1].Name,
+            'Terminated',
+            tempArray[i][tempArray[i].length - 1].endTime * 1000,
+            tempArray[i][tempArray[i].length - 1].endTime * 1000
+        ]);
       }
     }
     // push response
@@ -209,7 +252,7 @@ export class SrtfService {
         }
       }
     }
-    console.log(resultArray);
+    console.log([...new Set(resultArray)]);
     return [...new Set(resultArray)];
     }
   }

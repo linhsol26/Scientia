@@ -59,10 +59,10 @@
   <div class='sub-content-2'>
     <button mat-raised-button (click)="add()">Add</button>
     <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button *ngIf="flagRun" (click)="run()">Run</button>
     <button mat-raised-button (click)="minus()">Minus</button>
   </div>
 
 </div>
-<button mat-raised-button (click)="run()">Run</button>
 
 <google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>

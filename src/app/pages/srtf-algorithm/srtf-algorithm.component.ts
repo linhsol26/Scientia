@@ -45,6 +45,7 @@ export class SrtfAlgorithmComponent implements OnInit {
   buttonFlag = true;
   numOfProcess: number;
   flagChart = false;
+  flagRun = false;
   constructor(
     public algorithm: SrtfService
   ) {}
@@ -87,14 +88,11 @@ export class SrtfAlgorithmComponent implements OnInit {
   }
 
   save() {
-    console.log(this.phases);
-    console.log(this.arriveTime);
     for (let i = 0; i < this.cpu.length; i++) {
       this.cpu[i] = this.transformData(this.cpu[i]);
       this.io[i] = this.transformData(this.io[i]);
     }
-    console.log(this.cpu);
-    console.log(this.io);
+    this.flagRun = true;
   }
 
   transformData(value: any) {
