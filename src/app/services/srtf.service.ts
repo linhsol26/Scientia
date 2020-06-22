@@ -160,7 +160,7 @@ export class SrtfService {
         }
       }
 
-    // push waiting time
+    //push waiting time
     // for (let i = 0; i < phases.length; i++) {
     //   for (let j = 0; j < tempArray[i].length; j++) {
     //     if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
