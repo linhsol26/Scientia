@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Process, StoryEvent, SrtfScheduler, Storyboard} from '../algorithm-core/srtf';
+import { Process, StoryEvent, SrtfScheduler, Storyboard, Queue, Task, TaskType} from '../algorithm-core/srtf';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,21 @@ import { Process, StoryEvent, SrtfScheduler, Storyboard} from '../algorithm-core
 export class SrtfService {
 
   constructor() { }
+
+  initProcess(phases: Array<string>, arriveTime: Array<number>, cpu: Array<Array<number>>, io: Array<Array<number>>) {
+    const procList = new Array<Process>();
+    for (let i = 0; i < arriveTime.length; i++) {
+      const tempTask = new Queue<Task>();
+      for (let j = 0; j < cpu[i].length; j++) {
+        tempTask.enQueue(new Task(TaskType.CPU, cpu[i][j]));
+        if (io[i][j] !== undefined) {
+            tempTask.enQueue(new Task(TaskType.IO, io[i][j]));
+        }
+      }
+      procList.push(new Process(phases[i], arriveTime[i], tempTask));
+    }
+    return procList;
+  }
 
   runAlgo(procList: Array<Process>, phases: string[]) {
     const scheduler = new SrtfScheduler(procList);
@@ -100,7 +115,7 @@ export class SrtfService {
           } else if (current.Task === 'CPU' && next.Task === 'IO') {
             next.startTime += 1;
             next.endTime += 1;
-          } else if (current.Task === 'CPU' && next.Task === 'CPU') {
+          } else {
               next.startTime += 1;
               next.endTime += 1;
           }
@@ -111,23 +126,30 @@ export class SrtfService {
             }
         }
       }
+      // slice Terminated
+      tempArray[i].pop();
     }
+
     tempArray = [... new Set(tempArray)];
+    console.log(tempArray);
     const resultArray: Array<any> = [];
     for (let i = 0; i < phases.length; i++) {
       tempArray[i].forEach(element => {
-        resultArray.push([
-            element.Name,
-            element.Task,
-            element.startTime * 1000,
-            element.endTime * 1000
-        ]);
+        if (element.Task !== 'Terminated') {
+          resultArray.push([
+              element.Name,
+              element.Task,
+              element.startTime * 1000,
+              element.endTime * 1000
+          ]);
+        }
       });
     }
 
     // push Terminated
     for (let i = 0; i < phases.length; i++) {
       for (let j = tempArray[i].length - 1; j > i; j--) {
+        if (tempArray[i][j].Task === 'CPU') {
           resultArray.push([
               tempArray[i][j].Name,
               'Terminated',
@@ -135,6 +157,7 @@ export class SrtfService {
               tempArray[i][j].endTime * 1000
           ]);
           break;
+        }
       }
     }
     // push response
@@ -161,28 +184,29 @@ export class SrtfService {
       }
 
     // push waiting time
-    // for (let i = 0; i < phases.length; i++) {
-    //   for (let j = 0; j < tempArray[i].length; j++) {
-    //     if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
-    //         continue;
-    //     } else {
-    //       const current = tempArray[i][j - 1].endTime;
-    //       const next = tempArray[i][j].startTime;
-    //       if (current !== next) {
-    //         if ((tempArray[i][j - 1].Task === 'CPU' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'IO'))
-    //         || (tempArray[i][j - 1].Task === 'IO' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'CPU'))
-    //         ) {
-    //           resultArray.push([
-    //               tempArray[i][j].Name,
-    //               'Waiting',
-    //               current * 1000,
-    //               next * 1000
-    //           ]);
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
+    for (let i = 0; i < phases.length; i++) {
+      for (let j = 0; j < tempArray[i].length; j++) {
+        if (tempArray[i][j].startTime === tempArray[i][j].endTime) {
+            continue;
+        } else {
+          const current = tempArray[i][j - 1].endTime;
+          const next = tempArray[i][j].startTime;
+          if (current !== next) {
+            if ((tempArray[i][j - 1].Task === 'CPU' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'IO'))
+            || (tempArray[i][j - 1].Task === 'IO' && (tempArray[i][j].Task === 'CPU' || tempArray[i][j].Task === 'CPU'))
+            ) {
+              resultArray.push([
+                  tempArray[i][j].Name,
+                  'Waiting',
+                  current * 1000,
+                  next * 1000
+              ]);
+            }
+          }
+        }
+      }
+    }
+    console.log(resultArray);
     return [...new Set(resultArray)];
     }
   }

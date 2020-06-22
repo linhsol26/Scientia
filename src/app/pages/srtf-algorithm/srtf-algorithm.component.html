@@ -1,25 +1,3 @@
-<!--
-
-<div *ngIf='!buttonFlag'>
-  <div *ngFor='let task of tasks'>
-    <h3>{{task}}</h3>
-  </div>
-</div>
-
-<div *ngIf='!buttonFlag'>
-  <div *ngFor='let p of inputData; let i = index'>
-    <h3>{{p.id}}</h3>
-    <input matInput type='number' [(ngModel)]="p.arrive">
-  </div>
-</div>
-
-<div *ngIf='!buttonFlag'>
-  <button mat-mat-raised-button (click)='save()'></button>
-  <button mat-raised-button (click)='addTask()'>Add Task</button>
-  <button mat-raised-button (click)='minusTask()'>Minus Task</button>
-</div> -->
-
-
 <div class='sub-content-2'>
   <h3>Number of Process: </h3>
   <mat-form-field>
@@ -34,7 +12,7 @@
 
 <div *ngIf='!buttonFlag'>
 
-  <div *ngFor='let v of phases' class='sub-content-2'>
+  <div *ngFor='let v of phases; let i = index' class='sub-content-2'>
     <h3>{{v}}</h3>
     <form class="example-form">
       <table class="example-full-width" cellspacing="1"><tr>
@@ -42,14 +20,23 @@
         <td>
           <mat-form-field class="example-full-width">
             <mat-label>Arrive</mat-label>
-            <input matInput placeholder="One Number" type='number'>
+            <input  matInput
+                    placeholder="One Number"
+                    type='number'
+                    name='arrive'
+                    [(ngModel)]='arriveTime[i]'
+                    >
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field class="example-full-width">
             <mat-label>CPU</mat-label>
-            <input matInput placeholder="Each number separated by commas">
+            <input  matInput
+                    placeholder="Each number separated by commas"
+                    name='cpu'
+                    [(ngModel)]='cpu[i]'
+                    >
           </mat-form-field>
         </td>
 
@@ -67,10 +54,11 @@
 
   <div class='sub-content-2'>
     <button mat-raised-button (click)="add()">Add</button>
-    <button mat-raised-button (click)="run()">Run</button>
+    <button mat-raised-button (click)="save()">Save</button>
     <button mat-raised-button (click)="minus()">Minus</button>
   </div>
 
 </div>
+    <button mat-raised-button (click)="run()">Run</button>
 
 <google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>
