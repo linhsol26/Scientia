@@ -60,8 +60,10 @@ export class AuthenticateService {
         email: user.user.email,
         displayName: user.user.displayName,
         photoURL: user.user.photoURL,
+
       });
     });
+    this.router.navigate(['home']);
     this.userDetails = this.afAuth.currentUser;
     this.setUser();
   }
