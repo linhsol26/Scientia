@@ -1,4 +1,4 @@
-<div class='content'>
+<!-- <div class='content'>
 
   <div class='input-group'>
     <div class='sub-content'>
@@ -82,4 +82,7 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-</div>
+</div> -->
+
+<button mat-raised-button (click)="run()">Run</button>
+<google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>
