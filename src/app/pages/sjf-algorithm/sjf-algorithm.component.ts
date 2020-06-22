@@ -94,19 +94,6 @@ export class SjfAlgorithmComponent implements OnInit {
     }
     console.log(this.inputData);
   }
-  // add process
-  add() {
-
-  }
-
-  // minus process
-  minus() {
-
-  }
-
-  save() {
-    // this.inputArray = this.initProcess();
-  }
 
   addTask() {
     this.tasks.push('IO', 'CPU');

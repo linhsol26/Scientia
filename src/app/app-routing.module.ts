@@ -12,9 +12,8 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
-
   {
     path: 'course/:courseName',
     loadChildren: () => import('./pages/course/course.module').then(m => m.CourseModule),
@@ -41,7 +40,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
