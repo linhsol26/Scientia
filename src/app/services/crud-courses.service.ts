@@ -135,21 +135,21 @@ export class CrudCoursesService {
     });
     location.href = 'home';
   }
-  async updateCourse(course: Courses, onResult) {
+
+  async updateCourse(course: Courses) {
     this.http.post(this.endpoint + 'courses/updateCourse', {
       key: course.key,
       uid: (await this.afAuth.currentUser).uid,
       title: course.title,
       content: course.content
-    }).subscribe((res) => {
-      onResult(res);
-    });
+    }).subscribe();
   }
+
   async deleteCourse(course: Courses) {
-    console.log(course);
     this.http.post(this.endpoint + 'courses/deleteCourse', {
       uid: (await this.afAuth.currentUser).uid,
       key: course.key
     }).subscribe();
   }
+
 }

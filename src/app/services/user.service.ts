@@ -19,10 +19,12 @@ export class UserService {
         return {
           index: v.indexOf(i),
           id: i.payload.doc.id,
+          action: null,
           ...(i.payload.doc.data() as User)
         };
       });
     });
   }
+
 
 }

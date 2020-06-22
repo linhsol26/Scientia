@@ -41,16 +41,12 @@ export class NavBarComponent implements OnInit {
   isLoginFB: boolean;
   userDetails = null;
   user: Array<any> = [];
-  ngOnInit() {
 
+  ngOnInit() {
   }
 
   changeEvent() {
     this.changeState.emit(!this.opened);
     this.opened = !this.opened;
-  }
-
-  onSelectedOption($event) {
-
   }
 }

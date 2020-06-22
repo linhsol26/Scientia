@@ -13,10 +13,9 @@ import {MatListModule} from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatChipsModule } from '@angular/material';
-import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
-  declarations: [NavBarComponent, FooterComponent, SideNavComponent, SearchBarComponent],
+  declarations: [NavBarComponent, FooterComponent, SideNavComponent],
   imports: [
     CommonModule,
     MatToolbarModule,

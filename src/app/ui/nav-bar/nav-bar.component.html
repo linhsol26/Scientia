@@ -4,8 +4,6 @@
   </button>
   <span>Scientia</span>
   <span class="example-spacer"></span>
-  <app-search-bar></app-search-bar>
-  <span class="example-spacer"></span>
   <a mat-button *ngIf="!isLoginFB && !isLogin">Login</a>
   <button mat-button *ngIf="isLogin && !isLoginFB" (click)="authServiceInApp.signOut()">Sign Out</button>
   <button mat-button *ngIf="isLoginFB && !isLogin" (click)="authServiceInApp.signOutFB()">Sign Out</button>

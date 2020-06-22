@@ -24,6 +24,7 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets.js';
 import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
 // Load themes
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { UpdateCourseComponent } from './dialogs/update-course/update-course.component';
 
 // Add dependencies to FusionChartsModule
 FusionChartsModule.fcRoot(
@@ -47,6 +48,7 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
+    UpdateCourseComponent,
   ],
   imports: [
     BrowserModule,
