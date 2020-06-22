@@ -81,12 +81,10 @@ export class SrtfAlgorithmComponent implements OnInit {
   confirmNOP() {
     if (this.buttonFlag) {
       for (let i = 0; i < this.numOfProcess; i++) {
-        this.inputData.push({...this.properties});
-        this.inputData[i].id = 'P' + (i + 1).toString();
+        this.phases[i] = 'P' + (i + 1).toString();
       }
       this.buttonFlag = false;
     }
-    console.log(this.inputData);
   }
   // add process
   add() {

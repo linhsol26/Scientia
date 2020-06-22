@@ -1,14 +1,4 @@
-<!-- <div class='sub-content-2'>
-  <h3>Number of Process: </h3>
-  <mat-form-field>
-    <mat-select [(value)]='numOfProcess'>
-      <mat-option value=3>3</mat-option>
-      <mat-option value=4>4</mat-option>
-      <mat-option value=5>5</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button mat-raised-button (click)='confirmNOP()'>OK</button>
-</div>
+<!--
 
 <div *ngIf='!buttonFlag'>
   <div *ngFor='let task of tasks'>
@@ -28,5 +18,53 @@
   <button mat-raised-button (click)='addTask()'>Add Task</button>
   <button mat-raised-button (click)='minusTask()'>Minus Task</button>
 </div> -->
-<button mat-raised-button (click)="run()">Run</button>
+
+
+<div class='sub-content-2'>
+  <h3>Number of Process: </h3>
+  <mat-form-field>
+    <mat-select [(value)]='numOfProcess'>
+      <mat-option value=3>3</mat-option>
+      <mat-option value=4>4</mat-option>
+      <mat-option value=5>5</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)='confirmNOP()'>OK</button>
+</div>
+
+<div *ngIf='!buttonFlag'>
+
+  <div *ngFor='let v of phases' class='sub-content-2'>
+    <h3>{{v}}</h3>
+    <form class="example-form">
+      <table class="example-full-width" cellspacing="1"><tr>
+
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>Arrive</mat-label>
+            <input matInput placeholder="One Number" type='number'>
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>CPU</mat-label>
+            <input matInput placeholder="Each number separated by commas">
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-full-width">
+            <mat-label>I/O</mat-label>
+            <input matInput placeholder="Each number separated by commas">
+          </mat-form-field>
+        </td>
+
+      </tr></table>
+
+    </form>
+  </div>
+
+  <button mat-raised-button (click)="run()">Run</button>
+</div>
 <google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>
