@@ -65,6 +65,12 @@
     </form>
   </div>
 
-  <button mat-raised-button (click)="run()">Run</button>
+  <div class='sub-content-2'>
+    <button mat-raised-button (click)="add()">Add</button>
+    <button mat-raised-button (click)="run()">Run</button>
+    <button mat-raised-button (click)="minus()">Minus</button>
+  </div>
+
 </div>
+
 <google-chart [data]='chart' *ngIf='flagChart' height='500'></google-chart>

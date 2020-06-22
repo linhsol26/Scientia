@@ -23,18 +23,18 @@ export class SrtfAlgorithmComponent implements OnInit {
   // cpu = [[3, 3], [1, 1], [2, 3]];
   // io = [[2], [2], [3]];
 
-  phases = ['P1', 'P2', 'P3'];
+  // phases = ['P1', 'P2', 'P3'];
   // arriveTime = [0, 0, 0];
   // cpu = [[1, 1, 1, 1, 1], [2, 2, 3], [13, 2]];
   // io = [[4, 4, 4, 4], [7, 7], [6]];
-  arriveTime = [0, 1, 2];
-  cpu = [[3, 3], [2, 2], [1, 5]];
-  io = [[4], [2], [1]];
+  // arriveTime = [0, 1, 2];
+  // cpu = [[3, 3], [2, 2], [1, 5]];
+  // io = [[4], [2], [1]];
 
-  // phases: Array<string> = [];
-  // arriveTime: Array<number> = [];
-  // cpu: Array<Array<number>> = [];
-  // io: Array<Array<number>> = [];
+  phases: Array<string> = [];
+  arriveTime: Array<number> = [];
+  cpu: Array<Array<number>> = [];
+  io: Array<Array<number>> = [];
 
   procList1 = new Array<Process>();
   waitingTime: Array<number> = [];
@@ -45,9 +45,6 @@ export class SrtfAlgorithmComponent implements OnInit {
   inputFlag = false;
   buttonFlag = true;
   numOfProcess: number;
-  tasks: Array<string> = ['No.', 'ArriveTime', 'CPU', 'IO', 'CPU'];
-  properties = {id: 0, arrive: 0};
-  inputData: Array<any> = [];
   flagChart = false;
   constructor(
     public algorithm: SrtfService
@@ -82,32 +79,36 @@ export class SrtfAlgorithmComponent implements OnInit {
     if (this.buttonFlag) {
       for (let i = 0; i < this.numOfProcess; i++) {
         this.phases[i] = 'P' + (i + 1).toString();
+        this.cpu.push([]);
+        this.io.push([]);
       }
       this.buttonFlag = false;
     }
+    console.log(this.phases);
+    console.log(this.cpu);
+    console.log(this.io);
   }
   // add process
   add() {
-
+    this.phases.push('P' + (this.phases.length + 1).toString());
+    this.cpu.push([]);
+    this.io.push([]);
+    console.log(this.phases);
+    console.log(this.cpu);
+    console.log(this.io);
   }
 
   // minus process
   minus() {
-
+    this.phases.pop();
+    this.cpu.pop();
+    this.io.pop();
+    console.log(this.phases);
+    console.log(this.cpu);
+    console.log(this.io);
   }
 
   save() {
     // this.inputArray = this.initProcess();
-  }
-
-  addTask() {
-    this.tasks.push('IO', 'CPU');
-  }
-
-  minusTask() {
-    if (this.tasks.length > 5) {
-      this.tasks.pop();
-      this.tasks.pop();
-    }
   }
 }
