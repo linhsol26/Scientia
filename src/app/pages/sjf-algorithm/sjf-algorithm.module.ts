@@ -12,7 +12,8 @@ import {
    MatGridListModule,
    MatFormFieldModule,
    MatSelectModule,
-   MatIconModule } from '@angular/material';
+   MatIconModule,
+   MatInputModule} from '@angular/material';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { FormsModule } from '@angular/forms';
 
@@ -31,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatSelectModule,
     MatIconModule,
-    Ng2GoogleChartsModule
+    Ng2GoogleChartsModule,
+    MatInputModule
   ]
 })
 export class SjfAlgorithmModule { }

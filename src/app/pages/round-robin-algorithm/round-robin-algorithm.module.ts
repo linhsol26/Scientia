@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RoundRobinAlgorithmRoutingModule } from './round-robin-algorithm-routing.module';
 import { RoundRobinAlgorithmComponent } from './round-robin-algorithm.component';
+import { Ng2GoogleChartsModule, GoogleChartsSettings } from 'ng2-google-charts';
 import {
   MatButtonModule,
   MatTableModule,
@@ -11,7 +12,8 @@ import {
   MatGridListModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatIconModule
+  MatIconModule,
+  MatInputModule
 } from '@angular/material';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +33,9 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     FormsModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatInputModule,
+    Ng2GoogleChartsModule
   ]
 })
 export class RoundRobinAlgorithmModule { }
