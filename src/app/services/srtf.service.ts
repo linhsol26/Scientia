@@ -49,7 +49,7 @@ export class SrtfService {
       if (result[i].startTime === result[i].endTime) {
         continue;
       }
-      const previous = result[i - 1]
+      const previous = result[i - 1];
       const current = result[i];
       const next = result[i + 1];
       if (next !== undefined) {
