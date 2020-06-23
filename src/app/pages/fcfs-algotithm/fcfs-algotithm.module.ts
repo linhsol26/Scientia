@@ -12,7 +12,8 @@ import {
    MatGridListModule,
    MatFormFieldModule,
    MatSelectModule,
-   MatIconModule } from '@angular/material';
+   MatIconModule,
+   MatInputModule} from '@angular/material';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { FormsModule } from '@angular/forms';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
@@ -32,7 +33,8 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
     FormsModule,
     MatSelectModule,
     MatIconModule,
-    Ng2GoogleChartsModule
+    Ng2GoogleChartsModule,
+    MatInputModule
   ]
 })
 export class FcfsAlgotithmModule { }
