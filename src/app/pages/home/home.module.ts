@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { CourseParamsComponent } from 'src/app/dialogs/course-params/course-params.component';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDeleteComponent } from 'src/app/dialogs/confirm-delete/confirm-delete.component';
 
 
 @NgModule({

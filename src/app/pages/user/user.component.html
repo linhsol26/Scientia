@@ -33,14 +33,14 @@
 
   <ng-container matColumnDef='photoURL'>
     <th mat-header-cell *matHeaderCellDef>Photo URL</th>
-    <td mat-cell *matCellDef="let element;"> {{element.photoURL !== null ? element.photoURL : 'Not Available'}} </td>
+    <td mat-cell *matCellDef="let element;"> {{(element.photoURL !== null ? element.photoURL : 'Not Available') | truncate: 30}} </td>
   </ng-container>
 
   <ng-container matColumnDef='action'>
     <th mat-header-cell *matHeaderCellDef>Action</th>
     <td mat-cell *matCellDef='let element'>
-      <button mat-flat-button>Delete</button>
-      <button mat-flat-button>Update</button>
+      <button mat-stroked-button color="primary" (click)="openDialogDelete(element.id)">Delete</button>
+      <button mat-stroked-button color="accent">Update</button>
     </td>
   </ng-container>
 

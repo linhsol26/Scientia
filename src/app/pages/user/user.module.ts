@@ -4,13 +4,15 @@ import { CommonModule } from '@angular/common';
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 // tslint:disable-next-line:max-line-length
-import { MatAutocompleteModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { MatAutocompleteModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatDialogModule } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { TruncateModule } from 'ng2-truncate';
+import { ConfirmDeleteComponent } from 'src/app/dialogs/confirm-delete/confirm-delete.component';
 
 @NgModule({
   declarations: [UserComponent],
+  entryComponents: [],
   imports: [
     CommonModule,
     UserRoutingModule,
@@ -18,7 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    TruncateModule,
+    MatDialogModule
   ]
 })
 export class UserModule { }

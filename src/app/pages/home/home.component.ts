@@ -6,6 +6,7 @@ import { CourseParamsComponent } from 'src/app/dialogs/course-params/course-para
 import { Courses } from 'src/app/model/courses.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { result } from 'lodash';
+import { ConfirmDeleteComponent } from 'src/app/dialogs/confirm-delete/confirm-delete.component';
 
 @Component({
   selector: 'app-home',
@@ -44,9 +45,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  async deleteCourse(data: Courses) {
-    await this.crudService.deleteCourse(data);
-    location.href = 'home';
+  openDialogDelete(data: Courses) {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '200px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.crudService.deleteCourse(data);
+      } else {
+        this.snackBar.open('Thanks', '', {duration: 2000});
+      }
+    });
   }
 
   async updateCourse(data: Courses) {

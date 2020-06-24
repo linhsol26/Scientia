@@ -24,7 +24,9 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets.js';
 import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
 // Load themes
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
-import { UpdateCourseComponent } from './dialogs/update-course/update-course.component';
+import { ConfirmDeleteComponent } from './dialogs/confirm-delete/confirm-delete.component';
+import { MatButtonModule } from '@angular/material';
+import { UpdateUserComponent } from './dialogs/update-user/update-user.component';
 
 // Add dependencies to FusionChartsModule
 FusionChartsModule.fcRoot(
@@ -47,9 +49,9 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UpdateCourseComponent,
+    AppComponent, ConfirmDeleteComponent, UpdateUserComponent
   ],
+  entryComponents: [ConfirmDeleteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -63,7 +65,8 @@ export function provideConfig() {
     SocialLoginModule,
     ChartModule,
     FusionChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonModule
   ],
   providers: [
     AuthenticateService,

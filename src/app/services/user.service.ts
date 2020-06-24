@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../model/user.model';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import { User } from '../model/user.model';
 export class UserService {
   user: Array<any> = [];
   constructor(
-    public fireStore: AngularFirestore
+    public fireStore: AngularFirestore,
+    public afAuth: AngularFireAuth
   ) {
     this.query();
   }
@@ -26,5 +28,25 @@ export class UserService {
     });
   }
 
+  async delete(id) {
+    const currentUser = (await this.afAuth.currentUser);
+    if (id !== currentUser.uid) {
+      await this.fireStore.collection('users').doc(id).delete();
+      this.afAuth.user.subscribe(i => {
+        if (i.uid === id) {
+          i.delete();
+        }
+      });
+    }
+  }
 
+  async update(id, name, password) {
+    const currentUser = (await this.afAuth.currentUser);
+    if (id !== currentUser.uid) {
+      await this.fireStore.collection('user').doc(id).update({
+        displayName: name
+      });
+      (await this.afAuth.currentUser).updatePassword(password);
+    }
+  }
 }

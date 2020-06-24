@@ -6,6 +6,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { ConfirmDeleteComponent } from 'src/app/dialogs/confirm-delete/confirm-delete.component';
+import { UpdateUserComponent } from 'src/app/dialogs/update-user/update-user.component';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +22,9 @@ export class UserComponent implements OnInit {
 
   constructor(
     public authService: AuthenticateService,
-    public userService: UserService
+    public userService: UserService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) { }
   user: User;
   usr: Array<any> = [];
@@ -49,4 +54,34 @@ export class UserComponent implements OnInit {
   // private normalizeValue(value: string): string {
   //   return value.toLowerCase().replace(/\s/g, '');
   // }
+
+  openDialogDelete(data) {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '200px',
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+      if (res) {
+        this.userService.delete(data);
+      } else {
+        this.snackBar.open('Thanks', '', {duration: 2000});
+      }
+    });
+  }
+
+  openDialogUpdate(data) {
+    const dialogRef = this.dialog.open(UpdateUserComponent, {
+      width: '500px',
+      data: {displayName: null, password: null}
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        // this.userService.update(data);
+      } else {
+        this.snackBar.open('Thanks', '', {duration: 2000});
+      }
+    });
+  }
 }
