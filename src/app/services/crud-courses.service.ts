@@ -103,7 +103,7 @@ export class CrudCoursesService {
   }
 
   getCourse() {
-    this.db.collection('/courses').snapshotChanges().subscribe(v => {
+    this.db.collection('courses').snapshotChanges().subscribe(v => {
         this.datas = v.map(i => {
           const data = i.payload.doc.data() as Courses;
           const key = i.payload.doc.id;
@@ -136,11 +136,12 @@ export class CrudCoursesService {
     location.href = 'home';
   }
 
-  async updateCourse(course: Courses) {
+  async updateCourse(id, course: Courses) {
     this.http.post(this.endpoint + 'courses/updateCourse', {
-      key: course.key,
+      key: id,
       uid: (await this.afAuth.currentUser).uid,
       title: course.title,
+      desc: course.desc,
       content: course.content
     }).subscribe();
   }

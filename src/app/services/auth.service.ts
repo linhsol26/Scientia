@@ -21,6 +21,7 @@ export class AuthenticateService {
     public fireStore: AngularFirestore
   ) {
     this.isAuth();
+    this.isAuthFb();
   }
 
   isLogin$: Observable<any>;
@@ -37,17 +38,19 @@ export class AuthenticateService {
   isAuth() {
     this.isLogin$ = this.afAuth.authState;
     this.afAuth.authState.subscribe((usr) => {
-      this.isLogin = !(usr == null);
-      if (usr != null) {
+      this.isLogin = !(usr === null);
+      if (usr !== null) {
         this.userDetails = usr;
         this.setUser();
       }
     });
+  }
 
+  isAuthFb() {
     this.isLoginFB$ = this.authService.authState;
     this.authService.authState.subscribe((usr) => {
-      this.isLoginFB = !(usr == null);
-      if (usr != null) {
+      this.isLoginFB = !(usr === null);
+      if (usr !== null) {
         this.userDetails = usr;
         this.setUser();
       }
@@ -60,10 +63,9 @@ export class AuthenticateService {
         email: user.user.email,
         displayName: user.user.displayName,
         photoURL: user.user.photoURL,
-
       });
+      this.router.navigate(['home']);
     });
-    this.router.navigate(['home']);
     this.userDetails = this.afAuth.currentUser;
     this.setUser();
   }

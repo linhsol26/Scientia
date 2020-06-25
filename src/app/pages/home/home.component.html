@@ -1,7 +1,6 @@
 <div class="container">
   <div class='button'>
     <button mat-stroked-button color='accent'(click)='openDialogCreate()'>Create New Course</button>
-    <!-- <button mat-stroked-button color='accent'(click)='openDialogUpdate()'>Update Course</button> -->
   </div>
 
   <mat-grid-list cols="4" rowHeight='150px'>
@@ -21,6 +20,7 @@
           <button mat-stroked-button color='accent' *ngIf="data.course === 'lthdh'" (click)="getCourse(data.course)" >See</button>
           <button mat-stroked-button disabled *ngIf="data.course !== 'lthdh'" (click)="getCourse(data.course)" >See</button>
           <button mat-stroked-button color='warn' (click)='openDialogDelete(data)'>Delete</button>
+          <button mat-stroked-button color='accent'(click)='openDialogUpdate(data.key)'>Update Course</button>
         </mat-card-actions>
       </mat-card>
 

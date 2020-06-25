@@ -1,1 +1,25 @@
-<p>update-course works!</p>
+<div mat-dialog-title>
+  Update course
+</div>
+<div mat-dialog-content>
+  <form class="example-form">
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Ex. Operating System" name='title' [(ngModel)]="course.title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Ex. Include algorithm..." name='desc' [(ngModel)]="course.desc"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Content</mat-label>
+      <textarea matInput placeholder="Ex. ......." name='content' [(ngModel)]="course.content"></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button [mat-dialog-close]='course'>Save</button>
+</div>

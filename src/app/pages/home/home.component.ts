@@ -7,6 +7,7 @@ import { Courses } from 'src/app/model/courses.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { result } from 'lodash';
 import { ConfirmDeleteComponent } from 'src/app/dialogs/confirm-delete/confirm-delete.component';
+import { UpdateCourseComponent } from 'src/app/dialogs/update-course/update-course.component';
 
 @Component({
   selector: 'app-home',
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(res => {
       this.crudService.createCourse(res);
+      location.href = 'home';
     });
   }
 
@@ -54,14 +56,29 @@ export class HomeComponent implements OnInit {
       console.log(res);
       if (res) {
         this.crudService.deleteCourse(data);
+        location.href = 'home';
       } else {
         this.snackBar.open('Thanks', '', {duration: 2000});
       }
     });
   }
 
-  async updateCourse(data: Courses) {
-    await this.crudService.updateCourse(data);
-    location.href = 'home';
+  // async updateCourse(data: Courses) {
+  //   await this.crudService.updateCourse(data);
+  //   location.href = 'home';
+  // }
+
+  openDialogUpdate(key) {
+    const dialogRef = this.dialog.open(UpdateCourseComponent, {
+      width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(key);
+      console.log(res);
+      this.crudService.updateCourse(key, res);
+      location.href = 'home';
+      this.snackBar.open('Thanks', '', {duration: 2000});
+    });
   }
 }

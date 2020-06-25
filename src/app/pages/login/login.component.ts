@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  isLogin: boolean;
+  isLogin = true;
   constructor(
     public authService: AuthService,
     public afAuth: AngularFireAuth,

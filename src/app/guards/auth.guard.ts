@@ -24,16 +24,15 @@ export class AuthGuard implements CanActivate {
     this.authService.authState.subscribe(urs => {
       this.isLoginFB = !(urs == null);
     });
+
   }
 
   // tslint:disable-next-line:max-line-length
   canActivate(): boolean {
     if (this.isLogin || this.isLoginFB) {
-      // this.router.navigate(['home']);
       return true;
-    } else {
-      this.router.navigate(['login']);
-      return false;
     }
+    this.router.navigate(['login']);
+    return false;
   }
 }

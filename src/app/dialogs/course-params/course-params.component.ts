@@ -17,7 +17,7 @@ export class CourseParamsComponent implements OnInit {
     console.log(this.course);
   }
 
-  save() {
+  close() {
     this.dialogRef.close();
   }
 }
