@@ -30,7 +30,7 @@ export class UserService {
 
   async delete(id) {
     const currentUser = (await this.afAuth.currentUser);
-    if (id !== currentUser.uid) {
+    if (id === currentUser.uid) {
       await this.fireStore.collection('users').doc(id).delete();
       this.afAuth.user.subscribe(i => {
         if (i.uid === id) {
@@ -40,13 +40,13 @@ export class UserService {
     }
   }
 
-  async update(id, name, password) {
-    const currentUser = (await this.afAuth.currentUser);
-    if (id !== currentUser.uid) {
-      await this.fireStore.collection('user').doc(id).update({
-        displayName: name
-      });
-      (await this.afAuth.currentUser).updatePassword(password);
+  async update(id, name) {
+    try {
+    await this.fireStore.collection('users').doc(id).update({
+      displayName: name,
+    }).then(() => location.href = 'home');
+    } catch (err) {
+      console.log(err);
     }
   }
 }

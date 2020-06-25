@@ -12,27 +12,28 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  isLogin: boolean;
-  hide = true;
-  formGroup = new FormGroup(
-    {
-      name: new FormControl('', [
-        Validators.required,
-        Validators.minLength(20)
-      ]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6)
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6)
-      ])
-    });
+    isLogin: boolean;
+    hide = true;
+    formGroup = new FormGroup(
+      {
+        name: new FormControl('', [
+          Validators.required,
+          Validators.minLength(20)
+        ]),
+        email: new FormControl('', [
+          Validators.required,
+          Validators.email
+        ]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6)
+        ]),
+        confirmPassword: new FormControl('', [
+          Validators.required,
+          Validators.minLength(6)
+        ])
+      });
+
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
@@ -40,10 +41,10 @@ export class SignupComponent implements OnInit {
     public authService: AuthenticateService
   ) { }
 
-  get name() {return this.formGroup.get('name'); }
-  get email() { return this.formGroup.get('email'); }
-  get password() { return this.formGroup.get('password'); }
-  get confirmPassword() { return this.formGroup.get('confirmPassword'); }
+    get name() {return this.formGroup.get('name'); }
+    get email() { return this.formGroup.get('email'); }
+    get password() { return this.formGroup.get('password'); }
+    get confirmPassword() { return this.formGroup.get('confirmPassword'); }
 
   ngOnInit() {
 

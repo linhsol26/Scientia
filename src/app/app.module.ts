@@ -49,7 +49,7 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent, ConfirmDeleteComponent, UpdateUserComponent
+    AppComponent, ConfirmDeleteComponent
   ],
   entryComponents: [ConfirmDeleteComponent],
   imports: [

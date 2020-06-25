@@ -70,18 +70,15 @@ export class UserComponent implements OnInit {
     });
   }
 
-  openDialogUpdate(data) {
+  openDialogUpdate(id) {
     const dialogRef = this.dialog.open(UpdateUserComponent, {
       width: '500px',
-      data: {displayName: null, password: null}
     });
 
     dialogRef.afterClosed().subscribe(res => {
-      if (res) {
-        // this.userService.update(data);
-      } else {
-        this.snackBar.open('Thanks', '', {duration: 2000});
-      }
+        this.userService.update(id, res.displayName);
+        console.log(id);
+        console.log(res);
     });
   }
 }

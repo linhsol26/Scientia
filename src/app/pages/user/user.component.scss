@@ -5,4 +5,7 @@ table {
   font-size: 14px;
   width: 100%;
 }
-
+button {
+  display: table-cell;
+  margin-right: 8px;
+}

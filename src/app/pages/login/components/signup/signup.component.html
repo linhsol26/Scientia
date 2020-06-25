@@ -32,7 +32,7 @@
           </mat-form-field>
 
           <mat-form-field class="full-width">
-              <input matInput placeholder="Confim Password*" formControlName="confirmPassword"
+              <input matInput placeholder="Confirm Password*" formControlName="confirmPassword"
                   (keyup.enter)="signUp()" type="password">
               <mat-error *ngIf="confirmPassword.hasError('required')"><strong>{{getPasswordError()}}</strong>
               </mat-error>

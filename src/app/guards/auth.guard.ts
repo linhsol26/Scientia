@@ -29,8 +29,8 @@ export class AuthGuard implements CanActivate {
   // tslint:disable-next-line:max-line-length
   canActivate(): boolean {
     if (this.isLogin || this.isLoginFB) {
+      // this.router.navigate(['home']);
       return true;
-
     } else {
       this.router.navigate(['login']);
       return false;
