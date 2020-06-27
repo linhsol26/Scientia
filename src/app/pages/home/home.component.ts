@@ -15,7 +15,7 @@ import { UpdateCourseComponent } from 'src/app/dialogs/update-course/update-cour
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  currentUser;
   constructor(
     public router: Router,
     public crudService: CrudCoursesService,
@@ -56,7 +56,8 @@ export class HomeComponent implements OnInit {
       console.log(res);
       if (res) {
         this.crudService.deleteCourse(data);
-        location.href = 'home';
+        // location.href = 'home';
+        this.router.navigate(['home']);
       } else {
         this.snackBar.open('Thanks', '', {duration: 2000});
       }
