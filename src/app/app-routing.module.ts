@@ -37,10 +37,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule),
     canActivate: [AuthGuard]
   },
-
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '/login',
     pathMatch: 'full',
   }
 ];

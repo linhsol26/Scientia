@@ -30,6 +30,7 @@ import { SignupComponent } from './components/signup/signup.component';
     MatTabsModule,
     MatCardModule,
     MatIconModule
-  ]
+  ],
+  exports: [SignupComponent]
 })
 export class LoginModule { }

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticateService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from 'angularx-social-login';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,22 +18,17 @@ export class AuthGuard implements CanActivate {
     public afAuth: AngularFireAuth,
     public authService: AuthService,
   ) {
-    this.afAuth.authState.subscribe(usr => {
-      this.isLogin = !(usr == null);
-    });
-
-    this.authService.authState.subscribe(urs => {
-      this.isLoginFB = !(urs == null);
-    });
-
   }
 
-  // tslint:disable-next-line:max-line-length
-  canActivate(): boolean {
-    if (this.isLogin || this.isLoginFB) {
-      return true;
-    }
-    this.router.navigate(['login']);
-    return false;
+  canActivate(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map<firebase.User, boolean>((user) => {
+        if (user) {
+          return true;
+        }
+        this.router.navigate(['login']);
+        return false;
+      })
+    );
   }
 }
