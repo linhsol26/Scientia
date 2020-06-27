@@ -19,7 +19,7 @@ export class CourseComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-  content: any;
+  content: Array<any> = [];
   course: any;
   data = [];
   algoConfig: any;

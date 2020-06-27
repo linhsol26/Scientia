@@ -1,22 +1,26 @@
 <div class="container">
-  <mat-grid-list cols="3" rowHeight="4:2.5" gutterSize="10">
-    <mat-grid-tile rowspan="1" colspan="1" *ngFor="let data of datas">
+  <div class='button'>
+    <button mat-stroked-button color='accent'(click)='openDialogCreate()'>Create New Course</button>
+  </div>
+
+  <mat-grid-list cols="4" rowHeight='150px'>
+    <mat-grid-tile *ngFor="let data of datas" colspan='1.5' rowspan='1.5'>
       <mat-card class="example-card">
 
           <mat-card-title>{{data.title}}</mat-card-title>
-        <div class='content'>
-
-          <img mat-card-img src="{{data.pic}}">
 
           <mat-card-content>
+            <img mat-card-img src="{{data.pic}}">
             <h3>
               {{data.desc}}
             </h3>
           </mat-card-content>
-        </div>
 
         <mat-card-actions>
-          <button mat-flat-button (click)="getCourse(data.course)" >See</button>
+          <button mat-stroked-button color='accent' *ngIf="data.course === 'lthdh'" (click)="getCourse(data.course)" >See</button>
+          <button mat-stroked-button disabled *ngIf="data.course !== 'lthdh'" (click)="getCourse(data.course)" >See</button>
+          <button mat-stroked-button color='warn' (click)='openDialogDelete(data)'>Delete</button>
+          <button mat-stroked-button color='accent'(click)='openDialogUpdate(data.key)'>Update Course</button>
         </mat-card-actions>
       </mat-card>
 

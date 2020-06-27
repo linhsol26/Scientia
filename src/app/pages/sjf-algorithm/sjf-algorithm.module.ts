@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SjfAlgorithmRoutingModule } from './sjf-algorithm-routing.module';
 import { SjfAlgorithmComponent } from './sjf-algorithm.component';
-
+import { Ng2GoogleChartsModule, GoogleChartsSettings } from 'ng2-google-charts';
 import {
   MatButtonModule,
    MatTableModule,
@@ -12,7 +12,8 @@ import {
    MatGridListModule,
    MatFormFieldModule,
    MatSelectModule,
-   MatIconModule } from '@angular/material';
+   MatIconModule,
+   MatInputModule} from '@angular/material';
 import { FusionChartsModule } from 'angular-fusioncharts';
 import { FormsModule } from '@angular/forms';
 
@@ -30,7 +31,9 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     FormsModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    Ng2GoogleChartsModule,
+    MatInputModule
   ]
 })
 export class SjfAlgorithmModule { }

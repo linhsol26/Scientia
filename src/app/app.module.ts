@@ -13,7 +13,7 @@ import { AuthenticateService } from './services/auth.service';
 import { AngularSplitModule } from 'angular-split';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
 import { ChartModule } from 'angular-highcharts';
-
+import { HttpClientModule } from '@angular/common/http';
 import { FusionChartsModule } from 'angular-fusioncharts';
 
 // Load FusionCharts
@@ -24,6 +24,9 @@ import * as Widgets from 'fusioncharts/fusioncharts.widgets.js';
 import * as Gantt from 'fusioncharts/fusioncharts.gantt.js';
 // Load themes
 import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { ConfirmDeleteComponent } from './dialogs/confirm-delete/confirm-delete.component';
+import { MatButtonModule } from '@angular/material';
+import { UpdateUserComponent } from './dialogs/update-user/update-user.component';
 
 // Add dependencies to FusionChartsModule
 FusionChartsModule.fcRoot(
@@ -46,8 +49,9 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, ConfirmDeleteComponent
   ],
+  entryComponents: [ConfirmDeleteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,14 +64,16 @@ export function provideConfig() {
     AngularSplitModule.forRoot(),
     SocialLoginModule,
     ChartModule,
-    FusionChartsModule
+    FusionChartsModule,
+    HttpClientModule,
+    MatButtonModule
   ],
   providers: [
     AuthenticateService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })
